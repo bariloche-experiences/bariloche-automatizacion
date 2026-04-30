@@ -179,6 +179,19 @@ def get_owner_email(row: Dict[str, Any]) -> str:
     return get_env("EMAIL_USER", required=False, default="").strip()
 
 
+def get_site_base_url() -> str:
+    explicit = os.environ.get("SITE_BASE_URL", "").strip()
+    if explicit and "example.com" not in explicit:
+        return explicit.rstrip("/")
+
+    repository = os.environ.get("GITHUB_REPOSITORY", "").strip()
+    if repository and "/" in repository:
+        owner, repo = repository.split("/", 1)
+        return f"https://{owner}.github.io/{repo}"
+
+    return explicit.rstrip("/")
+
+
 def main() -> None:
     build_credentials_from_env()
 
@@ -197,7 +210,7 @@ def main() -> None:
 
     template_name = os.environ.get("TEMPLATE_NAME", "template_maestro.html")
     output_root = Path(os.environ.get("OUTPUT_ROOT", "outputs"))
-    base_url = os.environ.get("SITE_BASE_URL", "")
+    base_url = get_site_base_url()
 
     for prop in propiedades:
         slug = slugify(prop["nombre"]) or f"propiedad-{propiedades.index(prop)+1}"

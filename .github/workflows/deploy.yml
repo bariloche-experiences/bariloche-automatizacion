@@ -8,6 +8,13 @@ on:
 jobs:
   generate-sites:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     env:
       SPREADSHEET_ID: ${{ secrets.SPREADSHEET_ID }}
       WORKSHEET_NAME: ${{ secrets.WORKSHEET_NAME }}
@@ -43,3 +50,15 @@ jobs:
         with:
           name: generated-sites
           path: outputs/
+
+      - name: Setup GitHub Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: outputs/
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
