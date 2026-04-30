@@ -171,6 +171,14 @@ def build_credentials_from_env() -> None:
     raise RuntimeError("No se encontro credencial de Google en variables de entorno")
 
 
+def get_owner_email(row: Dict[str, Any]) -> str:
+    for key in ("email_dueno", "email", "correo", "mail_dueno"):
+        value = str(row.get(key, "")).strip()
+        if value:
+            return value
+    return get_env("EMAIL_USER", required=False, default="").strip()
+
+
 def main() -> None:
     build_credentials_from_env()
 
@@ -183,7 +191,7 @@ def main() -> None:
     telefono_host = str(row.get("telefono_host", "5491131952798"))
     checkin = row.get("checkin", "15:00")
     checkout = row.get("checkout", "10:00")
-    email_dueno = row.get("email_dueno", "")
+    email_dueno = get_owner_email(row)
 
     propiedades = [parse_property(row, idx, direccion) for idx in range(1, cantidad + 1)]
 
@@ -213,6 +221,9 @@ def main() -> None:
         link_web = f"{base_url.rstrip('/')}/{slug}/" if base_url else str((out_dir / 'index.html').resolve())
         if email_dueno:
             enviar_email(email_dueno, link_web)
+            print(f"Email enviado a: {email_dueno}")
+        else:
+            print("No se encontro email de destino, se omite envio")
 
         print(f"Web generada: {out_dir / 'index.html'}")
 
