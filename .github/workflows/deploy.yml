@@ -1,0 +1,45 @@
+name: build-and-deploy
+
+on:
+  workflow_dispatch:
+  push:
+    branches: ["main"]
+
+jobs:
+  generate-sites:
+    runs-on: ubuntu-latest
+    env:
+      SPREADSHEET_ID: ${{ secrets.SPREADSHEET_ID }}
+      WORKSHEET_NAME: ${{ secrets.WORKSHEET_NAME }}
+      GOOGLE_CREDENTIALS_JSON_B64: ${{ secrets.GOOGLE_CREDENTIALS_JSON_B64 }}
+      EMAIL_USER: ${{ secrets.EMAIL_USER }}
+      EMAIL_PASS: ${{ secrets.EMAIL_PASS }}
+      SITE_BASE_URL: ${{ secrets.SITE_BASE_URL }}
+      OUTPUT_ROOT: outputs
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install jinja2 gspread python-slugify
+
+      - name: Rebuild Google credentials.json
+        run: |
+          echo "$GOOGLE_CREDENTIALS_JSON_B64" | base64 --decode > credentials.json
+
+      - name: Generate property websites and notify owner
+        run: python main.py
+
+      - name: Upload generated HTML as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: generated-sites
+          path: outputs/
