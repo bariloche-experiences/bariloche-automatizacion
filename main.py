@@ -106,10 +106,20 @@ def parse_property(row: Dict[str, Any], idx: int, direccion: str) -> Dict[str, A
 
 def get_latest_row() -> Dict[str, Any]:
     spreadsheet_id = get_env("SPREADSHEET_ID")
-    worksheet_name = os.environ.get("WORKSHEET_NAME", "Sheet1")
+    worksheet_name = os.environ.get("WORKSHEET_NAME", "").strip()
 
     gc = gspread.service_account(filename="credentials.json")
-    ws = gc.open_by_key(spreadsheet_id).worksheet(worksheet_name)
+    spreadsheet = gc.open_by_key(spreadsheet_id)
+    if worksheet_name:
+        try:
+            ws = spreadsheet.worksheet(worksheet_name)
+        except gspread.exceptions.WorksheetNotFound:
+            ws = spreadsheet.get_worksheet(0)
+    else:
+        ws = spreadsheet.get_worksheet(0)
+
+    if ws is None:
+        raise RuntimeError("No se encontro ninguna pestana en el Google Sheet")
     rows = ws.get_all_records()
     if not rows:
         raise RuntimeError("La hoja no tiene registros")
