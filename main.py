@@ -35,8 +35,16 @@ def normalize_url(url: str) -> str:
         video_id = raw.rstrip("/").split("/")[-1]
         return f"https://www.youtube.com/embed/{video_id}"
 
+    if "youtube.com/shorts/" in raw:
+        match = re.search(r"/shorts/([^?&/]+)", raw)
+        if match:
+            return f"https://www.youtube.com/embed/{match.group(1)}"
+
+    if "youtube.com/embed/" in raw:
+        return raw
+
     if "drive.google.com/file/d/" in raw:
-        match = re.search(r"/file/d/([^/]+)/", raw)
+        match = re.search(r"/file/d/([^/?]+)", raw)
         if match:
             return f"https://drive.google.com/file/d/{match.group(1)}/preview"
 
@@ -48,6 +56,12 @@ def normalize_url(url: str) -> str:
 
     if "photos.google.com" in raw:
         return raw
+
+    if "drive.google.com/uc?id=" in raw:
+        parsed = urlparse(raw)
+        file_id = parse_qs(parsed.query).get("id", [""])[0]
+        if file_id:
+            return f"https://drive.google.com/file/d/{file_id}/preview"
 
     return raw
 
@@ -192,6 +206,46 @@ def get_site_base_url() -> str:
     return explicit.rstrip("/")
 
 
+def build_city_profile(ciudad: str) -> Dict[str, Any]:
+    city = ciudad.strip() or "Bariloche"
+    city_key = city.lower()
+    defaults = {
+        "es_bariloche": False,
+        "mostrar_juani": False,
+        "mostrar_experiencias": False,
+        "mostrar_catedral": False,
+        "weather_lat": -34.6037,
+        "weather_lon": -58.3816,
+    }
+
+    profiles = {
+        "bariloche": {
+            "es_bariloche": True,
+            "mostrar_juani": True,
+            "mostrar_experiencias": True,
+            "mostrar_catedral": True,
+            "weather_lat": -41.1335,
+            "weather_lon": -71.3103,
+        },
+        "san martin de los andes": {
+            "weather_lat": -40.1579,
+            "weather_lon": -71.3534,
+        },
+        "buenos aires": {
+            "weather_lat": -34.6037,
+            "weather_lon": -58.3816,
+        },
+    }
+    profile = {**defaults, **profiles.get(city_key, {})}
+    profile["city_search_links"] = {
+        "atracciones": f"https://www.google.com/maps/search/atracciones+en+{city.replace(' ', '+')}",
+        "restaurantes": f"https://www.google.com/maps/search/restaurantes+en+{city.replace(' ', '+')}",
+        "cafes": f"https://www.google.com/maps/search/cafes+en+{city.replace(' ', '+')}",
+        "transporte": f"https://www.google.com/maps/search/transporte+publico+en+{city.replace(' ', '+')}",
+    }
+    return profile
+
+
 def main() -> None:
     build_credentials_from_env()
 
@@ -207,6 +261,7 @@ def main() -> None:
     email_dueno = get_owner_email(row)
 
     propiedades = [parse_property(row, idx, direccion) for idx in range(1, cantidad + 1)]
+    city_profile = build_city_profile(ciudad)
 
     template_name = os.environ.get("TEMPLATE_NAME", "template_maestro.html")
     output_root = Path(os.environ.get("OUTPUT_ROOT", "outputs"))
@@ -228,6 +283,7 @@ def main() -> None:
                 "welcome_titulo": prop["welcome_titulo"],
                 "welcome_sub": prop["welcome_sub"],
                 "propiedades": [prop],
+                "city_profile": city_profile,
             },
         )
 
