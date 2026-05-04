@@ -257,10 +257,15 @@ def extract_coords_from_maps_url(url: str) -> tuple[float, float] | None:
             result = _parse(expanded)
             if result:
                 return result
-            # Buscar coordenadas también en el contenido de la respuesta
-            m = re.search(r'@(-?\d+\.\d+),(-?\d+\.\d+)', resp.text[:5000])
+            # Extraer nombre del lugar del path /maps/place/NOMBRE/data=...
+            m = re.search(r'/maps/place/([^/@]+)', expanded)
             if m:
-                return float(m.group(1)), float(m.group(2))
+                from urllib.parse import unquote_plus
+                place_name = unquote_plus(m.group(1).replace('+', ' '))
+                print(f"  → Geocodeando por nombre: {place_name[:80]}")
+                geo = geocode(place_name)
+                if geo:
+                    return geo["lat"], geo["lng"]
         except Exception as e:
             print(f"⚠️  No se pudo expandir Maps URL: {e}")
 
