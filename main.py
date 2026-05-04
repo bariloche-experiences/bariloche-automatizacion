@@ -470,12 +470,20 @@ def _gemini():
     return genai.GenerativeModel("gemini-2.5-flash") if GEMINI_API_KEY else None
 
 
+_last_gemini_call = 0.0
+
 def _gemini_json(prompt: str, fallback: Any, retries: int = 3) -> Any:
     """Pide a Gemini que devuelva JSON estricto. Reintenta con backoff en 429."""
     import time
+    global _last_gemini_call
     model = _gemini()
     if not model:
         return fallback
+    # Espaciar llamadas para no superar 20 req/min (1 cada 3s)
+    elapsed = time.time() - _last_gemini_call
+    if elapsed < 3:
+        time.sleep(3 - elapsed)
+    _last_gemini_call = time.time()
     for attempt in range(retries):
         try:
             resp = model.generate_content(
