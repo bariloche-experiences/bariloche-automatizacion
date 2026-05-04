@@ -458,22 +458,30 @@ def _gemini():
     return genai.GenerativeModel("gemini-2.5-flash") if GEMINI_API_KEY else None
 
 
-def _gemini_json(prompt: str, fallback: Any) -> Any:
-    """Pide a Gemini que devuelva JSON estricto. Tolerante a errores."""
+def _gemini_json(prompt: str, fallback: Any, retries: int = 3) -> Any:
+    """Pide a Gemini que devuelva JSON estricto. Reintenta con backoff en 429."""
+    import time
     model = _gemini()
     if not model:
         return fallback
-    try:
-        resp = model.generate_content(
-            prompt + "\n\nDevolvé SOLO JSON válido. Sin markdown, sin ``` y sin texto extra."
-        )
-        txt = resp.text.strip()
-        # quitar fences si vienen
-        txt = re.sub(r"^```(?:json)?\s*|\s*```$", "", txt, flags=re.MULTILINE).strip()
-        return json.loads(txt)
-    except Exception as e:
-        print(f"⚠️  gemini json error: {e}")
-        return fallback
+    for attempt in range(retries):
+        try:
+            resp = model.generate_content(
+                prompt + "\n\nDevolvé SOLO JSON válido. Sin markdown, sin ``` y sin texto extra."
+            )
+            txt = resp.text.strip()
+            txt = re.sub(r"^```(?:json)?\s*|\s*```$", "", txt, flags=re.MULTILINE).strip()
+            return json.loads(txt)
+        except Exception as e:
+            msg = str(e)
+            if "429" in msg and attempt < retries - 1:
+                wait = 30 * (attempt + 1)
+                print(f"⚠️  Gemini 429 — esperando {wait}s antes de reintentar...")
+                time.sleep(wait)
+            else:
+                print(f"⚠️  gemini json error: {e}")
+                return fallback
+    return fallback
 
 
 def generar_marca(ciudad: str, country: str) -> dict:
