@@ -103,23 +103,37 @@ def conectar_sheet():
     return gspread.authorize(creds).open_by_key(SHEET_ID).worksheet(WORKSHEET_NAME)
 
 
-def leer_ultima_fila(sheet) -> dict[str, Any]:
-    all_values = sheet.get_all_values()
-    if len(all_values) < 2:
-        raise ValueError("Hoja vacía.")
-    headers = all_values[0]
-    last_row = all_values[-1]
-    # Manejar headers duplicados agregando sufijo _2, _3, etc.
-    seen = {}
-    unique_headers = []
+def _dedup_headers(headers: list[str]) -> list[str]:
+    seen: dict[str, int] = {}
+    out = []
     for h in headers:
         if h in seen:
             seen[h] += 1
-            unique_headers.append(f"{h}_{seen[h]}")
+            out.append(f"{h}_{seen[h]}")
         else:
             seen[h] = 1
-            unique_headers.append(h)
-    return dict(zip(unique_headers, last_row))
+            out.append(h)
+    return out
+
+
+def leer_todas_las_filas(sheet) -> list[dict[str, Any]]:
+    """Devuelve TODAS las filas de datos como lista de dicts."""
+    all_values = sheet.get_all_values()
+    if len(all_values) < 2:
+        return []
+    headers = _dedup_headers(all_values[0])
+    rows = []
+    for raw in all_values[1:]:
+        padded = raw + [""] * (len(headers) - len(raw))
+        rows.append(dict(zip(headers, padded)))
+    return rows
+
+
+def leer_ultima_fila(sheet) -> dict[str, Any]:
+    filas = leer_todas_las_filas(sheet)
+    if not filas:
+        raise ValueError("Hoja vacía.")
+    return filas[-1]
 
 
 def get_field(row: dict, *names: str, default: str = "") -> str:
@@ -1050,6 +1064,15 @@ class Propiedad:
     lugares: dict[str, list[dict]] = field(default_factory=dict)
 
 
+def _fallback_welcome(p: "Propiedad", ciudad: str) -> dict:
+    base = p.barrio or ciudad
+    return {
+        "es": {"title": f"Bienvenidos al {p.nombre}", "sub": f"En {base}"},
+        "en": {"title": f"Welcome to {p.nombre}",    "sub": f"In {base}"},
+        "pt": {"title": f"Bem-vindos ao {p.nombre}", "sub": f"Em {base}"},
+    }
+
+
 def procesar_propiedad(row: dict, idx: int) -> Propiedad | None:
     suf = f"_d{idx}"
     nombre = get_field(row, f"nombre_propiedad{suf}", f"nombre{suf}")
@@ -1407,192 +1430,176 @@ def main():
 
     print("→ Conectando al Sheet…")
     sheet = conectar_sheet()
-    row = leer_ultima_fila(sheet)
-
-    anfitrion = get_field(row, "nombre_anfitrion", "anfitrion", "nombre", default="anfitrion")
-    email_dueno = get_field(row, "Email del anfitrion", "email_dueno", "email_anfitrion", "email")
-    telefono_host = get_field(row, "telefono_host", "whatsapp", "whatsapp_contacto")
-    print(f"→ Anfitrión: {anfitrion} ({email_dueno or 'sin email'})")
-
-    try:
-        cantidad = int(get_field(row, "cantidad_propiedades", default="1") or "1")
-    except ValueError:
-        cantidad = 1
-    cantidad = max(1, min(cantidad, MAX_PROPIEDADES))
-    print(f"→ Procesando {cantidad} propiedad(es)…")
-
-    propiedades: list[Propiedad] = []
-    for i in range(1, cantidad + 1):
-        p = procesar_propiedad(row, i)
-        if p:
-            propiedades.append(p)
-    if not propiedades:
-        print("✗ Sin propiedades válidas. Abortando.")
+    filas = leer_todas_las_filas(sheet)
+    if not filas:
+        print("✗ Hoja vacía. Abortando.")
         return
 
-    # Detectar ciudad principal para decidir el modo
-    geo_principal = next((p for p in propiedades if p.lat and p.lng), None)
-    ciudad = (geo_principal.ciudad if geo_principal else "Bariloche") or "Bariloche"
-    es_bariloche = ciudad.lower().strip() in CIUDADES_PEDRO
+    print(f"→ {len(filas)} fila(s) en el Sheet")
+    _ctx_cache: dict[str, dict] = {}  # cache de contexto Gemini por ciudad
+    ok = 0
 
-    horario_checkin = get_field(row, "checkin", "horario_checkin", default="15:00")
-    horario_checkout = get_field(row, "checkout", "horario_checkout", default="11:00")
+    for n, row in enumerate(filas, start=1):
+        anfitrion = get_field(row, "nombre_anfitrion", "anfitrion", "nombre", default="")
+        if not anfitrion:
+            continue
 
-    if es_bariloche:
-        # ====================================================
-        # MODO BARILOCHE: web original con todo el contenido
-        # de Bariloche hardcoded (Catedral, cervecerías, hikes, etc.).
-        # Se parametrizan las variables del anfitrión Y el welcome
-        # se genera con Gemini en función de SU dirección específica
-        # (qué hay cerca de SU depto en Bariloche).
-        # ====================================================
-        print(f"→ Modo BARILOCHE detectado ({ciudad})")
-        # Buscar lugares cercanos REALES a la dirección del anfitrión
-        # para que el welcome diga algo concreto sobre SU zona en Bari.
-        if geo_principal:
-            print(f"→ Buscando qué hay cerca de {geo_principal.direccion} para el welcome…")
-            lugares_cerca = lugares_por_categoria(geo_principal.lat, geo_principal.lng, radius=1500)
-            flat = [item for items in lugares_cerca.values() for item in items][:8]
-            print("→ Generando welcome contextual con Gemini para la dirección del anfitrión…")
-            for p in propiedades:
-                if p.lat and p.lng:
-                    p.welcome = generar_welcome(
-                        "Bariloche", p.barrio or "Bariloche", p.formatted, p.nombre,
-                        lugares_cercanos=flat,
+        email_dueno = get_field(row, "Email del anfitrion", "email_dueno", "email_anfitrion", "email")
+        telefono_host = get_field(row, "telefono_host", "whatsapp", "whatsapp_contacto")
+        slug = slugify(anfitrion) or f"guest{n}"
+        is_new = not (OUTPUT_DIR / slug / "index.html").exists()
+        print(f"\n→ [{n}/{len(filas)}] {anfitrion} — {'NUEVO' if is_new else 'regenerar'}")
+
+        try:
+            try:
+                cantidad = int(get_field(row, "cantidad_propiedades", default="1") or "1")
+            except ValueError:
+                cantidad = 1
+            cantidad = max(1, min(cantidad, MAX_PROPIEDADES))
+
+            propiedades: list[Propiedad] = []
+            for i in range(1, cantidad + 1):
+                p = procesar_propiedad(row, i)
+                if p:
+                    propiedades.append(p)
+
+            if not propiedades:
+                print("  ✗ Sin propiedades válidas, se omite.")
+                continue
+
+            geo_principal = next((p for p in propiedades if p.lat and p.lng), None)
+            ciudad = (geo_principal.ciudad if geo_principal else "Bariloche") or "Bariloche"
+            es_bariloche = ciudad.lower().strip() in CIUDADES_PEDRO
+
+            horario_checkin = get_field(row, "checkin", "horario_checkin", default="15:00")
+            horario_checkout = get_field(row, "checkout", "horario_checkout", default="11:00")
+
+            if es_bariloche:
+                print(f"  → Modo BARILOCHE")
+                if geo_principal:
+                    lugares_cerca = lugares_por_categoria(geo_principal.lat, geo_principal.lng, radius=1500)
+                    flat = [item for items in lugares_cerca.values() for item in items][:8]
+                    for p in propiedades:
+                        p.welcome = (
+                            generar_welcome("Bariloche", p.barrio or "Bariloche", p.formatted, p.nombre, lugares_cercanos=flat)
+                            if p.lat and p.lng else _fallback_welcome(p, "Bariloche")
+                        )
+                else:
+                    for p in propiedades:
+                        p.welcome = _fallback_welcome(p, "Bariloche")
+
+                propiedades_dict = [p.__dict__ for p in propiedades]
+                ctx = {
+                    "ciudad": ciudad,
+                    "telefono_host": telefono_host,
+                    "anfitrion": anfitrion,
+                    "checkin": horario_checkin,
+                    "checkout": horario_checkout,
+                    "propiedades": propiedades_dict,
+                }
+                template_name = TEMPLATE_BARILOCHE
+
+            else:
+                print(f"  → Modo GENÉRICO ({ciudad})")
+                if geo_principal:
+                    lugares = lugares_por_categoria(geo_principal.lat, geo_principal.lng)
+                    lugares = describir_lugares(lugares, geo_principal.ciudad)
+                    for p in propiedades:
+                        p.lugares = lugares
+                    flat_lugares = [item for items in lugares.values() for item in items][:8]
+                    for p in propiedades:
+                        if p.lat and p.lng:
+                            p.welcome = generar_welcome(p.ciudad, p.barrio, p.formatted, p.nombre, lugares_cercanos=flat_lugares)
+                    esenciales = obtener_esenciales(geo_principal.lat, geo_principal.lng)
+                else:
+                    for p in propiedades:
+                        p.lugares = {k: [] for k, *_ in CATEGORIAS}
+                    esenciales = {key: None for key, *_ in ESENCIALES}
+
+                region_label = geo_principal.region if geo_principal else ""
+                country = geo_principal.country if geo_principal else "Argentina"
+                ciudad_key = ciudad.lower().strip()
+
+                if ciudad_key not in _ctx_cache:
+                    print(f"  → Generando contenido de {ciudad} con Gemini…")
+                    _ctx_cache[ciudad_key] = generar_contexto_ciudad(
+                        ciudad, region_label, country,
+                        geo_principal.lat if geo_principal else None,
+                        geo_principal.lng if geo_principal else None,
                     )
                 else:
-                    # Fallback si no hubo geocoding
-                    p.welcome = {
-                        "es": {"title": f"Bienvenidos al {p.nombre}",
-                               "sub": f"En {p.barrio or 'Bariloche'}"},
-                        "en": {"title": f"Welcome to {p.nombre}",
-                               "sub": f"In {p.barrio or 'Bariloche'}"},
-                        "pt": {"title": f"Bem-vindos ao {p.nombre}",
-                               "sub": f"Em {p.barrio or 'Bariloche'}"},
-                    }
-        else:
-            for p in propiedades:
-                p.welcome = {
-                    "es": {"title": f"Bienvenidos al {p.nombre}",
-                           "sub": f"En {p.barrio or 'Bariloche'}"},
-                    "en": {"title": f"Welcome to {p.nombre}",
-                           "sub": f"In {p.barrio or 'Bariloche'}"},
-                    "pt": {"title": f"Bem-vindos ao {p.nombre}",
-                           "sub": f"Em {p.barrio or 'Bariloche'}"},
+                    print(f"  → Contexto de {ciudad} ya generado, reutilizando")
+
+                ctx_ciudad = _ctx_cache[ciudad_key]
+                marca = ctx_ciudad.get("marca", {
+                    "nombre_corto": f"{ciudad} Experiencias",
+                    "hero_titulo_html": f"{ciudad}<br>Experiencias",
+                    "hero_badge": f"📍 {ciudad}",
+                    "region_label": ciudad,
+                    "theme": "ciudad",
+                })
+                info = {
+                    "instrucciones": ctx_ciudad.get("instrucciones", []),
+                    "autos":         ctx_ciudad.get("autos", {}),
+                    "colectivos":    ctx_ciudad.get("colectivos", {}),
+                    "temporadas":    ctx_ciudad.get("temporadas", []),
+                    "hikes":         ctx_ciudad.get("hikes", []),
+                    "excursiones":   ctx_ciudad.get("excursiones", []),
+                    "emergencias":   ctx_ciudad.get("emergencias", {"emergencia_general": "911"}),
                 }
+                if geo_principal:
+                    alquileres = obtener_alquileres_auto(geo_principal.lat, geo_principal.lng)
+                    if not isinstance(info.get("autos"), dict):
+                        info["autos"] = {}
+                    info["autos"]["alquileres_cercanos"] = alquileres
 
-        propiedades_dict = [p.__dict__ for p in propiedades]
-        ctx = {
-            "ciudad": ciudad,
-            "telefono_host": telefono_host,
-            "anfitrion": anfitrion,
-            "checkin": horario_checkin,
-            "checkout": horario_checkout,
-            "propiedades": propiedades_dict,
-        }
-        template_name = TEMPLATE_BARILOCHE
+                propiedades_dict = [p.__dict__ for p in propiedades]
+                ctx = {
+                    "marca": marca,
+                    "ciudad": ciudad,
+                    "region": region_label,
+                    "tip_local": ctx_ciudad.get("tip_local", {"es": "", "en": "", "pt": ""}),
+                    "tips_locales": ctx_ciudad.get("tips_locales", []),
+                    "outfit_actividades": ctx_ciudad.get("outfit_actividades", []),
+                    "esenciales": esenciales,
+                    "info": info,
+                    "pedro_promos": False,
+                    "telefono_host": telefono_host,
+                    "anfitrion": anfitrion,
+                    "checkin": horario_checkin,
+                    "checkout": horario_checkout,
+                    "categorias": [
+                        {"key": k, "es": es, "en": en, "pt": pt}
+                        for k, es, en, pt, *_ in CATEGORIAS
+                    ],
+                    "propiedades": propiedades_dict,
+                }
+                template_name = TEMPLATE_GENERICO
 
-    else:
-        # ====================================================
-        # MODO GENÉRICO: cualquier otra ciudad.
-        # Places API + Gemini hacen el laburo de personalización.
-        # ====================================================
-        print(f"→ Modo GENÉRICO ({ciudad}) — generando contenido con Places + Gemini")
-        if geo_principal:
-            print(f"→ Buscando lugares cercanos a {geo_principal.ciudad or geo_principal.direccion}…")
-            lugares = lugares_por_categoria(geo_principal.lat, geo_principal.lng)
-            lugares = describir_lugares(lugares, geo_principal.ciudad)
-            for p in propiedades:
-                p.lugares = lugares
-            print("→ Re-generando welcome con lugares reales como contexto…")
-            flat_lugares = [item for items in lugares.values() for item in items][:8]
-            for p in propiedades:
-                if p.lat and p.lng:
-                    p.welcome = generar_welcome(
-                        p.ciudad, p.barrio, p.formatted, p.nombre, lugares_cercanos=flat_lugares
-                    )
-            print("→ Buscando esenciales más cercanos…")
-            esenciales = obtener_esenciales(geo_principal.lat, geo_principal.lng)
-        else:
-            for p in propiedades:
-                p.lugares = {k: [] for k, *_ in CATEGORIAS}
-            esenciales = {key: None for key, *_ in ESENCIALES}
+            out = render(ctx, slug, template_name)
+            link = f"{GITHUB_PAGES_BASE}/sites/{slug}/"
 
-        region_label = geo_principal.region if geo_principal else ""
-        country = geo_principal.country if geo_principal else "Argentina"
-        print("→ Generando todo el contenido de la ciudad con Gemini (1 llamada)…")
-        ctx_ciudad = generar_contexto_ciudad(
-            ciudad, region_label, country,
-            geo_principal.lat if geo_principal else None,
-            geo_principal.lng if geo_principal else None,
-        )
-        marca = ctx_ciudad.get("marca", {
-            "nombre_corto": f"{ciudad} Experiencias",
-            "hero_titulo_html": f"{ciudad}<br>Experiencias",
-            "hero_badge": f"📍 {ciudad}",
-            "region_label": ciudad,
-            "theme": "ciudad",
-        })
-        tip = ctx_ciudad.get("tip_local", {"es": "", "en": "", "pt": ""})
-        tips_locales = ctx_ciudad.get("tips_locales", [])
-        outfit_actividades = ctx_ciudad.get("outfit_actividades", [])
-        info = {
-            "instrucciones": ctx_ciudad.get("instrucciones", []),
-            "autos":         ctx_ciudad.get("autos", {}),
-            "colectivos":    ctx_ciudad.get("colectivos", {}),
-            "temporadas":    ctx_ciudad.get("temporadas", []),
-            "hikes":         ctx_ciudad.get("hikes", []),
-            "excursiones":   ctx_ciudad.get("excursiones", []),
-            "emergencias":   ctx_ciudad.get("emergencias", {"emergencia_general": "911"}),
-        }
-        # Enriquecer info.autos con alquileres REALES de la zona via Places
-        if geo_principal:
-            print("→ Buscando alquileres de auto cerca de la propiedad…")
-            alquileres = obtener_alquileres_auto(geo_principal.lat, geo_principal.lng)
-            if not isinstance(info.get("autos"), dict):
-                info["autos"] = {}
-            info["autos"]["alquileres_cercanos"] = alquileres
-            print(f"  → {len(alquileres)} alquileres encontrados")
+            if is_new:
+                try:
+                    enviar_email("volpacchio47@gmail.com", link, anfitrion, ciudad, propiedades=propiedades_dict)
+                except Exception as e:
+                    print(f"  ⚠️  Email a Pedro no enviado: {e}")
+                if email_dueno:
+                    try:
+                        enviar_email_anfitrion(email_dueno, anfitrion, ciudad)
+                    except Exception as e:
+                        print(f"  ⚠️  Email al anfitrión no enviado: {e}")
+            else:
+                print(f"  → Sitio regenerado sin email (ya existía)")
 
-        propiedades_dict = [p.__dict__ for p in propiedades]
-        ctx = {
-            "marca": marca,
-            "ciudad": ciudad,
-            "region": region_label,
-            "tip_local": tip,
-            "tips_locales": tips_locales,
-            "outfit_actividades": outfit_actividades,
-            "esenciales": esenciales,
-            "info": info,
-            "pedro_promos": False,
-            "telefono_host": telefono_host,
-            "anfitrion": anfitrion,
-            "checkin": horario_checkin,
-            "checkout": horario_checkout,
-            "categorias": [
-                {"key": k, "es": es, "en": en, "pt": pt}
-                for k, es, en, pt, *_ in CATEGORIAS
-            ],
-            "propiedades": propiedades_dict,
-        }
-        template_name = TEMPLATE_GENERICO
+            ok += 1
 
-    slug = slugify(anfitrion) or "guest"
-    out = render(ctx, slug, template_name)
-
-    link = f"{GITHUB_PAGES_BASE}/sites/{slug}/"
-    try:
-        enviar_email("volpacchio47@gmail.com", link, anfitrion, ciudad, propiedades=propiedades_dict)
-    except Exception as e:
-        print(f"⚠️  Email a Pedro no enviado: {e}")
-
-    if email_dueno:
-        try:
-            enviar_email_anfitrion(email_dueno, anfitrion, ciudad)
         except Exception as e:
-            print(f"⚠️  Email al anfitrión no enviado: {e}")
+            import traceback
+            print(f"  ✗ Error procesando {anfitrion}: {e}")
+            traceback.print_exc()
 
-    print(f"✓ Listo → {out}")
+    print(f"\n✓ {ok} sitio(s) procesado(s).")
 
 
 if __name__ == "__main__":
