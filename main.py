@@ -228,18 +228,36 @@ def gmaps_client():
 
 
 def extract_coords_from_maps_url(url: str) -> tuple[float, float] | None:
-    """Extrae (lat, lng) de un link de Google Maps si contiene coordenadas."""
-    import re, urllib.parse
+    """Extrae (lat, lng) de un link de Google Maps, expandiendo links cortos si es necesario."""
+    import re, urllib.request
     if not url:
         return None
-    # Formato: @LAT,LNG,zoom
-    m = re.search(r'@(-?\d+\.\d+),(-?\d+\.\d+)', url)
-    if m:
-        return float(m.group(1)), float(m.group(2))
-    # Formato: q=LAT,LNG
-    m = re.search(r'[?&]q=(-?\d+\.\d+),(-?\d+\.\d+)', url)
-    if m:
-        return float(m.group(1)), float(m.group(2))
+
+    def _parse(u):
+        m = re.search(r'@(-?\d+\.\d+),(-?\d+\.\d+)', u)
+        if m:
+            return float(m.group(1)), float(m.group(2))
+        m = re.search(r'[?&]q=(-?\d+\.\d+),(-?\d+\.\d+)', u)
+        if m:
+            return float(m.group(1)), float(m.group(2))
+        return None
+
+    result = _parse(url)
+    if result:
+        return result
+
+    # Link corto (goo.gl, maps.app.goo.gl) — expandir siguiendo redirects
+    if 'goo.gl' in url or 'maps.app' in url:
+        try:
+            req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0'})
+            with urllib.request.urlopen(req, timeout=5) as resp:
+                expanded = resp.url
+            result = _parse(expanded)
+            if result:
+                return result
+        except Exception as e:
+            print(f"⚠️  No se pudo expandir Maps URL: {e}")
+
     return None
 
 
