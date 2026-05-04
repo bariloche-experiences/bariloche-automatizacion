@@ -790,6 +790,130 @@ REGLAS NO NEGOCIABLES:
     )
 
 
+def generar_contexto_ciudad(
+    ciudad: str, region: str, country: str,
+    lat: float | None, lng: float | None
+) -> dict:
+    """Una sola llamada a Gemini que reemplaza 5 funciones:
+    generar_marca + generar_tip_local + generar_tips_locales +
+    generar_outfit_actividades + generar_info_completa.
+    """
+    fallback = {
+        "marca": {
+            "nombre_corto": f"{ciudad} Experiencias",
+            "hero_titulo_html": f"{ciudad}<br>Experiencias",
+            "hero_badge": f"📍 {ciudad}",
+            "region_label": ciudad,
+            "theme": "ciudad",
+        },
+        "tip_local": {"es": "", "en": "", "pt": ""},
+        "tips_locales": [],
+        "outfit_actividades": [],
+        "instrucciones": [],
+        "autos": {"title": {"es": "Alquiler de auto", "en": "Car rental", "pt": "Aluguel de carro"}, "tips": []},
+        "colectivos": {"title": {"es": "Transporte público", "en": "Public transport", "pt": "Transporte público"}, "lineas_principales": []},
+        "temporadas": [],
+        "hikes": [],
+        "excursiones": [],
+        "emergencias": {"emergencia_general": "911"},
+    }
+    if not ciudad:
+        return fallback
+
+    coord_str = f"lat {lat:.4f}, lng {lng:.4f}" if lat and lng else ""
+
+    return _gemini_json(
+        f"""Sos un anfitrión local experto de {ciudad} ({region}, {country}){f' ({coord_str})' if coord_str else ''}.
+Generá un JSON con TODA la info para una web de huéspedes de Airbnb. Solo datos REALES y verificables.
+
+{{
+  "marca": {{
+    "nombre_corto": "{ciudad} Experiencias",
+    "hero_titulo_html": "{ciudad}<br>Experiencias",
+    "hero_badge": "emoji + región turística + ciudad (ej: 🏔️ Patagonia · {ciudad})",
+    "region_label": "nombre corto de región turística (ej: Patagonia, Costa Atlántica, NOA)",
+    "theme": "montana|ciudad|playa|rio|desierto|vinedo|selva"
+  }},
+
+  "tip_local": {{"es": "tip local concreto máx 90 chars", "en": "...", "pt": "..."}},
+
+  "tips_locales": [
+    /* EXACTAMENTE 4 tips sobre {ciudad}: clima, transporte, costumbres, gastronomía, etc. */
+    {{
+      "emoji": "💡",
+      "title": {{"es": "máx 35 chars", "en": "...", "pt": "..."}},
+      "text": {{"es": "concreto máx 110 chars", "en": "...", "pt": "..."}}
+    }}
+  ],
+
+  "outfit_actividades": [
+    /* EXACTAMENTE 4 actividades TÍPICAS de {ciudad} */
+    {{
+      "key": "slug_sin_espacios",
+      "emoji": "🚶",
+      "label": {{"es": "máx 18 chars", "en": "...", "pt": "..."}},
+      "outfit_frio":     {{"es": ["🧥 item", "item2", "item3", "item4"], "en": [...], "pt": [...]}},
+      "outfit_templado": {{"es": [...], "en": [...], "pt": [...]}},
+      "outfit_calido":   {{"es": [...], "en": [...], "pt": [...]}},
+      "tip": {{"es": "máx 100 chars", "en": "...", "pt": "..."}}
+    }}
+  ],
+
+  "instrucciones": [
+    /* EXACTAMENTE 4 items críticos para huéspedes de {ciudad} — cosas que un local sabe */
+    {{"emoji": "...", "title": {{"es": "...", "en": "...", "pt": "..."}}, "text": {{"es": "...", "en": "...", "pt": "..."}}}}
+  ],
+
+  "autos": {{
+    "title": {{"es": "Alquiler de auto", "en": "Car rental", "pt": "Aluguel de carro"}},
+    "necesario": "si|opcional|no",
+    "desc": {{"es": "¿es necesario auto en {ciudad}? razones concretas", "en": "...", "pt": "..."}},
+    "tips": [{{"es": "tip operativo real sobre manejar en {ciudad}", "en": "...", "pt": "..."}}]
+  }},
+
+  "colectivos": {{
+    "title": {{"es": "Transporte público", "en": "Public transport", "pt": "Transporte público"}},
+    "desc": {{"es": "cómo funciona el transporte en {ciudad}", "en": "...", "pt": "..."}},
+    "lineas_principales": [
+      /* 3-4 líneas REALES con destino REAL. Si no las conocés con seguridad, dejá [] */
+      {{"linea": "NUMERO_REAL", "desc": {{"es": "hacia DESTINO REAL · frecuencia", "en": "...", "pt": "..."}}}}
+    ]
+  }},
+
+  "temporadas": [
+    /* EXACTAMENTE 4 entries con temperatura promedio REAL */
+    {{"emoji": "☀️", "title": {{"es": "...", "en": "...", "pt": "..."}},
+      "meses": {{"es": "Mes-Mes", "en": "...", "pt": "..."}},
+      "desc": {{"es": "TEMP°C + dato concreto", "en": "...", "pt": "..."}}}}
+  ],
+
+  "hikes": [
+    /* 3-4 caminatas/paseos al aire libre REALES de {ciudad}. Si no conocés el nombre exacto, dejá [] */
+    {{"nombre": "NOMBRE EXACTO", "tipo": {{"es": "...", "en": "...", "pt": "..."}},
+      "dificultad": {{"es": "...", "en": "...", "pt": "..."}},
+      "desc": {{"es": "...", "en": "...", "pt": "..."}}, "maps_query": "nombre+{ciudad}"}}
+  ],
+
+  "excursiones": [
+    /* 3-4 excursiones de día desde {ciudad} con destino REAL */
+    {{"nombre": "NOMBRE REAL", "duracion": {{"es": "Día completo|Medio día", "en": "...", "pt": "..."}},
+      "desc": {{"es": "qué se hace + cómo llegar", "en": "...", "pt": "..."}}, "maps_query": "..."}}
+  ],
+
+  "emergencias": {{"policia": "911", "ambulancia": "107", "bomberos": "100", "emergencia_general": "911"}}
+}}
+
+REGLAS NO NEGOCIABLES:
+1. Cada texto en cada idioma: DISTINTO y bien traducido (no copiar el español).
+2. Datos REALES. Si dudás de un nombre, OMITILO (array vacío). Inventar es peor que faltar.
+3. Máx 120 chars por texto. Sin clichés ("vibrante", "único", "increíble", "imperdible").
+4. Sin emojis dentro de textos (van en el campo "emoji"). Tono: segunda persona.
+5. SOLO JSON válido. Sin markdown, sin ```, sin texto extra.
+""",
+        fallback,
+    )
+
+
 def obtener_alquileres_auto(lat: float, lng: float) -> list[dict]:
     """Busca alquileres de auto reales cerca usando Places API.
     Devuelve hasta 3 con nombre, dirección, teléfono si disponible.
@@ -952,7 +1076,6 @@ def procesar_propiedad(row: dict, idx: int) -> Propiedad | None:
     country = geo["country"] if geo else ""
     formatted = geo["formatted"] if geo else (direccion or "")
 
-    welcome = generar_welcome(ciudad, barrio, formatted, nombre)
     recos = parse_recomendaciones(get_field(row, f"recomendaciones{suf}", f"recomendados{suf}"))
 
     return Propiedad(
@@ -980,7 +1103,7 @@ def procesar_propiedad(row: dict, idx: int) -> Propiedad | None:
         video_en=normalize_video(get_field(row, f"video_checkin_en{suf}")),
         wifi_ssid=get_field(row, f"wifi_ssid{suf}", f"wifi_nombre{suf}"),
         wifi_pass=get_field(row, f"wifi_pass{suf}", f"wifi_password{suf}"),
-        welcome=welcome,
+        welcome={},
         recomendaciones=recos,
     )
 
@@ -1396,19 +1519,32 @@ def main():
             esenciales = {key: None for key, *_ in ESENCIALES}
 
         region_label = geo_principal.region if geo_principal else ""
-        geo_full = geocode(geo_principal.direccion) if geo_principal else None
-        country = geo_full["country"] if geo_full else "Argentina"
-        marca = generar_marca(ciudad, country)
-        tip = generar_tip_local(ciudad, geo_principal.barrio if geo_principal else "", country)
-        print("→ Generando tips locales con Gemini…")
-        tips_locales = generar_tips_locales(ciudad, region_label, country)
-        print("→ Generando outfit recommendations con Gemini…")
-        outfit_actividades = (
-            generar_outfit_actividades(ciudad, region_label, geo_principal.lat, geo_principal.lng)
-            if geo_principal else []
+        country = geo_principal.country if geo_principal else "Argentina"
+        print("→ Generando todo el contenido de la ciudad con Gemini (1 llamada)…")
+        ctx_ciudad = generar_contexto_ciudad(
+            ciudad, region_label, country,
+            geo_principal.lat if geo_principal else None,
+            geo_principal.lng if geo_principal else None,
         )
-        print("→ Generando info útil completa con Gemini (autos, colectivos, temporadas, hikes, excursiones)…")
-        info = generar_info_completa(ciudad, region_label, country)
+        marca = ctx_ciudad.get("marca", {
+            "nombre_corto": f"{ciudad} Experiencias",
+            "hero_titulo_html": f"{ciudad}<br>Experiencias",
+            "hero_badge": f"📍 {ciudad}",
+            "region_label": ciudad,
+            "theme": "ciudad",
+        })
+        tip = ctx_ciudad.get("tip_local", {"es": "", "en": "", "pt": ""})
+        tips_locales = ctx_ciudad.get("tips_locales", [])
+        outfit_actividades = ctx_ciudad.get("outfit_actividades", [])
+        info = {
+            "instrucciones": ctx_ciudad.get("instrucciones", []),
+            "autos":         ctx_ciudad.get("autos", {}),
+            "colectivos":    ctx_ciudad.get("colectivos", {}),
+            "temporadas":    ctx_ciudad.get("temporadas", []),
+            "hikes":         ctx_ciudad.get("hikes", []),
+            "excursiones":   ctx_ciudad.get("excursiones", []),
+            "emergencias":   ctx_ciudad.get("emergencias", {"emergencia_general": "911"}),
+        }
         # Enriquecer info.autos con alquileres REALES de la zona via Places
         if geo_principal:
             print("→ Buscando alquileres de auto cerca de la propiedad…")
