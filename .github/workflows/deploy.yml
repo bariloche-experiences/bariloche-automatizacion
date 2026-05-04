@@ -54,7 +54,7 @@ jobs:
           EMAIL_USER:           ${{ secrets.EMAIL_USER }}
           EMAIL_PASS:           ${{ secrets.EMAIL_PASS }}
           SITE_BASE_URL:        ${{ secrets.SITE_BASE_URL }}
-          GITHUB_PAGES_BASE:    ${{ secrets.GITHUB_PAGES_BASE }}
+          GITHUB_PAGES_BASE:    ${{ secrets.SITE_BASE_URL }}
           PEDRO_WHATSAPP:       ${{ secrets.PEDRO_WHATSAPP }}
         run: python main.py
 

@@ -227,6 +227,58 @@ def gmaps_client():
     return googlemaps.Client(key=GMAPS_API_KEY)
 
 
+def extract_coords_from_maps_url(url: str) -> tuple[float, float] | None:
+    """Extrae (lat, lng) de un link de Google Maps si contiene coordenadas."""
+    import re, urllib.parse
+    if not url:
+        return None
+    # Formato: @LAT,LNG,zoom
+    m = re.search(r'@(-?\d+\.\d+),(-?\d+\.\d+)', url)
+    if m:
+        return float(m.group(1)), float(m.group(2))
+    # Formato: q=LAT,LNG
+    m = re.search(r'[?&]q=(-?\d+\.\d+),(-?\d+\.\d+)', url)
+    if m:
+        return float(m.group(1)), float(m.group(2))
+    return None
+
+
+def reverse_geocode(lat: float, lng: float) -> dict | None:
+    """Reverse geocode de coordenadas a {ciudad, barrio, ...}."""
+    if not GMAPS_API_KEY:
+        return None
+    try:
+        r = gmaps_client().reverse_geocode((lat, lng))
+        if not r:
+            return None
+        comps = {c["types"][0]: c["long_name"] for c in r[0]["address_components"] if c["types"]}
+        ciudad = (
+            comps.get("locality")
+            or comps.get("administrative_area_level_2")
+            or comps.get("sublocality_level_1")
+            or comps.get("administrative_area_level_1")
+            or ""
+        )
+        barrio = (
+            comps.get("sublocality_level_1")
+            or comps.get("neighborhood")
+            or comps.get("sublocality")
+            or ""
+        )
+        return {
+            "lat": lat,
+            "lng": lng,
+            "ciudad": ciudad,
+            "barrio": barrio,
+            "region": comps.get("administrative_area_level_1", ""),
+            "country": comps.get("country", ""),
+            "formatted": r[0]["formatted_address"],
+        }
+    except Exception as e:
+        print(f"⚠️  reverse_geocode error: {e}")
+        return None
+
+
 def geocode(direccion: str) -> dict | None:
     """Devuelve {lat, lng, ciudad, barrio, region, formatted, country}."""
     if not direccion or not GMAPS_API_KEY:
@@ -821,14 +873,23 @@ def procesar_propiedad(row: dict, idx: int) -> Propiedad | None:
     if not nombre:
         return None
     direccion = get_field(row, f"direccion{suf}", f"ubicacion{suf}", "direccion")
-    print(f"  → [{idx}] '{nombre}' | {direccion or '(sin dirección)'}")
+    maps_url = get_field(row, f"maps{suf}", f"maps_link{suf}", f"google_maps{suf}")
+    print(f"  → [{idx}] '{nombre}' | {direccion or maps_url or '(sin dirección)'}")
 
-    geo = geocode(direccion) if direccion else None
+    geo = None
+    if direccion:
+        geo = geocode(direccion)
+    if not geo and maps_url:
+        coords = extract_coords_from_maps_url(maps_url)
+        if coords:
+            geo = reverse_geocode(coords[0], coords[1])
+            print(f"  → Geocodeado desde Maps link: {geo and geo.get('ciudad')}")
+
     lat = geo["lat"] if geo else None
     lng = geo["lng"] if geo else None
     ciudad = geo["ciudad"] if geo else (get_field(row, "ciudad") or "")
     barrio = geo["barrio"] if geo else ""
-    formatted = geo["formatted"] if geo else direccion
+    formatted = geo["formatted"] if geo else (direccion or "")
 
     welcome = generar_welcome(ciudad, barrio, formatted, nombre)
     recos = parse_recomendaciones(get_field(row, f"recomendaciones{suf}", f"recomendados{suf}"))
@@ -843,7 +904,8 @@ def procesar_propiedad(row: dict, idx: int) -> Propiedad | None:
         ciudad=ciudad,
         formatted=formatted,
         maps_link=(
-            get_field(row, f"maps_link{suf}")
+            maps_url
+            or get_field(row, f"maps_link{suf}")
             or (
                 f"https://www.google.com/maps/search/?api=1&query={quote_plus(formatted)}"
                 if formatted
