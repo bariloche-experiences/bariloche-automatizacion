@@ -166,7 +166,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 <div class="hero">
   <div class="hero-badge" id="hero-badge">🏔️ Patagonia · Bariloche</div>
   <h1 id="hero-title">Bariloche<br>Experiencias</h1>
-  <p class="hero-sub">La Florida 3566, R8400 San Carlos de Bariloche, Río Negro, Argentina · <span id="hero-sub">Tu guía completa</span></p>
+  <p class="hero-sub"> · <span id="hero-sub">Tu guía completa</span></p>
   <div class="lang-bar">
     <button class="lang-btn active" onclick="setLang('es')">🇦🇷 ES</button>
     <button class="lang-btn" onclick="setLang('en')">🇺🇸 EN</button>
@@ -178,22 +178,32 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
   <div style="font-size:10px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:#6b7280;margin-bottom:8px;text-align:center" id="depto-label">¿Cuál es tu departamento?</div>
   <div class="depto-tabs">
     
-    <button class="depto-btn active" onclick="setDepto('d1')">🏠 Turbio</button>
+    <button class="depto-btn active" onclick="setDepto('d1')">🏠 Pedro</button>
+    
+    <button class="depto-btn" onclick="setDepto('d2')">🏠 Pedro2</button>
     
   </div>
   <div id="welcome-msg" style="margin-top:12px;background:linear-gradient(135deg,rgba(16,185,129,0.12),rgba(37,99,235,0.10));border:1.5px solid rgba(16,185,129,0.45);border-radius:16px;padding:18px 16px;text-align:center;box-shadow:0 0 24px rgba(16,185,129,0.1)">
     <div style="font-size:28px;margin-bottom:6px">🏔️</div>
-    <div style="font-size:17px;font-weight:900;color:#fff;margin-bottom:5px;letter-spacing:-0.3px" id="welcome-title">Bienvenidos al Turbio</div>
-    <div style="font-size:13px;color:#a7f3d0;font-weight:500;font-style:italic" id="welcome-sub">En el corazón de Las Victorias</div>
+    <div style="font-size:17px;font-weight:900;color:#fff;margin-bottom:5px;letter-spacing:-0.3px" id="welcome-title">Bienvenidos al Pedro</div>
+    <div style="font-size:13px;color:#a7f3d0;font-weight:500;font-style:italic" id="welcome-sub">En Bariloche</div>
   </div>
 
   <!-- COMO LLEGAR — LO MÁS URGENTE -->
   
   <div id="maps-top-d1">
-    <a href="https://maps.app.goo.gl/VPV8yJRrDxepBiddA?g_st=ac" target="_blank"
+    <a href="Pedro" target="_blank"
       style="display:flex;align-items:center;justify-content:center;gap:10px;margin-top:14px;background:linear-gradient(135deg,#1d4ed8,#2563eb);color:#fff;font-size:15px;font-weight:800;padding:16px;border-radius:14px;text-decoration:none;box-shadow:0 4px 16px rgba(37,99,235,0.3)">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
-      <span class="t" data-es="📍 Cómo llegar · La Florida 3566, R8400 San Carlos de Bariloche, Río Negro, Argentina" data-en="📍 Get directions · La Florida 3566, R8400 San Carlos de Bariloche, Río Negro, Argentina" data-pt="📍 Como chegar · La Florida 3566, R8400 San Carlos de Bariloche, Río Negro, Argentina">📍 Cómo llegar · La Florida 3566, R8400 San Carlos de Bariloche, Río Negro, Argentina</span>
+      <span class="t" data-es="📍 Cómo llegar · " data-en="📍 Get directions · " data-pt="📍 Como chegar · ">📍 Cómo llegar · </span>
+    </a>
+  </div>
+  
+  <div id="maps-top-d2" style="display:none">
+    <a href="Pedro2" target="_blank"
+      style="display:flex;align-items:center;justify-content:center;gap:10px;margin-top:14px;background:linear-gradient(135deg,#1d4ed8,#2563eb);color:#fff;font-size:15px;font-weight:800;padding:16px;border-radius:14px;text-decoration:none;box-shadow:0 4px 16px rgba(37,99,235,0.3)">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+      <span class="t" data-es="📍 Cómo llegar · " data-en="📍 Get directions · " data-pt="📍 Como chegar · ">📍 Cómo llegar · </span>
     </a>
   </div>
   
@@ -219,7 +229,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
   <div class="depto-group visible" id="dep-d1">
     
     <div class="video-block visible">
-      <div class="video-label"><strong>Turbio</strong><span class="t" data-es="Estacionamiento, ubicación y llaves" data-en="Parking, location & keys" data-pt="Estacionamento, localização e chaves">Estacionamiento, ubicación y llaves</span></div>
+      <div class="video-label"><strong>Pedro</strong><span class="t" data-es="Estacionamiento, ubicación y llaves" data-en="Parking, location & keys" data-pt="Estacionamento, localização e chaves">Estacionamiento, ubicación y llaves</span></div>
       <div class="video-wrap">
         
           <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;text-align:center;background:linear-gradient(135deg,#1a1d2e 0%,#16213e 50%,#0f1729 100%)">
@@ -243,9 +253,48 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
         <div class="step-text" data-lang="pt">🚗 Estacione no local indicado no vídeo</div>
       </div>
       <div class="step-item"><div class="step-num">2</div>
-        <div class="step-text active" data-lang="es">🏠 Tu propiedad: <strong>Turbio</strong> · La Florida 3566, R8400 San Carlos de Bariloche, Río Negro, Argentina</div>
-        <div class="step-text" data-lang="en">🏠 Your place: <strong>Turbio</strong> · La Florida 3566, R8400 San Carlos de Bariloche, Río Negro, Argentina</div>
-        <div class="step-text" data-lang="pt">🏠 Sua propriedade: <strong>Turbio</strong> · La Florida 3566, R8400 San Carlos de Bariloche, Río Negro, Argentina</div>
+        <div class="step-text active" data-lang="es">🏠 Tu propiedad: <strong>Pedro</strong> · </div>
+        <div class="step-text" data-lang="en">🏠 Your place: <strong>Pedro</strong> · </div>
+        <div class="step-text" data-lang="pt">🏠 Sua propriedade: <strong>Pedro</strong> · </div>
+      </div>
+      <div class="step-item"><div class="step-num">3</div>
+        <div class="step-text active" data-lang="es">🔑 Retirá las llaves como se muestra en el video</div>
+        <div class="step-text" data-lang="en">🔑 Pick up the keys as shown in the video</div>
+        <div class="step-text" data-lang="pt">🔑 Retire as chaves conforme mostrado no vídeo</div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="depto-group" id="dep-d2">
+    
+    <div class="video-block visible">
+      <div class="video-label"><strong>Pedro2</strong><span class="t" data-es="Estacionamiento, ubicación y llaves" data-en="Parking, location & keys" data-pt="Estacionamento, localização e chaves">Estacionamiento, ubicación y llaves</span></div>
+      <div class="video-wrap">
+        
+          <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;text-align:center;background:linear-gradient(135deg,#1a1d2e 0%,#16213e 50%,#0f1729 100%)">
+            <div style="position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(99,102,241,0.18) 0%,transparent 60%);pointer-events:none"></div>
+            <div style="font-size:60px;margin-bottom:12px;filter:drop-shadow(0 4px 12px rgba(99,102,241,0.4));position:relative">📹</div>
+            <p style="color:#fff;font-size:16px;margin-bottom:8px;font-weight:800;position:relative">
+              <span class="t" data-es="Video disponible pronto" data-en="Video coming soon" data-pt="Vídeo em breve">Video disponible pronto</span>
+            </p>
+            <p style="color:#a5b4fc;font-size:12px;line-height:1.5;max-width:280px;position:relative">
+              <span class="t" data-es="Tu anfitrión te enviará el link del video por mensaje antes de tu llegada" data-en="Your host will send you the video link by message before arrival" data-pt="Seu anfitrião enviará o link do vídeo antes da sua chegada">Tu anfitrión te enviará el link del video por mensaje antes de tu llegada</span>
+            </p>
+          </div>
+        
+      </div>
+      
+    </div>
+    <div class="steps">
+      <div class="step-item"><div class="step-num">1</div>
+        <div class="step-text active" data-lang="es">🚗 Estacioná en el lugar indicado en el video</div>
+        <div class="step-text" data-lang="en">🚗 Park in the spot shown in the video</div>
+        <div class="step-text" data-lang="pt">🚗 Estacione no local indicado no vídeo</div>
+      </div>
+      <div class="step-item"><div class="step-num">2</div>
+        <div class="step-text active" data-lang="es">🏠 Tu propiedad: <strong>Pedro2</strong> · </div>
+        <div class="step-text" data-lang="en">🏠 Your place: <strong>Pedro2</strong> · </div>
+        <div class="step-text" data-lang="pt">🏠 Sua propriedade: <strong>Pedro2</strong> · </div>
       </div>
       <div class="step-item"><div class="step-num">3</div>
         <div class="step-text active" data-lang="es">🔑 Retirá las llaves como se muestra en el video</div>
@@ -289,9 +338,21 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
     <div class="wifi-card">
       <div class="wifi-icon"><svg viewBox="0 0 24 24"><path d="M5 12.55a11 11 0 0114.08 0"/><path d="M1.42 9a16 16 0 0121.16 0"/><path d="M8.53 16.11a6 6 0 016.95 0"/><circle cx="12" cy="20" r="1" fill="#60a5fa" stroke="none"/></svg></div>
       <div>
-        <div class="wifi-apt">Turbio</div>
+        <div class="wifi-apt">Pedro</div>
         <div class="wifi-ssid">—</div>
-        <div class="wifi-pass">Password: <span>Turbio2</span></div>
+        <div class="wifi-pass">Password: <span>Pedro</span></div>
+      </div>
+    </div>
+    
+  </div>
+  
+  <div id="wifi-d2" style="display:none">
+    <div class="wifi-card">
+      <div class="wifi-icon"><svg viewBox="0 0 24 24"><path d="M5 12.55a11 11 0 0114.08 0"/><path d="M1.42 9a16 16 0 0121.16 0"/><path d="M8.53 16.11a6 6 0 016.95 0"/><circle cx="12" cy="20" r="1" fill="#60a5fa" stroke="none"/></svg></div>
+      <div>
+        <div class="wifi-apt">Pedro2</div>
+        <div class="wifi-ssid">—</div>
+        <div class="wifi-pass">Password: <span>Pedeo2</span></div>
       </div>
     </div>
     
@@ -771,10 +832,10 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 
 <div class="footer">
   <div class="footer-logo">Bariloche Experiencias</div>
-  <strong style="color:#6b7280;display:block;font-size:13px;margin-bottom:6px">La Florida 3566, R8400 San Carlos de Bariloche, Río Negro, Argentina</strong>
-  Turbio<br><br>
+  <strong style="color:#6b7280;display:block;font-size:13px;margin-bottom:6px"></strong>
+  Pedro · Pedro2<br><br>
   
-  <a href="https://www.instagram.com/https://www.instagram.com/pedrovolpacchio?igsh=bnM4Njhwd2JvZ2dv" target="_blank" style="color:#a78bfa;text-decoration:none;font-weight:600">@https://www.instagram.com/pedrovolpacchio?igsh=bnM4Njhwd2JvZ2dv</a>
+  <a href="https://www.instagram.com/Pedroo" target="_blank" style="color:#a78bfa;text-decoration:none;font-weight:600">@Pedroo</a>
   
   <div style="margin-top:12px;font-size:12px;color:#4b5563" id="footer-wa-msg">Contactanos por cualquier duda — respondemos rápido 🙌</div>
 </div>
@@ -782,7 +843,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <script>
 // Datos del anfitrión inyectados desde Python
-window.PROPS = [{"idx": 1, "nombre": "Turbio", "direccion": "La Florida 3566, R8400 San Carlos de Bariloche, Río Negro, Argentina", "lat": -41.1313383, "lng": -71.2621551, "barrio": "Las Victorias", "ciudad": "San Carlos de Bariloche", "region": "Río Negro", "country": "Argentina", "formatted": "La Florida 3566, R8400 San Carlos de Bariloche, Río Negro, Argentina", "maps_link": "https://maps.app.goo.gl/VPV8yJRrDxepBiddA?g_st=ac", "instagram": "https://www.instagram.com/pedrovolpacchio?igsh=bnM4Njhwd2JvZ2dv", "video_es": {"kind": "none", "embed_url": "", "raw_url": "", "message": ""}, "video_en": {"kind": "none", "embed_url": "", "raw_url": "", "message": ""}, "wifi_ssid": "", "wifi_pass": "Turbio2", "welcome": {"es": {"title": "Bienvenidos al Turbio", "sub": "En el corazón de Las Victorias"}, "en": {"title": "Welcome to Turbio", "sub": "In the heart of Las Victorias"}, "pt": {"title": "Bem-vindos ao Turbio", "sub": "No coração de Las Victorias"}}, "recomendaciones": [], "lugares": {}}];
+window.PROPS = [{"idx": 1, "nombre": "Pedro", "direccion": "", "lat": null, "lng": null, "barrio": "", "ciudad": "", "region": "", "country": "", "formatted": "", "maps_link": "Pedro", "instagram": "Pedroo", "video_es": {"kind": "none", "embed_url": "", "raw_url": "", "message": ""}, "video_en": {"kind": "none", "embed_url": "", "raw_url": "", "message": ""}, "wifi_ssid": "", "wifi_pass": "Pedro", "welcome": {"es": {"title": "Bienvenidos al Pedro", "sub": "En Bariloche"}, "en": {"title": "Welcome to Pedro", "sub": "In Bariloche"}, "pt": {"title": "Bem-vindos ao Pedro", "sub": "Em Bariloche"}}, "recomendaciones": [], "lugares": {}}, {"idx": 2, "nombre": "Pedro2", "direccion": "", "lat": null, "lng": null, "barrio": "", "ciudad": "", "region": "", "country": "", "formatted": "", "maps_link": "Pedro2", "instagram": "Pedro2", "video_es": {"kind": "none", "embed_url": "", "raw_url": "", "message": ""}, "video_en": {"kind": "none", "embed_url": "", "raw_url": "", "message": ""}, "wifi_ssid": "", "wifi_pass": "Pedeo2", "welcome": {"es": {"title": "Bienvenidos al Pedro2", "sub": "En Bariloche"}, "en": {"title": "Welcome to Pedro2", "sub": "In Bariloche"}, "pt": {"title": "Bem-vindos ao Pedro2", "sub": "Em Bariloche"}}, "recomendaciones": [], "lugares": {}}];
 
 function loadVideo(el, id){
   el.innerHTML='<iframe src="https://www.youtube.com/embed/'+id+'?autoplay=1" allowfullscreen allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" style="position:absolute;top:0;left:0;width:100%;height:100%;border:none"></iframe>';

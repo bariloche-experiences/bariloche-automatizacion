@@ -177,9 +177,14 @@ body[data-theme="selva"]   {background:#0a140d}
 .wa-pulse{position:absolute;top:-3px;right:-3px;width:12px;height:12px;background:#25d366;border-radius:50%;border:2px solid #0a0f1a}
 .footer{text-align:center;padding:2rem 1.5rem;color:#64748b;font-size:12px;border-top:1px solid #161b22;margin-top:1rem}
 .footer-logo{font-size:1.2rem;font-weight:900;background:linear-gradient(135deg,#93c5fd,#6ee7b7);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:6px}
+.extras-card{background:#161b22;border:1px solid #374151;border-radius:12px;padding:.95rem 1.1rem;margin-bottom:8px;display:flex;align-items:flex-start;gap:12px}
+.extras-icon{font-size:20px;line-height:1;flex-shrink:0;margin-top:2px}
+.extras-content{flex:1;min-width:0}
+.extras-content h3{font-size:14px;font-weight:700;color:#fff;margin-bottom:4px}
+.extras-content p{font-size:13px;color:#94a3b8;line-height:1.5;margin:0 0 6px 0}
 </style>
 </head>
-<body data-theme="playa">
+<body data-theme="ciudad">
 
 <a class="wa-float" href="https://wa.me/" target="_blank">
   <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
@@ -187,8 +192,8 @@ body[data-theme="selva"]   {background:#0a140d}
   <div class="wa-pulse"></div>
 </a>
 
-<div class="hero" data-theme="playa">
-  <div class="hero-badge" id="hero-badge">🏖️ Riviera Maya · Tulum</div>
+<div class="hero" data-theme="ciudad">
+  <div class="hero-badge" id="hero-badge">📍 Tulum</div>
   <h1 id="hero-title">Tulum<br>Experiencias</h1>
   <p class="hero-sub">5GHR+F8, 77765 Tulum, Quintana Roo, Mexico · <span id="hero-sub" class="t" data-es="Tu guía completa" data-en="Your full guide" data-pt="Seu guia completo">Tu guía completa</span></p>
   <div class="lang-bar">
@@ -207,9 +212,9 @@ body[data-theme="selva"]   {background:#0a140d}
   </div>
   <div id="welcome-msg" style="margin-top:12px;background:linear-gradient(135deg,rgba(16,185,129,0.12),rgba(37,99,235,0.10));border:1.5px solid rgba(16,185,129,0.45);border-radius:16px;padding:18px 16px;text-align:center;box-shadow:0 0 24px rgba(16,185,129,0.1)">
     
-    <div style="font-size:28px;margin-bottom:6px">🏖️</div>
-    <div style="font-size:17px;font-weight:900;color:#fff;margin-bottom:5px;letter-spacing:-0.3px" id="welcome-title">Bienvenidos a Vanesa</div>
-    <div style="font-size:13px;color:#a7f3d0;font-weight:500;font-style:italic" id="welcome-sub">A 5 minutos a pie de Playa Mirador, ideal para días de playa.</div>
+    <div style="font-size:28px;margin-bottom:6px">🏙️</div>
+    <div style="font-size:17px;font-weight:900;color:#fff;margin-bottom:5px;letter-spacing:-0.3px" id="welcome-title">Bienvenidos al Vanesa</div>
+    <div style="font-size:13px;color:#a7f3d0;font-weight:500;font-style:italic" id="welcome-sub">En el corazón de Tulum</div>
   </div>
 
   <!-- COMO LLEGAR — LO MÁS URGENTE -->
@@ -247,22 +252,17 @@ body[data-theme="selva"]   {background:#0a140d}
       <div class="video-label"><strong>Vanesa</strong><span class="t" data-es="Estacionamiento, ubicación y llaves" data-en="Parking, location & keys" data-pt="Estacionamento, localização e chaves">Estacionamiento, ubicación y llaves</span></div>
       <div class="video-wrap">
         
-          <a href="https://photos.app.goo.gl/9qZtDZn9nGHW1fxY8" target="_blank" rel="noopener" style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;text-align:center;background:linear-gradient(135deg,#0a3d2e 0%,#0d4a3a 50%,#093527 100%);text-decoration:none;cursor:pointer">
-            <div style="position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(52,211,153,0.25) 0%,transparent 60%);pointer-events:none"></div>
-            <div style="font-size:72px;margin-bottom:8px;filter:drop-shadow(0 6px 20px rgba(52,211,153,0.6));position:relative;animation:pulse 2s ease-in-out infinite">▶️</div>
-            <p style="color:#fff;font-size:17px;margin-bottom:6px;font-weight:800;position:relative">
-              <span class="t" data-es="Video de check-in" data-en="Check-in video" data-pt="Vídeo de check-in">Video de check-in</span>
+          
+          <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;text-align:center;background:linear-gradient(135deg,#1a1d2e 0%,#16213e 50%,#0f1729 100%)">
+            <div style="position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(99,102,241,0.18) 0%,transparent 60%);pointer-events:none"></div>
+            <div style="font-size:60px;margin-bottom:12px;filter:drop-shadow(0 4px 12px rgba(99,102,241,0.4));position:relative">📹</div>
+            <p style="color:#fff;font-size:16px;margin-bottom:8px;font-weight:800;position:relative">
+              <span class="t" data-es="Video disponible pronto" data-en="Video coming soon" data-pt="Vídeo em breve">Video disponible pronto</span>
             </p>
-            <p style="color:#a7f3d0;font-size:12px;margin-bottom:18px;line-height:1.4;position:relative">
-              <span class="t" data-es="Tocá para reproducir" data-en="Tap to play" data-pt="Toque para reproduzir">Tocá para reproducir</span>
+            <p style="color:#a5b4fc;font-size:12px;line-height:1.5;max-width:280px;position:relative">
+              <span class="t" data-es="Tu anfitrión te enviará el link del video por mensaje antes de tu llegada" data-en="Your host will send you the video link by message before arrival" data-pt="Seu anfitrião enviará o link do vídeo antes da sua chegada">Tu anfitrión te enviará el link del video por mensaje antes de tu llegada</span>
             </p>
-            <div style="background:linear-gradient(135deg,#10b981,#059669);color:#fff;padding:16px 32px;border-radius:14px;font-weight:900;font-size:14px;text-transform:uppercase;letter-spacing:1px;box-shadow:0 6px 20px rgba(16,185,129,0.5);position:relative">
-              ▶️ <span class="t" data-es="Reproducir ahora" data-en="Play now" data-pt="Reproduzir agora">Reproducir ahora</span>
-            </div>
-            <p style="color:#6ee7b7;font-size:10px;margin-top:14px;font-style:italic;opacity:0.7;position:relative">
-              <span class="t" data-es="Se abre en una pestaña nueva" data-en="Opens in new tab" data-pt="Abre em nova aba">Se abre en una pestaña nueva</span>
-            </p>
-          </a>
+          </div>
         
       </div>
       
@@ -317,57 +317,12 @@ body[data-theme="selva"]   {background:#0a140d}
 
 <!-- INSTRUCCIONES DESTACADAS (data-driven via info.instrucciones) -->
 
-<div style="margin:1rem 1.5rem 0;background:linear-gradient(135deg,#0f1a0f 0%,#1a2d1a 100%);border:1.5px solid rgba(16,185,129,0.4);border-radius:20px;padding:1.3rem 1.4rem;box-shadow:0 0 24px rgba(16,185,129,0.08)">
-  <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px">
-    <span style="font-size:18px">🏠</span>
-    <div style="font-size:10px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:#34d399">
-      <span class="t" data-es="Lo que tenés que saber" data-en="What you need to know" data-pt="O que você precisa saber">Lo que tenés que saber</span>
-    </div>
-  </div>
-  
-  <div class="rule-card" style="background:rgba(0,0,0,0.2);border-color:rgba(16,185,129,0.2)">
-    <div class="rule-icon">☀️</div>
-    <div class="rule-text active" data-lang="es"><strong>Protección solar.</strong> El sol en Tulum es muy intenso. Usa protector solar biodegradable, sombrero y gafas, especialmente entre 10 y 16 hs.</div>
-    <div class="rule-text" data-lang="en"><strong>Sun Protection.</strong> Tulum&#39;s sun is very strong. Use biodegradable sunscreen, a hat, and sunglasses, especially from 10 AM to 4 PM.</div>
-    <div class="rule-text" data-lang="pt"><strong>Proteção solar.</strong> O sol em Tulum é muito forte. Use protetor solar biodegradável, chapéu e óculos de sol, especialmente entre 10h e 16h.</div>
-  </div>
-  
-  <div class="rule-card" style="background:rgba(0,0,0,0.2);border-color:rgba(16,185,129,0.2)">
-    <div class="rule-icon">💧</div>
-    <div class="rule-text active" data-lang="es"><strong>Agua potable.</strong> Nunca bebas agua del grifo. Siempre consume agua embotellada o purificada para evitar problemas de salud.</div>
-    <div class="rule-text" data-lang="en"><strong>Drinking Water.</strong> Never drink tap water. Always consume bottled or purified water to avoid health issues.</div>
-    <div class="rule-text" data-lang="pt"><strong>Água potável.</strong> Nunca beba água da torneira. Sempre consuma água engarrafada ou purificada para evitar problemas de saúde.</div>
-  </div>
-  
-  <div class="rule-card" style="background:rgba(0,0,0,0.2);border-color:rgba(16,185,129,0.2)">
-    <div class="rule-icon">🦟</div>
-    <div class="rule-text active" data-lang="es"><strong>Mosquitos.</strong> En áreas cercanas a la selva y al atardecer, los mosquitos son comunes. Lleva repelente para protegerte de las picaduras.</div>
-    <div class="rule-text" data-lang="en"><strong>Mosquitoes.</strong> In jungle areas and at dusk, mosquitoes are common. Carry repellent to protect yourself from bites.</div>
-    <div class="rule-text" data-lang="pt"><strong>Mosquitos.</strong> Em áreas próximas à selva e ao entardecer, mosquitos são comuns. Leve repelente para se proteger de picadas.</div>
-  </div>
-  
-  <div class="rule-card" style="background:rgba(0,0,0,0.2);border-color:rgba(16,185,129,0.2);margin-bottom:0">
-    <div class="rule-icon">🌊</div>
-    <div class="rule-text active" data-lang="es"><strong>Sargazo.</strong> El sargazo es alga marina que llega a las costas, especialmente de abril a septiembre. Consulta apps locales para saber su presencia diaria.</div>
-    <div class="rule-text" data-lang="en"><strong>Sargassum.</strong> Sargassum is seaweed that reaches the coast, especially from April to September. Check local apps for daily presence.</div>
-    <div class="rule-text" data-lang="pt"><strong>Sargaço.</strong> Sargaço é uma alga marinha que chega às costas, principalmente de abril a setembro. Consulte apps locais para saber sua presença diária.</div>
-  </div>
-  
-</div>
-
-<div style="height:1px;background:linear-gradient(90deg,transparent,#21262d,transparent);margin:1.5rem 1.5rem 0"></div>
-
 
 <!-- CLIMA SIEMPRE VISIBLE -->
 <div style="padding:0 1.5rem 1rem">
   <div style="font-size:10px;font-weight:800;letter-spacing:2.5px;text-transform:uppercase;color:#7dd3fc;margin-bottom:8px;padding-left:2px">🌤️ Tulum <span class="t" data-es="ahora" data-en="now" data-pt="agora">ahora</span></div>
   <div class="weather-card" style="margin-bottom:6px">
     <div id="weather-content"><div class="weather-loading">⏳ <span class="t" data-es="Cargando clima..." data-en="Loading weather..." data-pt="Carregando clima...">Cargando clima...</span></div></div>
-  </div>
-  
-  <div style="background:#161b22;border:1px solid #374151;border-radius:12px;padding:10px 12px;font-size:12px;color:#94a3b8;line-height:1.5">
-    💡 <strong style="color:#e2e8f0">Tip:</strong>
-    <span class="t" data-es="Revisa el reporte de sargazo antes de ir a la playa. Algunas playas tienen menos algas." data-en="Check sargassum reports before beach visits. Some beaches have less seaweed." data-pt="Verifique relatórios de sargaço antes da praia. Algumas praias têm menos algas.">Revisa el reporte de sargazo antes de ir a la playa. Algunas playas tienen menos algas.</span>
   </div>
   
 </div>
@@ -393,24 +348,6 @@ body[data-theme="selva"]   {background:#0a140d}
       <div class="extras-content">
         <h3 class="t" data-es="Alquiler de auto" data-en="Car rental" data-pt="Aluguel de carro">Alquiler de auto</h3>
         
-        <p class="t" data-es="El centro de Tulum es caminable, pero para explorar ruinas, cenotes, la zona hotelera o ir a Akumal, un auto te da mucha libertad. Los taxis son caros." data-en="Tulum center is walkable, but to explore ruins, cenotes, the hotel zone, or go to Akumal, a car offers great freedom. Taxis are expensive." data-pt="O centro de Tulum é caminhável, mas para explorar ruínas, cenotes, a zona hoteleira ou ir a Akumal, um carro oferece muita liberdade. Táxis são caros.">El centro de Tulum es caminable, pero para explorar ruinas, cenotes, la zona hotelera o ir a Akumal, un auto te da mucha libertad. Los taxis son caros.</p>
-        
-        
-        <ul style="list-style:none;padding:0;margin:8px 0 0 0">
-          
-          <li style="font-size:13px;color:#9ca3af;padding:5px 0;border-bottom:1px dashed #21262d">
-            <span class="t" data-es="• Cuidado con los &#39;topes&#39; (reductores de velocidad) en carreteras, algunos son muy altos y sin señalización clara." data-en="• Watch out for &#39;topes&#39; (speed bumps) on roads; some are very high and lack clear signage." data-pt="• Cuidado com os &#39;topes&#39; (redutores de velocidade) nas estradas, alguns são muito altos e sem sinalização clara.">• Cuidado con los &#39;topes&#39; (reductores de velocidad) en carreteras, algunos son muy altos y sin señalización clara.</span>
-          </li>
-          
-          <li style="font-size:13px;color:#9ca3af;padding:5px 0;border-bottom:1px dashed #21262d">
-            <span class="t" data-es="• El estacionamiento en la zona de playa puede ser limitado y de pago. Considera usar la bici o taxi para esa zona en horas pico." data-en="• Parking in the beach zone can be limited and paid. Consider using a bike or taxi for that area during peak hours." data-pt="• O estacionamento na zona da praia pode ser limitado e pago. Considere usar bicicleta ou táxi para essa área em horários de pico.">• El estacionamiento en la zona de playa puede ser limitado y de pago. Considera usar la bici o taxi para esa zona en horas pico.</span>
-          </li>
-          
-          <li style="font-size:13px;color:#9ca3af;padding:5px 0;border-bottom:1px dashed #21262d">
-            <span class="t" data-es="• Ten siempre dinero en efectivo. Algunas gasolineras pequeñas y comercios locales no aceptan tarjetas fácilmente." data-en="• Always carry cash. Some small gas stations and local businesses may not readily accept cards." data-pt="• Sempre tenha dinheiro em espécie. Alguns pequenos postos de gasolina e comércios locais podem não aceitar cartões facilmente.">• Ten siempre dinero en efectivo. Algunas gasolineras pequeñas y comercios locales no aceptan tarjetas fácilmente.</span>
-          </li>
-          
-        </ul>
         
       </div>
     </div>
@@ -434,6 +371,17 @@ body[data-theme="selva"]   {background:#0a140d}
         </div>
       </a>
       
+      <a href="https://www.google.com/maps/place/?q=place_id:ChIJmewQqVDTT48RoU6CAmI4ak4" target="_blank" style="display:block;background:#161b22;border:1px solid #30363d;border-radius:10px;padding:10px 12px;margin-bottom:6px;text-decoration:none;color:#e6edf3">
+        <div style="display:flex;justify-content:space-between;align-items:start;gap:8px">
+          <div style="flex:1;min-width:0">
+            <div style="font-weight:700;font-size:13px;line-height:1.3">Friendly Car Rental | Tulum Car Rentals &amp; Airport Transfer Services</div>
+            <div style="font-size:11px;color:#6b7280;margin-top:2px">Av. La Selva Esq. Kohunlich, Maya Pax, Tulum</div>
+            
+          </div>
+          <div style="background:rgba(251,191,36,0.15);color:#fbbf24;font-size:11px;font-weight:700;padding:3px 8px;border-radius:6px;white-space:nowrap">⭐ 5</div>
+        </div>
+      </a>
+      
       <a href="https://www.google.com/maps/place/?q=place_id:ChIJlRvPXxHXT48R1UPhoT7yDmE" target="_blank" style="display:block;background:#161b22;border:1px solid #30363d;border-radius:10px;padding:10px 12px;margin-bottom:6px;text-decoration:none;color:#e6edf3">
         <div style="display:flex;justify-content:space-between;align-items:start;gap:8px">
           <div style="flex:1;min-width:0">
@@ -442,17 +390,6 @@ body[data-theme="selva"]   {background:#0a140d}
             <div style="font-size:11px;color:#6ee7b7;margin-top:3px;font-weight:600">📞 984 209 4476</div>
           </div>
           <div style="background:rgba(251,191,36,0.15);color:#fbbf24;font-size:11px;font-weight:700;padding:3px 8px;border-radius:6px;white-space:nowrap">⭐ 4.9</div>
-        </div>
-      </a>
-      
-      <a href="https://www.google.com/maps/place/?q=place_id:ChIJqavp31bRT48RVYq8SxL6ATY" target="_blank" style="display:block;background:#161b22;border:1px solid #30363d;border-radius:10px;padding:10px 12px;margin-bottom:6px;text-decoration:none;color:#e6edf3">
-        <div style="display:flex;justify-content:space-between;align-items:start;gap:8px">
-          <div style="flex:1;min-width:0">
-            <div style="font-weight:700;font-size:13px;line-height:1.3">Mex Rent A Car</div>
-            <div style="font-size:11px;color:#6b7280;margin-top:2px">Av. Coba Sur L22-Local 13, MZ 27, Tulum Centro, Col Huracanes, Tulum</div>
-            <div style="font-size:11px;color:#6ee7b7;margin-top:3px;font-weight:600">📞 33 4624 2114</div>
-          </div>
-          <div style="background:rgba(251,191,36,0.15);color:#fbbf24;font-size:11px;font-weight:700;padding:3px 8px;border-radius:6px;white-space:nowrap">⭐ 3.2</div>
         </div>
       </a>
       
@@ -470,33 +407,6 @@ body[data-theme="selva"]   {background:#0a140d}
       <div class="extras-content">
         <h3 class="t" data-es="Transporte público" data-en="Public transport" data-pt="Transporte público">Transporte público</h3>
         
-        <p class="t" data-es="Los &#39;colectivos&#39; son van compartidas, económicas y frecuentes para distancias medias. Pagas en efectivo al conductor. También hay taxis." data-en="Colectivos are shared vans, economical and frequent for medium distances. You pay cash to the driver. Taxis are also available." data-pt="Os &#39;colectivos&#39; são vans compartilhadas, econômicas e frequentes para distâncias médias. Você paga em dinheiro ao motorista. Também há táxis.">Los &#39;colectivos&#39; son van compartidas, económicas y frecuentes para distancias medias. Pagas en efectivo al conductor. También hay taxis.</p>
-        
-        
-        <div style="margin-top:10px">
-          
-          <div class="bus-row">
-            <div class="bus-num">Tulum - Playa del Carmen</div>
-            <div class="bus-dest">
-              <span class="t" data-es="Hacia Playa del Carmen · salen de la terminal ADO en el pueblo" data-en="Towards Playa del Carmen · depart from the ADO terminal in town" data-pt="Para Playa del Carmen · partem do terminal ADO na cidade">Hacia Playa del Carmen · salen de la terminal ADO en el pueblo</span>
-            </div>
-          </div>
-          
-          <div class="bus-row">
-            <div class="bus-num">Tulum - Akumal / Cenotes Corredor</div>
-            <div class="bus-dest">
-              <span class="t" data-es="Hacia Akumal y cenotes del corredor · pasan sobre la carretera 307" data-en="Towards Akumal and corridor cenotes · run along highway 307" data-pt="Para Akumal e cenotes do corredor · passam pela rodovia 307">Hacia Akumal y cenotes del corredor · pasan sobre la carretera 307</span>
-            </div>
-          </div>
-          
-          <div class="bus-row">
-            <div class="bus-num">Tulum pueblo - Zona Hotelera</div>
-            <div class="bus-dest">
-              <span class="t" data-es="Ruta local dentro de Tulum pueblo y zona hotelera · frecuencia variable" data-en="Local route within Tulum town and hotel zone · variable frequency" data-pt="Rota local dentro da vila de Tulum e zona hoteleira · frequência variável">Ruta local dentro de Tulum pueblo y zona hotelera · frecuencia variable</span>
-            </div>
-          </div>
-          
-        </div>
         
       </div>
     </div>
@@ -506,98 +416,10 @@ body[data-theme="selva"]   {background:#0a140d}
   <!-- TEMPORADAS -->
   <div class="ext-content" id="ext-temporadas">
     
-    
-    <div class="extras-card">
-      <div class="extras-icon">☀️</div>
-      <div class="extras-content">
-        <h3>
-          <span class="t" data-es="Temporada alta" data-en="High Season" data-pt="Alta Temporada">Temporada alta</span>
-          <span style="color:#6b7280;font-weight:500;font-size:12px">·
-            <span class="t" data-es="Dic-Feb" data-en="Dec-Feb" data-pt="Dez-Fev">Dic-Feb</span>
-          </span>
-        </h3>
-        <p class="t" data-es="22-28°C. Menos humedad, más sol y multitudes. Reserva todo con anticipación, especialmente alojamiento." data-en="22-28°C. Less humidity, more sun and crowds. Book everything in advance, especially accommodation." data-pt="22-28°C. Menos umidade, mais sol e multidões. Reserve tudo com antecedência, especialmente hospedagem.">22-28°C. Menos humedad, más sol y multitudes. Reserva todo con anticipación, especialmente alojamiento.</p>
-      </div>
-    </div>
-    
-    <div class="extras-card">
-      <div class="extras-icon">🌸</div>
-      <div class="extras-content">
-        <h3>
-          <span class="t" data-es="Primavera seca" data-en="Dry Spring" data-pt="Primavera seca">Primavera seca</span>
-          <span style="color:#6b7280;font-weight:500;font-size:12px">·
-            <span class="t" data-es="Mar-May" data-en="Mar-May" data-pt="Mar-Mai">Mar-May</span>
-          </span>
-        </h3>
-        <p class="t" data-es="28-33°C. Días soleados y calurosos. El sargazo puede empezar a llegar a las playas a finales de este periodo." data-en="28-33°C. Sunny and hot days. Sargassum may start arriving at beaches by the end of this period." data-pt="28-33°C. Dias ensolarados e quentes. O sargaço pode começar a chegar às praias no final deste período.">28-33°C. Días soleados y calurosos. El sargazo puede empezar a llegar a las playas a finales de este periodo.</p>
-      </div>
-    </div>
-    
-    <div class="extras-card">
-      <div class="extras-icon">🌧️</div>
-      <div class="extras-content">
-        <h3>
-          <span class="t" data-es="Verano húmedo" data-en="Humid Summer" data-pt="Verão úmido">Verano húmedo</span>
-          <span style="color:#6b7280;font-weight:500;font-size:12px">·
-            <span class="t" data-es="Jun-Ago" data-en="Jun-Aug" data-pt="Jun-Ago">Jun-Ago</span>
-          </span>
-        </h3>
-        <p class="t" data-es="30-35°C. Alta humedad y lluvias tropicales cortas. Es temporada de huracanes, mantente informado del clima." data-en="30-35°C. High humidity and short tropical rains. It&#39;s hurricane season, stay informed about the weather." data-pt="30-35°C. Alta umidade e chuvas tropicais curtas. É temporada de furacões, mantenha-se informado sobre o clima.">30-35°C. Alta humedad y lluvias tropicales cortas. Es temporada de huracanes, mantente informado del clima.</p>
-      </div>
-    </div>
-    
-    <div class="extras-card">
-      <div class="extras-icon">🍂</div>
-      <div class="extras-content">
-        <h3>
-          <span class="t" data-es="Otoño tranquilo" data-en="Quiet Autumn" data-pt="Outono tranquilo">Otoño tranquilo</span>
-          <span style="color:#6b7280;font-weight:500;font-size:12px">·
-            <span class="t" data-es="Sep-Nov" data-en="Sep-Nov" data-pt="Set-Nov">Sep-Nov</span>
-          </span>
-        </h3>
-        <p class="t" data-es="27-32°C. Menos turistas y precios más bajos. Aún hay riesgo de huracanes en septiembre/octubre. Ideal para explorar cenotes." data-en="27-32°C. Fewer tourists and lower prices. Still a hurricane risk in September/October. Ideal for exploring cenotes." data-pt="27-32°C. Menos turistas e preços mais baixos. Ainda há risco de furacões em setembro/outubro. Ideal para explorar cenotes.">27-32°C. Menos turistas y precios más bajos. Aún hay riesgo de huracanes en septiembre/octubre. Ideal para explorar cenotes.</p>
-      </div>
-    </div>
-    
-    
   </div>
 
   <!-- TIPS LOCALES -->
   <div class="ext-content" id="ext-tips">
-    
-    
-    <div class="extras-card">
-      <div class="extras-icon">🚲</div>
-      <div class="extras-content">
-        <h3 class="t" data-es="MUÉVETE EN TULUM" data-en="GETTING AROUND TULUM" data-pt="COMO SE LOCOMOVER EM TULUM">MUÉVETE EN TULUM</h3>
-        <p class="t" data-es="En el pueblo, usa bici. Para ruinas o cenotes más lejanos, busca los colectivos en la avenida principal. Son económicos." data-en="In town, use a bike. For ruins or farther cenotes, look for colectivos on the main avenue. They are affordable." data-pt="Na cidade, use bicicleta. Para ruínas ou cenotes mais distantes, procure os coletivos na avenida principal. São econômicos.">En el pueblo, usa bici. Para ruinas o cenotes más lejanos, busca los colectivos en la avenida principal. Son económicos.</p>
-      </div>
-    </div>
-    
-    <div class="extras-card">
-      <div class="extras-icon">💰</div>
-      <div class="extras-content">
-        <h3 class="t" data-es="PAGO EN EFECTIVO" data-en="CASH PAYMENTS" data-pt="PAGAMENTO EM DINHEIRO">PAGO EN EFECTIVO</h3>
-        <p class="t" data-es="Muchos lugares, especialmente en la zona de playa y puestos, prefieren efectivo (pesos). Cajeros pueden escasear o quedarse sin dinero." data-en="Many places, especially in the beach zone and stalls, prefer cash (pesos). ATMs can be scarce or run out of money." data-pt="Muitos lugares, especialmente na zona da praia e barracas, preferem dinheiro (pesos). Caixas eletrônicos podem ser escassos ou ficar sem dinheiro.">Muchos lugares, especialmente en la zona de playa y puestos, prefieren efectivo (pesos). Cajeros pueden escasear o quedarse sin dinero.</p>
-      </div>
-    </div>
-    
-    <div class="extras-card">
-      <div class="extras-icon">🧴</div>
-      <div class="extras-content">
-        <h3 class="t" data-es="CUIDADO ECOLÓGICO" data-en="ECO-FRIENDLY CARE" data-pt="CUIDADO ECOLÓGICO">CUIDADO ECOLÓGICO</h3>
-        <p class="t" data-es="Usa protector solar y repelente de insectos biodegradables, especialmente al nadar en cenotes o el mar. Protege el ecosistema local." data-en="Use biodegradable sunscreen and insect repellent, especially when swimming in cenotes or the sea. Protect the local ecosystem." data-pt="Use protetor solar e repelente de insetos biodegradáveis, especialmente ao nadar em cenotes ou no mar. Proteja o ecossistema local.">Usa protector solar y repelente de insectos biodegradables, especialmente al nadar en cenotes o el mar. Protege el ecosistema local.</p>
-      </div>
-    </div>
-    
-    <div class="extras-card">
-      <div class="extras-icon">🌮</div>
-      <div class="extras-content">
-        <h3 class="t" data-es="COME COMO LOCAL" data-en="EAT LIKE A LOCAL" data-pt="COMA COMO UM LOCAL">COME COMO LOCAL</h3>
-        <p class="t" data-es="Para comida local auténtica y a buen precio, explora las calles del Pueblo. La zona de playa es más cara y turística." data-en="For authentic, well-priced local food, explore the streets of Tulum Pueblo. The beach zone is pricier and more tourist-oriented." data-pt="Para comida local autêntica e com bom preço, explore as ruas do Pueblo de Tulum. A zona da praia é mais cara e turística.">Para comida local auténtica y a buen precio, explora las calles del Pueblo. La zona de playa es más cara y turística.</p>
-      </div>
-    </div>
-    
     
   </div>
 
@@ -609,9 +431,9 @@ body[data-theme="selva"]   {background:#0a140d}
       <div class="extras-content">
         <h3><span class="t" data-es="Números útiles" data-en="Useful numbers" data-pt="Números úteis">Números útiles</span></h3>
         <ul style="list-style:none;padding:0;margin:0">
-          <li style="padding:6px 0;border-bottom:1px solid #21262d"><span class="t" data-es="🚓 Policía" data-en="🚓 Police" data-pt="🚓 Polícia">🚓 Policía</span>: <strong style="color:#fff">911</strong></li>
-          <li style="padding:6px 0;border-bottom:1px solid #21262d"><span class="t" data-es="🚑 Ambulancia" data-en="🚑 Ambulance" data-pt="🚑 Ambulância">🚑 Ambulancia</span>: <strong style="color:#fff">911</strong></li>
-          <li style="padding:6px 0;border-bottom:1px solid #21262d"><span class="t" data-es="🚒 Bomberos" data-en="🚒 Firefighters" data-pt="🚒 Bombeiros">🚒 Bomberos</span>: <strong style="color:#fff">911</strong></li>
+          
+          
+          
           <li style="padding:6px 0"><span class="t" data-es="🆘 Emergencia general" data-en="🆘 Emergency" data-pt="🆘 Emergência">🆘 Emergencia general</span>: <strong style="color:#fff">911</strong></li>
         </ul>
         
@@ -680,9 +502,9 @@ body[data-theme="selva"]   {background:#0a140d}
         <div class="place-badge">⭐ 4.4 · 2739</div>
       </div>
       
-      <div class="place-desc active" data-lang="es">Oasis verde céntrico. Ideal para relajarse o pasear entre la vegetación local.</div>
-      <div class="place-desc" data-lang="en">Central green oasis. Perfect for relaxing or strolling amidst local flora.</div>
-      <div class="place-desc" data-lang="pt">Oásis verde central. Ideal para relaxar ou passear entre a flora local.</div>
+      <div class="place-desc active" data-lang="es"></div>
+      <div class="place-desc" data-lang="en"></div>
+      <div class="place-desc" data-lang="pt"></div>
       
       <div style="font-size:11px;color:#6b7280;margin-top:4px">Calle Alfa Sur 1066, Tulum</div>
       <div style="display:flex;gap:6px;margin-top:8px;flex-wrap:wrap">
@@ -696,9 +518,9 @@ body[data-theme="selva"]   {background:#0a140d}
         <div class="place-badge">⭐ 4.4 · 785</div>
       </div>
       
-      <div class="place-desc active" data-lang="es">Parque temático que explora la rica historia y legado de la cultura maya.</div>
-      <div class="place-desc" data-lang="en">Theme park exploring the rich history and legacy of Mayan culture.</div>
-      <div class="place-desc" data-lang="pt">Parque temático que explora a rica história e legado da cultura maia.</div>
+      <div class="place-desc active" data-lang="es"></div>
+      <div class="place-desc" data-lang="en"></div>
+      <div class="place-desc" data-lang="pt"></div>
       
       <div style="font-size:11px;color:#6b7280;margin-top:4px">Avenida Tulum 1, Centro, Tulum</div>
       <div style="display:flex;gap:6px;margin-top:8px;flex-wrap:wrap">
@@ -712,9 +534,9 @@ body[data-theme="selva"]   {background:#0a140d}
         <div class="place-badge">⭐ 4.5 · 512</div>
       </div>
       
-      <div class="place-desc active" data-lang="es">Playa pública con vistas impresionantes al mar Caribe y acantilados.</div>
-      <div class="place-desc" data-lang="en">Public beach offering stunning views of the Caribbean Sea and cliffs.</div>
-      <div class="place-desc" data-lang="pt">Praia pública com vistas impressionantes do Mar do Caribe e falésias.</div>
+      <div class="place-desc active" data-lang="es"></div>
+      <div class="place-desc" data-lang="en"></div>
+      <div class="place-desc" data-lang="pt"></div>
       
       <div style="font-size:11px;color:#6b7280;margin-top:4px">camino boca pila, Javier Rojo Gómez</div>
       <div style="display:flex;gap:6px;margin-top:8px;flex-wrap:wrap">
@@ -728,9 +550,9 @@ body[data-theme="selva"]   {background:#0a140d}
         <div class="place-badge">⭐ 4 · 480</div>
       </div>
       
-      <div class="place-desc active" data-lang="es">Parque comunitario con áreas verdes y juegos para niños, ideal para familias.</div>
-      <div class="place-desc" data-lang="en">Community park with green spaces and playgrounds, ideal for families.</div>
-      <div class="place-desc" data-lang="pt">Parque comunitário com áreas verdes e parques infantis, ideal para famílias.</div>
+      <div class="place-desc active" data-lang="es"></div>
+      <div class="place-desc" data-lang="en"></div>
+      <div class="place-desc" data-lang="pt"></div>
       
       <div style="font-size:11px;color:#6b7280;margin-top:4px">Neptuno Oriente 5, Tulum</div>
       <div style="display:flex;gap:6px;margin-top:8px;flex-wrap:wrap">
@@ -744,9 +566,9 @@ body[data-theme="selva"]   {background:#0a140d}
         <div class="place-badge">⭐ 4.8 · 279</div>
       </div>
       
-      <div class="place-desc active" data-lang="es">Centro de buceo experto en explorar cenotes y los arrecifes del Caribe.</div>
-      <div class="place-desc" data-lang="en">Expert dive center exploring cenotes and Caribbean reefs.</div>
-      <div class="place-desc" data-lang="pt">Centro de mergulho especializado em explorar cenotes e recifes do Caribe.</div>
+      <div class="place-desc active" data-lang="es"></div>
+      <div class="place-desc" data-lang="en"></div>
+      <div class="place-desc" data-lang="pt"></div>
       
       <div style="font-size:11px;color:#6b7280;margin-top:4px">entre Géminis Nte. y Libra Nte, Avenida Tulum Manzana 7 Lote 5, Centro, Tulum</div>
       <div style="display:flex;gap:6px;margin-top:8px;flex-wrap:wrap">
@@ -761,155 +583,8 @@ body[data-theme="selva"]   {background:#0a140d}
 
 <!-- HIKES / CAMINATAS — generadas por Gemini -->
 
-<div class="sec">
-  <div class="sec-title green">🥾 <span class="t" data-es="Caminatas y paseos" data-en="Walks and hikes" data-pt="Caminhadas">Caminatas y paseos</span></div>
-  <div class="places-wrap">
-    
-    <div class="place-card">
-      <div class="place-header">
-        <div class="place-name">Zona Arqueológica de Tulum</div>
-        <div class="place-badge">
-          <span class="t" data-es="Paseo histórico" data-en="Historical walk" data-pt="Passeio histórico">Paseo histórico</span>
-        </div>
-      </div>
-      <div class="place-desc active" data-lang="es">Recorre las impresionantes ruinas Mayas frente al mar Caribe. Caminos bien marcados y vistas espectaculares.</div>
-      <div class="place-desc" data-lang="en">Walk through the impressive Mayan ruins facing the Caribbean Sea. Well-marked paths and spectacular views.</div>
-      <div class="place-desc" data-lang="pt">Caminhe pelas impressionantes ruínas maias de frente para o Mar do Caribe. Caminhos bem marcados e vistas espetaculares.</div>
-      <div style="display:flex;gap:6px;margin-top:8px;flex-wrap:wrap">
-        <span style="font-size:11px;color:#6b7280">
-          <span class="t" data-es="Dificultad:" data-en="Level:" data-pt="Nível:">Dificultad:</span>
-          <span class="t" data-es="Fácil" data-en="Easy" data-pt="Fácil">Fácil</span>
-        </span>
-        
-        <a href="https://www.google.com/maps/search/?api=1&query=Zona%20Arqueol%C3%B3gica%20de%20Tulum" target="_blank" style="display:inline-flex;align-items:center;gap:5px;background:rgba(37,99,235,0.12);border:1px solid rgba(37,99,235,0.3);color:#bfdbfe;font-size:11px;font-weight:700;padding:5px 10px;border-radius:8px;text-decoration:none">📍 Maps</a>
-        
-      </div>
-    </div>
-    
-    <div class="place-card">
-      <div class="place-header">
-        <div class="place-name">Sian Ka&#39;an - Sendero Interpretativo</div>
-        <div class="place-badge">
-          <span class="t" data-es="Sendero natural" data-en="Nature trail" data-pt="Trilha natural">Sendero natural</span>
-        </div>
-      </div>
-      <div class="place-desc active" data-lang="es">Explora una sección accesible de esta reserva natural. Observa flora y fauna local, especialmente aves, en un entorno selvático.</div>
-      <div class="place-desc" data-lang="en">Explore an accessible section of this nature reserve. Observe local flora and fauna, especially birds, in a jungle setting.</div>
-      <div class="place-desc" data-lang="pt">Explore uma seção acessível desta reserva natural. Observe a flora e fauna local, especialmente aves, em um ambiente de selva.</div>
-      <div style="display:flex;gap:6px;margin-top:8px;flex-wrap:wrap">
-        <span style="font-size:11px;color:#6b7280">
-          <span class="t" data-es="Dificultad:" data-en="Level:" data-pt="Nível:">Dificultad:</span>
-          <span class="t" data-es="Fácil" data-en="Easy" data-pt="Fácil">Fácil</span>
-        </span>
-        
-        <a href="https://www.google.com/maps/search/?api=1&query=Reserva%20de%20la%20Bi%C3%B3sfera%20Sian%20Ka%27an" target="_blank" style="display:inline-flex;align-items:center;gap:5px;background:rgba(37,99,235,0.12);border:1px solid rgba(37,99,235,0.3);color:#bfdbfe;font-size:11px;font-weight:700;padding:5px 10px;border-radius:8px;text-decoration:none">📍 Maps</a>
-        
-      </div>
-    </div>
-    
-    <div class="place-card">
-      <div class="place-header">
-        <div class="place-name">Cenote Dos Ojos - Caminos</div>
-        <div class="place-badge">
-          <span class="t" data-es="Sendero ligero" data-en="Light trail" data-pt="Trilha leve">Sendero ligero</span>
-        </div>
-      </div>
-      <div class="place-desc active" data-lang="es">Caminos de tierra conectan los diferentes ojos de agua y cavernas. Ideal para un paseo tranquilo antes o después de nadar.</div>
-      <div class="place-desc" data-lang="en">Dirt paths connect the different water eyes and caverns. Ideal for a relaxed walk before or after swimming.</div>
-      <div class="place-desc" data-lang="pt">Caminhos de terra conectam os diferentes olhos d&#39;água e cavernas. Ideal para uma caminhada tranquila antes ou depois de nadar.</div>
-      <div style="display:flex;gap:6px;margin-top:8px;flex-wrap:wrap">
-        <span style="font-size:11px;color:#6b7280">
-          <span class="t" data-es="Dificultad:" data-en="Level:" data-pt="Nível:">Dificultad:</span>
-          <span class="t" data-es="Muy fácil" data-en="Very easy" data-pt="Muito fácil">Muy fácil</span>
-        </span>
-        
-        <a href="https://www.google.com/maps/search/?api=1&query=Cenote%20Dos%20Ojos" target="_blank" style="display:inline-flex;align-items:center;gap:5px;background:rgba(37,99,235,0.12);border:1px solid rgba(37,99,235,0.3);color:#bfdbfe;font-size:11px;font-weight:700;padding:5px 10px;border-radius:8px;text-decoration:none">📍 Maps</a>
-        
-      </div>
-    </div>
-    
-  </div>
-</div>
-<div style="height:1px;background:linear-gradient(90deg,transparent,#21262d,transparent);margin:0 1.5rem 1rem"></div>
-
 
 <!-- EXCURSIONES DE DÍA COMPLETO -->
-
-<div class="sec">
-  <div class="sec-title green">🚙 <span class="t" data-es="Excursiones de día completo" data-en="Full-day trips" data-pt="Excursões de dia inteiro">Excursiones de día completo</span></div>
-  <div class="places-wrap">
-    
-    <div class="place-card">
-      <div class="place-header">
-        <div class="place-name">Chichen Itza</div>
-        <div class="place-badge">
-          <span class="t" data-es="Día completo" data-en="Full day" data-pt="Dia inteiro">Día completo</span>
-        </div>
-      </div>
-      <div class="place-desc active" data-lang="es">Visita una de las Siete Maravillas del Mundo Moderno. Te tomará un día completo, puedes ir en auto o tour organizado.</div>
-      <div class="place-desc" data-lang="en">Visit one of the Seven Wonders of the Modern World. It will take a full day; you can go by car or organized tour.</div>
-      <div class="place-desc" data-lang="pt">Visite uma das Sete Maravilhas do Mundo Moderno. Levará um dia inteiro; você pode ir de carro ou excursão organizada.</div>
-      
-      <div style="display:flex;gap:6px;margin-top:8px;flex-wrap:wrap">
-        <a href="https://www.google.com/maps/search/?api=1&query=Chichen%20Itza" target="_blank" style="display:inline-flex;align-items:center;gap:5px;background:rgba(37,99,235,0.12);border:1px solid rgba(37,99,235,0.3);color:#bfdbfe;font-size:11px;font-weight:700;padding:5px 10px;border-radius:8px;text-decoration:none">📍 Maps</a>
-      </div>
-      
-    </div>
-    
-    <div class="place-card">
-      <div class="place-header">
-        <div class="place-name">Cobá</div>
-        <div class="place-badge">
-          <span class="t" data-es="Medio día" data-en="Half day" data-pt="Meio dia">Medio día</span>
-        </div>
-      </div>
-      <div class="place-desc active" data-lang="es">Explora estas ruinas mayas en la selva. Puedes subir a la pirámide de Nohoch Mul y alquilar bicicletas para recorrer el sitio.</div>
-      <div class="place-desc" data-lang="en">Explore these Mayan ruins in the jungle. You can climb the Nohoch Mul pyramid and rent bikes to explore the site.</div>
-      <div class="place-desc" data-lang="pt">Explore estas ruínas maias na selva. Você pode subir na pirâmide de Nohoch Mul e alugar bicicletas para explorar o local.</div>
-      
-      <div style="display:flex;gap:6px;margin-top:8px;flex-wrap:wrap">
-        <a href="https://www.google.com/maps/search/?api=1&query=Zona%20Arqueol%C3%B3gica%20de%20Cob%C3%A1" target="_blank" style="display:inline-flex;align-items:center;gap:5px;background:rgba(37,99,235,0.12);border:1px solid rgba(37,99,235,0.3);color:#bfdbfe;font-size:11px;font-weight:700;padding:5px 10px;border-radius:8px;text-decoration:none">📍 Maps</a>
-      </div>
-      
-    </div>
-    
-    <div class="place-card">
-      <div class="place-header">
-        <div class="place-name">Akumal</div>
-        <div class="place-badge">
-          <span class="t" data-es="Medio día" data-en="Half day" data-pt="Meio dia">Medio día</span>
-        </div>
-      </div>
-      <div class="place-desc active" data-lang="es">Nada con tortugas marinas en su hábitat natural. Llega temprano para evitar multitudes y considera un guía local.</div>
-      <div class="place-desc" data-lang="en">Swim with sea turtles in their natural habitat. Arrive early to avoid crowds and consider a local guide.</div>
-      <div class="place-desc" data-lang="pt">Nade com tartarugas marinhas em seu habitat natural. Chegue cedo para evitar multidões e considere um guia local.</div>
-      
-      <div style="display:flex;gap:6px;margin-top:8px;flex-wrap:wrap">
-        <a href="https://www.google.com/maps/search/?api=1&query=Akumal" target="_blank" style="display:inline-flex;align-items:center;gap:5px;background:rgba(37,99,235,0.12);border:1px solid rgba(37,99,235,0.3);color:#bfdbfe;font-size:11px;font-weight:700;padding:5px 10px;border-radius:8px;text-decoration:none">📍 Maps</a>
-      </div>
-      
-    </div>
-    
-    <div class="place-card">
-      <div class="place-header">
-        <div class="place-name">Playa del Carmen</div>
-        <div class="place-badge">
-          <span class="t" data-es="Día completo" data-en="Full day" data-pt="Dia inteiro">Día completo</span>
-        </div>
-      </div>
-      <div class="place-desc active" data-lang="es">Disfruta de la Quinta Avenida para compras y restaurantes, o toma el ferry a Cozumel. Accesible en colectivo o auto.</div>
-      <div class="place-desc" data-lang="en">Enjoy Fifth Avenue for shopping and restaurants, or take the ferry to Cozumel. Accessible by colectivo or car.</div>
-      <div class="place-desc" data-lang="pt">Aproveite a Quinta Avenida para compras e restaurantes, ou pegue o ferry para Cozumel. Acessível de colectivo ou carro.</div>
-      
-      <div style="display:flex;gap:6px;margin-top:8px;flex-wrap:wrap">
-        <a href="https://www.google.com/maps/search/?api=1&query=Playa%20del%20Carmen" target="_blank" style="display:inline-flex;align-items:center;gap:5px;background:rgba(37,99,235,0.12);border:1px solid rgba(37,99,235,0.3);color:#bfdbfe;font-size:11px;font-weight:700;padding:5px 10px;border-radius:8px;text-decoration:none">📍 Maps</a>
-      </div>
-      
-    </div>
-    
-  </div>
-</div>
-<div style="height:1px;background:linear-gradient(90deg,transparent,#21262d,transparent);margin:0 1.5rem 1rem"></div>
 
 
 
@@ -982,9 +657,9 @@ body[data-theme="selva"]   {background:#0a140d}
           <div class="place-badge">⭐ 4.6 · 2263</div>
         </div>
         
-        <div class="place-desc active" data-lang="es">Cocina mexicana moderna junto al mar, ingredientes frescos en un entorno chic.</div>
-        <div class="place-desc" data-lang="en">Modern Mexican cuisine by the sea, fresh ingredients in a chic setting.</div>
-        <div class="place-desc" data-lang="pt">Cozinha mexicana moderna à beira-mar, ingredientes frescos em um ambiente chique.</div>
+        <div class="place-desc active" data-lang="es"></div>
+        <div class="place-desc" data-lang="en"></div>
+        <div class="place-desc" data-lang="pt"></div>
         
         <div style="font-size:11px;color:#6b7280;margin-top:4px">Carretera Tulum-Boca Paila 800, Zona Hotelera, Tulum</div>
         <div style="display:flex;gap:6px;margin-top:8px;flex-wrap:wrap">
@@ -998,9 +673,9 @@ body[data-theme="selva"]   {background:#0a140d}
           <div class="place-badge">⭐ 4 · 2637</div>
         </div>
         
-        <div class="place-desc active" data-lang="es">Gastronomía con productos locales y frescos, frente al mar con ambiente bohemio.</div>
-        <div class="place-desc" data-lang="en">Cuisine with local, fresh products, beachfront with a bohemian atmosphere.</div>
-        <div class="place-desc" data-lang="pt">Gastronomia com produtos locais e frescos, à beira-mar com ambiente boêmio.</div>
+        <div class="place-desc active" data-lang="es"></div>
+        <div class="place-desc" data-lang="en"></div>
+        <div class="place-desc" data-lang="pt"></div>
         
         <div style="font-size:11px;color:#6b7280;margin-top:4px">Carretera Tulum-Boca Paila Km 4.5, Zona Costera, Tulum</div>
         <div style="display:flex;gap:6px;margin-top:8px;flex-wrap:wrap">
@@ -1014,9 +689,9 @@ body[data-theme="selva"]   {background:#0a140d}
           <div class="place-badge">⭐ 4.4 · 1536</div>
         </div>
         
-        <div class="place-desc active" data-lang="es">Cocina mexicana casual con énfasis en tacos y platillos a la parrilla.</div>
-        <div class="place-desc" data-lang="en">Casual Mexican cuisine with an emphasis on tacos and grilled dishes.</div>
-        <div class="place-desc" data-lang="pt">Cozinha mexicana casual com ênfase em tacos e pratos grelhados.</div>
+        <div class="place-desc active" data-lang="es"></div>
+        <div class="place-desc" data-lang="en"></div>
+        <div class="place-desc" data-lang="pt"></div>
         
         <div style="font-size:11px;color:#6b7280;margin-top:4px">Carretera, Boca Paila, 2 Supermanzana km 5 Manzana 10 Lote 16, Tulum</div>
         <div style="display:flex;gap:6px;margin-top:8px;flex-wrap:wrap">
@@ -1030,9 +705,9 @@ body[data-theme="selva"]   {background:#0a140d}
           <div class="place-badge">⭐ 4.4 · 1309</div>
         </div>
         
-        <div class="place-desc active" data-lang="es">Restaurante con enfoque en comida saludable y nutritiva, frente al mar.</div>
-        <div class="place-desc" data-lang="en">Restaurant focused on healthy, nutritious food, directly on the beach.</div>
-        <div class="place-desc" data-lang="pt">Restaurante focado em comida saudável e nutritiva, à beira-mar.</div>
+        <div class="place-desc active" data-lang="es"></div>
+        <div class="place-desc" data-lang="en"></div>
+        <div class="place-desc" data-lang="pt"></div>
         
         <div style="font-size:11px;color:#6b7280;margin-top:4px">Carr. Tulum-Boca Paila KM 5.5, Tulum Beach, Zona Hotelera, Tulum</div>
         <div style="display:flex;gap:6px;margin-top:8px;flex-wrap:wrap">
@@ -1046,9 +721,9 @@ body[data-theme="selva"]   {background:#0a140d}
           <div class="place-badge">⭐ 4.4 · 1136</div>
         </div>
         
-        <div class="place-desc active" data-lang="es">Elegante restaurante a orillas del mar, con especialidades mexicanas y mariscos.</div>
-        <div class="place-desc" data-lang="en">Elegant beachfront restaurant, featuring Mexican specialties and seafood.</div>
-        <div class="place-desc" data-lang="pt">Elegante restaurante à beira-mar, com especialidades mexicanas e frutos do mar.</div>
+        <div class="place-desc active" data-lang="es"></div>
+        <div class="place-desc" data-lang="en"></div>
+        <div class="place-desc" data-lang="pt"></div>
         
         <div style="font-size:11px;color:#6b7280;margin-top:4px">Carretera Tulum-Boca Paila Km. 7, Punta Piedra, Tulum</div>
         <div style="display:flex;gap:6px;margin-top:8px;flex-wrap:wrap">
@@ -1063,12 +738,12 @@ body[data-theme="selva"]   {background:#0a140d}
       <div class="place-card">
         <div class="place-header">
           <div class="place-name">RosaNegra | Best Latin American Restaurant in Tulum</div>
-          <div class="place-badge">⭐ 4.7 · 7734</div>
+          <div class="place-badge">⭐ 4.7 · 7736</div>
         </div>
         
-        <div class="place-desc active" data-lang="es">Restaurante de alta cocina latinoamericana, con vibrante ambiente y coctelería.</div>
-        <div class="place-desc" data-lang="en">High-end Latin American cuisine restaurant, with a vibrant ambiance and cocktails.</div>
-        <div class="place-desc" data-lang="pt">Restaurante de alta gastronomia latino-americana, com ambiente vibrante e coquetelaria.</div>
+        <div class="place-desc active" data-lang="es"></div>
+        <div class="place-desc" data-lang="en"></div>
+        <div class="place-desc" data-lang="pt"></div>
         
         <div style="font-size:11px;color:#6b7280;margin-top:4px">Carr. Tulum-Boca Paila 5-Km 7, Tulum Beach, Zona Hotelera, Tulum</div>
         <div style="display:flex;gap:6px;margin-top:8px;flex-wrap:wrap">
@@ -1082,9 +757,9 @@ body[data-theme="selva"]   {background:#0a140d}
           <div class="place-badge">⭐ 4.4 · 3873</div>
         </div>
         
-        <div class="place-desc active" data-lang="es">Marisquería casual con un ambiente relajado, ideal para cervezas y platillos frescos.</div>
-        <div class="place-desc" data-lang="en">Casual seafood spot with a relaxed vibe, perfect for beers and fresh dishes.</div>
-        <div class="place-desc" data-lang="pt">Restaurante de frutos do mar casual com ambiente relaxado, ideal para cervejas e pratos frescos.</div>
+        <div class="place-desc active" data-lang="es"></div>
+        <div class="place-desc" data-lang="en"></div>
+        <div class="place-desc" data-lang="pt"></div>
         
         <div style="font-size:11px;color:#6b7280;margin-top:4px">Av. Tulum MZ 2 LT 3, Tulum Centro, Centro, Tulum</div>
         <div style="display:flex;gap:6px;margin-top:8px;flex-wrap:wrap">
@@ -1094,13 +769,29 @@ body[data-theme="selva"]   {background:#0a140d}
       
       <div class="place-card">
         <div class="place-header">
+          <div class="place-name">M tulum Hookah &amp; Pool Lounge</div>
+          <div class="place-badge">⭐ 4.9 · 2608</div>
+        </div>
+        
+        <div class="place-desc active" data-lang="es"></div>
+        <div class="place-desc" data-lang="en"></div>
+        <div class="place-desc" data-lang="pt"></div>
+        
+        <div style="font-size:11px;color:#6b7280;margin-top:4px">Av. Tulum 88, Tulum Centro, Centro, Tulum</div>
+        <div style="display:flex;gap:6px;margin-top:8px;flex-wrap:wrap">
+          <a href="https://www.google.com/maps/place/?q=place_id:ChIJj7PAxKDRT48RpqeEr8jQ3Xw" target="_blank" style="display:inline-flex;align-items:center;gap:5px;background:rgba(37,99,235,0.12);border:1px solid rgba(37,99,235,0.3);color:#bfdbfe;font-size:11px;font-weight:700;padding:5px 10px;border-radius:8px;text-decoration:none">📍 Maps</a>
+        </div>
+      </div>
+      
+      <div class="place-card">
+        <div class="place-header">
           <div class="place-name">Batey Mojito and Guarapo Bar</div>
           <div class="place-badge">⭐ 4.7 · 2596</div>
         </div>
         
-        <div class="place-desc active" data-lang="es">Bar con mojitos artesanales y música en vivo, un clásico para salir en Tulum.</div>
-        <div class="place-desc" data-lang="en">Bar with artisanal mojitos and live music, a classic for going out in Tulum.</div>
-        <div class="place-desc" data-lang="pt">Bar com mojitos artesanais e música ao vivo, um clássico para sair em Tulum.</div>
+        <div class="place-desc active" data-lang="es"></div>
+        <div class="place-desc" data-lang="en"></div>
+        <div class="place-desc" data-lang="pt"></div>
         
         <div style="font-size:11px;color:#6b7280;margin-top:4px">C. Centauro Sur, Tulum Centro, Tulum</div>
         <div style="display:flex;gap:6px;margin-top:8px;flex-wrap:wrap">
@@ -1114,29 +805,13 @@ body[data-theme="selva"]   {background:#0a140d}
           <div class="place-badge">⭐ 4.9 · 2353</div>
         </div>
         
-        <div class="place-desc active" data-lang="es">Bar con ambiente místico y música, ideal para disfrutar de la noche.</div>
-        <div class="place-desc" data-lang="en">Bar with a mystical atmosphere and music, perfect for enjoying the night.</div>
-        <div class="place-desc" data-lang="pt">Bar com ambiente místico e música, ideal para aproveitar a noite.</div>
+        <div class="place-desc active" data-lang="es"></div>
+        <div class="place-desc" data-lang="en"></div>
+        <div class="place-desc" data-lang="pt"></div>
         
         <div style="font-size:11px;color:#6b7280;margin-top:4px">Andromeda Oriente Calle Centauro Sur entre, Tulum Centro, Tulum</div>
         <div style="display:flex;gap:6px;margin-top:8px;flex-wrap:wrap">
           <a href="https://www.google.com/maps/place/?q=place_id:ChIJUeD_e6nRT48Rx8CtKWiS2QU" target="_blank" style="display:inline-flex;align-items:center;gap:5px;background:rgba(37,99,235,0.12);border:1px solid rgba(37,99,235,0.3);color:#bfdbfe;font-size:11px;font-weight:700;padding:5px 10px;border-radius:8px;text-decoration:none">📍 Maps</a>
-        </div>
-      </div>
-      
-      <div class="place-card">
-        <div class="place-header">
-          <div class="place-name">ZIGGY - Beach Club &amp; Restaurant</div>
-          <div class="place-badge">⭐ 4.5 · 2511</div>
-        </div>
-        
-        <div class="place-desc active" data-lang="es">Club de playa y restaurante con ambiente relajado, ideal para cocteles y el mar.</div>
-        <div class="place-desc" data-lang="en">Beach club and restaurant with a relaxed atmosphere, perfect for cocktails by the sea.</div>
-        <div class="place-desc" data-lang="pt">Clube de praia e restaurante com ambiente relaxado, ideal para coquetéis e o mar.</div>
-        
-        <div style="font-size:11px;color:#6b7280;margin-top:4px">Carr. Tulum-Boca Paila km 7.5, Tulum Beach, Zona Hotelera, Tulum</div>
-        <div style="display:flex;gap:6px;margin-top:8px;flex-wrap:wrap">
-          <a href="https://www.google.com/maps/place/?q=place_id:ChIJH1mU3c3QT48RNrnzb_J8Z3Y" target="_blank" style="display:inline-flex;align-items:center;gap:5px;background:rgba(37,99,235,0.12);border:1px solid rgba(37,99,235,0.3);color:#bfdbfe;font-size:11px;font-weight:700;padding:5px 10px;border-radius:8px;text-decoration:none">📍 Maps</a>
         </div>
       </div>
       
@@ -1147,12 +822,12 @@ body[data-theme="selva"]   {background:#0a140d}
       <div class="place-card">
         <div class="place-header">
           <div class="place-name">Bistró Alegría Cafe</div>
-          <div class="place-badge">⭐ 4.8 · 909</div>
+          <div class="place-badge">⭐ 4.8 · 911</div>
         </div>
         
-        <div class="place-desc active" data-lang="es">Acogedor bistró para café, desayunos y comidas ligeras con un toque francés.</div>
-        <div class="place-desc" data-lang="en">Cozy bistro for coffee, breakfast, and light meals with a French touch.</div>
-        <div class="place-desc" data-lang="pt">Bistrô aconchegante para café, cafés da manhã e refeições leves com toque francês.</div>
+        <div class="place-desc active" data-lang="es"></div>
+        <div class="place-desc" data-lang="en"></div>
+        <div class="place-desc" data-lang="pt"></div>
         
         <div style="font-size:11px;color:#6b7280;margin-top:4px">Calle Itzamna Manzana 12-L103 D10, Tulum</div>
         <div style="display:flex;gap:6px;margin-top:8px;flex-wrap:wrap">
@@ -1166,9 +841,9 @@ body[data-theme="selva"]   {background:#0a140d}
           <div class="place-badge">⭐ 4.7 · 846</div>
         </div>
         
-        <div class="place-desc active" data-lang="es">Cafetería con panadería artesanal, ideal para desayunos y dulces caseros.</div>
-        <div class="place-desc" data-lang="en">Cafe with artisanal bakery, perfect for breakfast and homemade sweets.</div>
-        <div class="place-desc" data-lang="pt">Cafeteria com padaria artesanal, ideal para cafés da manhã e doces caseiros.</div>
+        <div class="place-desc active" data-lang="es"></div>
+        <div class="place-desc" data-lang="en"></div>
+        <div class="place-desc" data-lang="pt"></div>
         
         <div style="font-size:11px;color:#6b7280;margin-top:4px">Calle 14 sur y 7 sur, Tulum</div>
         <div style="display:flex;gap:6px;margin-top:8px;flex-wrap:wrap">
@@ -1179,12 +854,12 @@ body[data-theme="selva"]   {background:#0a140d}
       <div class="place-card">
         <div class="place-header">
           <div class="place-name">Babel Cafe</div>
-          <div class="place-badge">⭐ 4.3 · 1013</div>
+          <div class="place-badge">⭐ 4.3 · 1014</div>
         </div>
         
-        <div class="place-desc active" data-lang="es">Cafetería de especialidad con ambiente relajado y variadas opciones de café.</div>
-        <div class="place-desc" data-lang="en">Specialty coffee shop with a relaxed atmosphere and diverse coffee options.</div>
-        <div class="place-desc" data-lang="pt">Cafeteria especializada com ambiente descontraído e diversas opções de café.</div>
+        <div class="place-desc active" data-lang="es"></div>
+        <div class="place-desc" data-lang="en"></div>
+        <div class="place-desc" data-lang="pt"></div>
         
         <div style="font-size:11px;color:#6b7280;margin-top:4px">Av. Tulum, Tulum Centro, Tulum</div>
         <div style="display:flex;gap:6px;margin-top:8px;flex-wrap:wrap">
@@ -1194,33 +869,33 @@ body[data-theme="selva"]   {background:#0a140d}
       
       <div class="place-card">
         <div class="place-header">
-          <div class="place-name">HARRTOO</div>
-          <div class="place-badge">⭐ 4.9 · 736</div>
+          <div class="place-name">Italdo Café Bistro</div>
+          <div class="place-badge">⭐ 4.5 · 794</div>
         </div>
         
-        <div class="place-desc active" data-lang="es">Cafetería moderna con un estilo distintivo, ideal para trabajo o encuentro.</div>
-        <div class="place-desc" data-lang="en">Modern coffee shop with a distinctive style, ideal for work or meetings.</div>
-        <div class="place-desc" data-lang="pt">Cafeteria moderna com estilo distinto, ideal para trabalho ou encontro.</div>
+        <div class="place-desc active" data-lang="es"></div>
+        <div class="place-desc" data-lang="en"></div>
+        <div class="place-desc" data-lang="pt"></div>
         
-        <div style="font-size:11px;color:#6b7280;margin-top:4px">Calle Sol Ote. 10, Tulum Centro, Tulum</div>
+        <div style="font-size:11px;color:#6b7280;margin-top:4px">AV. 5 Sur Manzana 892 Lote 6, Local 7, La Veleta, Tulum</div>
         <div style="display:flex;gap:6px;margin-top:8px;flex-wrap:wrap">
-          <a href="https://www.google.com/maps/place/?q=place_id:ChIJCVTuNTPRT48R0UGRU21cK3Y" target="_blank" style="display:inline-flex;align-items:center;gap:5px;background:rgba(37,99,235,0.12);border:1px solid rgba(37,99,235,0.3);color:#bfdbfe;font-size:11px;font-weight:700;padding:5px 10px;border-radius:8px;text-decoration:none">📍 Maps</a>
+          <a href="https://www.google.com/maps/place/?q=place_id:ChIJWXCLIcnXT48RHxmTskaJs4g" target="_blank" style="display:inline-flex;align-items:center;gap:5px;background:rgba(37,99,235,0.12);border:1px solid rgba(37,99,235,0.3);color:#bfdbfe;font-size:11px;font-weight:700;padding:5px 10px;border-radius:8px;text-decoration:none">📍 Maps</a>
         </div>
       </div>
       
       <div class="place-card">
         <div class="place-header">
-          <div class="place-name">Italdo Café Bistro</div>
-          <div class="place-badge">⭐ 4.5 · 794</div>
+          <div class="place-name">La Fournee</div>
+          <div class="place-badge">⭐ 4.6 · 563</div>
         </div>
         
-        <div class="place-desc active" data-lang="es">Cafetería bistró con inspiración italiana, ofrece cafés, postres y sándwiches.</div>
-        <div class="place-desc" data-lang="en">Italian-inspired cafe bistro, offering coffees, desserts, and sandwiches.</div>
-        <div class="place-desc" data-lang="pt">Cafeteria bistrô com inspiração italiana, oferece cafés, sobremesas e sanduíches.</div>
+        <div class="place-desc active" data-lang="es"></div>
+        <div class="place-desc" data-lang="en"></div>
+        <div class="place-desc" data-lang="pt"></div>
         
-        <div style="font-size:11px;color:#6b7280;margin-top:4px">AV. 5 Sur Manzana 892 Lote 6, Local 7, La Veleta, Tulum</div>
+        <div style="font-size:11px;color:#6b7280;margin-top:4px">Av. Tulum MZA 2 LTE 4 Loc. 7, Centro, Tulum</div>
         <div style="display:flex;gap:6px;margin-top:8px;flex-wrap:wrap">
-          <a href="https://www.google.com/maps/place/?q=place_id:ChIJWXCLIcnXT48RHxmTskaJs4g" target="_blank" style="display:inline-flex;align-items:center;gap:5px;background:rgba(37,99,235,0.12);border:1px solid rgba(37,99,235,0.3);color:#bfdbfe;font-size:11px;font-weight:700;padding:5px 10px;border-radius:8px;text-decoration:none">📍 Maps</a>
+          <a href="https://www.google.com/maps/place/?q=place_id:ChIJ7fmnf6zWT48RV_AXr2vuYOE" target="_blank" style="display:inline-flex;align-items:center;gap:5px;background:rgba(37,99,235,0.12);border:1px solid rgba(37,99,235,0.3);color:#bfdbfe;font-size:11px;font-weight:700;padding:5px 10px;border-radius:8px;text-decoration:none">📍 Maps</a>
         </div>
       </div>
       
@@ -1234,9 +909,9 @@ body[data-theme="selva"]   {background:#0a140d}
           <div class="place-badge">⭐ 4.6 · 3365</div>
         </div>
         
-        <div class="place-desc active" data-lang="es">Club de playa con música y ambiente bohemio-chic, ideal para la fiesta nocturna.</div>
-        <div class="place-desc" data-lang="en">Beach club with music and a bohemian-chic atmosphere, perfect for night parties.</div>
-        <div class="place-desc" data-lang="pt">Clube de praia com música e ambiente boêmio-chique, ideal para a festa noturna.</div>
+        <div class="place-desc active" data-lang="es"></div>
+        <div class="place-desc" data-lang="en"></div>
+        <div class="place-desc" data-lang="pt"></div>
         
         <div style="font-size:11px;color:#6b7280;margin-top:4px">Supermanzana QROO 15, Tulum Beach, Tulum</div>
         <div style="display:flex;gap:6px;margin-top:8px;flex-wrap:wrap">
@@ -1246,13 +921,29 @@ body[data-theme="selva"]   {background:#0a140d}
       
       <div class="place-card">
         <div class="place-header">
+          <div class="place-name">M tulum Hookah &amp; Pool Lounge</div>
+          <div class="place-badge">⭐ 4.9 · 2608</div>
+        </div>
+        
+        <div class="place-desc active" data-lang="es"></div>
+        <div class="place-desc" data-lang="en"></div>
+        <div class="place-desc" data-lang="pt"></div>
+        
+        <div style="font-size:11px;color:#6b7280;margin-top:4px">Av. Tulum 88, Tulum Centro, Centro, Tulum</div>
+        <div style="display:flex;gap:6px;margin-top:8px;flex-wrap:wrap">
+          <a href="https://www.google.com/maps/place/?q=place_id:ChIJj7PAxKDRT48RpqeEr8jQ3Xw" target="_blank" style="display:inline-flex;align-items:center;gap:5px;background:rgba(37,99,235,0.12);border:1px solid rgba(37,99,235,0.3);color:#bfdbfe;font-size:11px;font-weight:700;padding:5px 10px;border-radius:8px;text-decoration:none">📍 Maps</a>
+        </div>
+      </div>
+      
+      <div class="place-card">
+        <div class="place-header">
           <div class="place-name">Batey Mojito and Guarapo Bar</div>
           <div class="place-badge">⭐ 4.7 · 2596</div>
         </div>
         
-        <div class="place-desc active" data-lang="es">Bar con mojitos artesanales y música en vivo, un clásico para salir en Tulum.</div>
-        <div class="place-desc" data-lang="en">Bar with artisanal mojitos and live music, a classic for going out in Tulum.</div>
-        <div class="place-desc" data-lang="pt">Bar com mojitos artesanais e música ao vivo, um clássico para sair em Tulum.</div>
+        <div class="place-desc active" data-lang="es"></div>
+        <div class="place-desc" data-lang="en"></div>
+        <div class="place-desc" data-lang="pt"></div>
         
         <div style="font-size:11px;color:#6b7280;margin-top:4px">C. Centauro Sur, Tulum Centro, Tulum</div>
         <div style="display:flex;gap:6px;margin-top:8px;flex-wrap:wrap">
@@ -1266,9 +957,9 @@ body[data-theme="selva"]   {background:#0a140d}
           <div class="place-badge">⭐ 4.9 · 2353</div>
         </div>
         
-        <div class="place-desc active" data-lang="es">Bar con ambiente místico y música, ideal para disfrutar de la noche.</div>
-        <div class="place-desc" data-lang="en">Bar with a mystical atmosphere and music, perfect for enjoying the night.</div>
-        <div class="place-desc" data-lang="pt">Bar com ambiente místico e música, ideal para aproveitar a noite.</div>
+        <div class="place-desc active" data-lang="es"></div>
+        <div class="place-desc" data-lang="en"></div>
+        <div class="place-desc" data-lang="pt"></div>
         
         <div style="font-size:11px;color:#6b7280;margin-top:4px">Andromeda Oriente Calle Centauro Sur entre, Tulum Centro, Tulum</div>
         <div style="display:flex;gap:6px;margin-top:8px;flex-wrap:wrap">
@@ -1279,32 +970,16 @@ body[data-theme="selva"]   {background:#0a140d}
       <div class="place-card">
         <div class="place-header">
           <div class="place-name">Encanto Cantina</div>
-          <div class="place-badge">⭐ 4.5 · 2455</div>
+          <div class="place-badge">⭐ 4.5 · 2456</div>
         </div>
         
-        <div class="place-desc active" data-lang="es">Cantina mexicana vibrante con música en vivo y ambiente festivo.</div>
-        <div class="place-desc" data-lang="en">Vibrant Mexican cantina with live music and a festive atmosphere.</div>
-        <div class="place-desc" data-lang="pt">Cantina mexicana vibrante com música ao vivo e ambiente festivo.</div>
+        <div class="place-desc active" data-lang="es"></div>
+        <div class="place-desc" data-lang="en"></div>
+        <div class="place-desc" data-lang="pt"></div>
         
         <div style="font-size:11px;color:#6b7280;margin-top:4px">Av. Tulum 21, Tulum Centro, Tulum</div>
         <div style="display:flex;gap:6px;margin-top:8px;flex-wrap:wrap">
           <a href="https://www.google.com/maps/place/?q=place_id:ChIJqcb_DKzWT48Re0xp2im5p5w" target="_blank" style="display:inline-flex;align-items:center;gap:5px;background:rgba(37,99,235,0.12);border:1px solid rgba(37,99,235,0.3);color:#bfdbfe;font-size:11px;font-weight:700;padding:5px 10px;border-radius:8px;text-decoration:none">📍 Maps</a>
-        </div>
-      </div>
-      
-      <div class="place-card">
-        <div class="place-header">
-          <div class="place-name">Bonbonniere Tulum</div>
-          <div class="place-badge">⭐ 4.7 · 2234</div>
-        </div>
-        
-        <div class="place-desc active" data-lang="es">Exclusiva discoteca y lounge, conocida por su música y ambiente sofisticado.</div>
-        <div class="place-desc" data-lang="en">Exclusive nightclub and lounge, known for its music and sophisticated atmosphere.</div>
-        <div class="place-desc" data-lang="pt">Discoteca e lounge exclusivos, conhecidos por sua música e ambiente sofisticado.</div>
-        
-        <div style="font-size:11px;color:#6b7280;margin-top:4px">Carretera estatal Tulum - Boca Paila, Parcela 1744-A NCPE José María Pino Suárez, Tulum</div>
-        <div style="display:flex;gap:6px;margin-top:8px;flex-wrap:wrap">
-          <a href="https://www.google.com/maps/place/?q=place_id:ChIJR9vscgrRT48RCsqDnAgYz5c" target="_blank" style="display:inline-flex;align-items:center;gap:5px;background:rgba(37,99,235,0.12);border:1px solid rgba(37,99,235,0.3);color:#bfdbfe;font-size:11px;font-weight:700;padding:5px 10px;border-radius:8px;text-decoration:none">📍 Maps</a>
         </div>
       </div>
       
@@ -1318,9 +993,9 @@ body[data-theme="selva"]   {background:#0a140d}
           <div class="place-badge">⭐ 4.7 · 846</div>
         </div>
         
-        <div class="place-desc active" data-lang="es">Panadería artesanal con variedad de panes, pasteles y café fresco.</div>
-        <div class="place-desc" data-lang="en">Artisanal bakery with a variety of breads, pastries, and fresh coffee.</div>
-        <div class="place-desc" data-lang="pt">Padaria artesanal com variedade de pães, doces e café fresco.</div>
+        <div class="place-desc active" data-lang="es"></div>
+        <div class="place-desc" data-lang="en"></div>
+        <div class="place-desc" data-lang="pt"></div>
         
         <div style="font-size:11px;color:#6b7280;margin-top:4px">Calle 14 sur y 7 sur, Tulum</div>
         <div style="display:flex;gap:6px;margin-top:8px;flex-wrap:wrap">
@@ -1334,9 +1009,9 @@ body[data-theme="selva"]   {background:#0a140d}
           <div class="place-badge">⭐ 4.6 · 632</div>
         </div>
         
-        <div class="place-desc active" data-lang="es">Café y panadería con ambiente acogedor, ideal para desayunos y meriendas.</div>
-        <div class="place-desc" data-lang="en">Cafe and bakery with a cozy atmosphere, perfect for breakfast and snacks.</div>
-        <div class="place-desc" data-lang="pt">Café e padaria com ambiente acolhedor, ideal para cafés da manhã e lanches.</div>
+        <div class="place-desc active" data-lang="es"></div>
+        <div class="place-desc" data-lang="en"></div>
+        <div class="place-desc" data-lang="pt"></div>
         
         <div style="font-size:11px;color:#6b7280;margin-top:4px">Region 14 Mza 12 Local 1 Lote 91, Tulum</div>
         <div style="display:flex;gap:6px;margin-top:8px;flex-wrap:wrap">
@@ -1350,9 +1025,9 @@ body[data-theme="selva"]   {background:#0a140d}
           <div class="place-badge">⭐ 4.9 · 276</div>
         </div>
         
-        <div class="place-desc active" data-lang="es">Panadería con un toque especial en galletas y café, ideal para un dulce capricho.</div>
-        <div class="place-desc" data-lang="en">Bakery with a special touch in cookies and coffee, perfect for a sweet treat.</div>
-        <div class="place-desc" data-lang="pt">Padaria com um toque especial em biscoitos e café, ideal para um doce capricho.</div>
+        <div class="place-desc active" data-lang="es"></div>
+        <div class="place-desc" data-lang="en"></div>
+        <div class="place-desc" data-lang="pt"></div>
         
         <div style="font-size:11px;color:#6b7280;margin-top:4px">IFRONT OF MEXIGO RENTAL, Paseo zama Manzana 26, Tulum</div>
         <div style="display:flex;gap:6px;margin-top:8px;flex-wrap:wrap">
@@ -1366,9 +1041,9 @@ body[data-theme="selva"]   {background:#0a140d}
           <div class="place-badge">⭐ 4.7 · 253</div>
         </div>
         
-        <div class="place-desc active" data-lang="es">Panadería en Zama, ofrece pan fresco, pasteles y café en un entorno moderno.</div>
-        <div class="place-desc" data-lang="en">Bakery in Zama, offering fresh bread, pastries, and coffee in a modern setting.</div>
-        <div class="place-desc" data-lang="pt">Padaria em Zama, oferece pão fresco, bolos e café em um ambiente moderno.</div>
+        <div class="place-desc active" data-lang="es"></div>
+        <div class="place-desc" data-lang="en"></div>
+        <div class="place-desc" data-lang="pt"></div>
         
         <div style="font-size:11px;color:#6b7280;margin-top:4px">Aldea Zama Manzana 26 Lote 136, Tulum</div>
         <div style="display:flex;gap:6px;margin-top:8px;flex-wrap:wrap">
@@ -1382,9 +1057,9 @@ body[data-theme="selva"]   {background:#0a140d}
           <div class="place-badge">⭐ 4.9 · 171</div>
         </div>
         
-        <div class="place-desc active" data-lang="es">Panadería local con productos frescos horneados a diario y especialidades.</div>
-        <div class="place-desc" data-lang="en">Local bakery with fresh baked goods daily and specialties.</div>
-        <div class="place-desc" data-lang="pt">Padaria local com produtos frescos assados diariamente e especialidades.</div>
+        <div class="place-desc active" data-lang="es"></div>
+        <div class="place-desc" data-lang="en"></div>
+        <div class="place-desc" data-lang="pt"></div>
         
         <div style="font-size:11px;color:#6b7280;margin-top:4px">Calle 12 Sur esquina-7, La Veleta, Tulum</div>
         <div style="display:flex;gap:6px;margin-top:8px;flex-wrap:wrap">
@@ -1402,9 +1077,9 @@ body[data-theme="selva"]   {background:#0a140d}
           <div class="place-badge">⭐ 4.2 · 5629</div>
         </div>
         
-        <div class="place-desc active" data-lang="es">Supermercado con amplia selección de productos, incluyendo opciones gourmet y frescas.</div>
-        <div class="place-desc" data-lang="en">Supermarket with a wide selection of products, including gourmet and fresh options.</div>
-        <div class="place-desc" data-lang="pt">Supermercado com ampla seleção de produtos, incluindo opções gourmet e frescas.</div>
+        <div class="place-desc active" data-lang="es"></div>
+        <div class="place-desc" data-lang="en"></div>
+        <div class="place-desc" data-lang="pt"></div>
         
         <div style="font-size:11px;color:#6b7280;margin-top:4px">Neptuno Manzana 004, Tulum 2, Lomas de Padierna, Tulum</div>
         <div style="display:flex;gap:6px;margin-top:8px;flex-wrap:wrap">
@@ -1418,9 +1093,9 @@ body[data-theme="selva"]   {background:#0a140d}
           <div class="place-badge">⭐ 4 · 662</div>
         </div>
         
-        <div class="place-desc active" data-lang="es">Tienda de descuentos con productos variados, desde abarrotes hasta artículos del hogar.</div>
-        <div class="place-desc" data-lang="en">Discount store with various products, from groceries to household items.</div>
-        <div class="place-desc" data-lang="pt">Loja de descontos com produtos variados, desde mercearia a artigos para o lar.</div>
+        <div class="place-desc active" data-lang="es"></div>
+        <div class="place-desc" data-lang="en"></div>
+        <div class="place-desc" data-lang="pt"></div>
         
         <div style="font-size:11px;color:#6b7280;margin-top:4px">Avenida Tulum Lote Oriente 14, Tulum</div>
         <div style="display:flex;gap:6px;margin-top:8px;flex-wrap:wrap">
@@ -1434,9 +1109,9 @@ body[data-theme="selva"]   {background:#0a140d}
           <div class="place-badge">⭐ 4.1 · 168</div>
         </div>
         
-        <div class="place-desc active" data-lang="es">Supermercado local con productos básicos y algunos artículos frescos.</div>
-        <div class="place-desc" data-lang="en">Local supermarket with basic products and some fresh items.</div>
-        <div class="place-desc" data-lang="pt">Supermercado local com produtos básicos e alguns itens frescos.</div>
+        <div class="place-desc active" data-lang="es"></div>
+        <div class="place-desc" data-lang="en"></div>
+        <div class="place-desc" data-lang="pt"></div>
         
         <div style="font-size:11px;color:#6b7280;margin-top:4px">Calle Sol Poniente Manzana 4 Lote 5-C.P, Centro, Tulum</div>
         <div style="display:flex;gap:6px;margin-top:8px;flex-wrap:wrap">
@@ -1450,9 +1125,9 @@ body[data-theme="selva"]   {background:#0a140d}
           <div class="place-badge">⭐ 3.5 · 131</div>
         </div>
         
-        <div class="place-desc active" data-lang="es">Mercado especializado en productos frescos, orgánicos y opciones saludables.</div>
-        <div class="place-desc" data-lang="en">Specialty market focused on fresh, organic products and healthy options.</div>
-        <div class="place-desc" data-lang="pt">Mercado especializado em produtos frescos, orgânicos e opções saudáveis.</div>
+        <div class="place-desc active" data-lang="es"></div>
+        <div class="place-desc" data-lang="en"></div>
+        <div class="place-desc" data-lang="pt"></div>
         
         <div style="font-size:11px;color:#6b7280;margin-top:4px">AV. ITZAMNA ESQUINA AV. BALAM DZAKAB LOCAL 01 Y 02, Tulum</div>
         <div style="display:flex;gap:6px;margin-top:8px;flex-wrap:wrap">
@@ -1466,9 +1141,9 @@ body[data-theme="selva"]   {background:#0a140d}
           <div class="place-badge">⭐ 3.6 · 63</div>
         </div>
         
-        <div class="place-desc active" data-lang="es">Tienda de abarrotes para compras rápidas y productos de primera necesidad.</div>
-        <div class="place-desc" data-lang="en">Grocery store for quick purchases and essential products.</div>
-        <div class="place-desc" data-lang="pt">Mercearia para compras rápidas e produtos de primeira necessidade.</div>
+        <div class="place-desc active" data-lang="es"></div>
+        <div class="place-desc" data-lang="en"></div>
+        <div class="place-desc" data-lang="pt"></div>
         
         <div style="font-size:11px;color:#6b7280;margin-top:4px">Tulum</div>
         <div style="display:flex;gap:6px;margin-top:8px;flex-wrap:wrap">
@@ -1505,22 +1180,6 @@ body[data-theme="selva"]   {background:#0a140d}
   </div>
   <div style="display:flex;gap:7px;flex-wrap:wrap;margin-bottom:14px" id="outfit-act-btns">
     
-    <button onclick="setOutfit('ruinasmayas')" class="out-btn active" data-key="ruinasmayas" style="background:rgba(37,99,235,0.15);border:1px solid rgba(37,99,235,0.35);color:#93c5fd;font-size:12px;font-weight:700;padding:7px 13px;border-radius:20px;cursor:pointer">
-      🏛️ <span class="t" data-es="Ruinas Mayas" data-en="Mayan Ruins" data-pt="Ruínas Maias">Ruinas Mayas</span>
-    </button>
-    
-    <button onclick="setOutfit('nadarcenotes')" class="out-btn" data-key="nadarcenotes" style="background:#161b22;border:1px solid #30363d;color:#6b7280;font-size:12px;font-weight:700;padding:7px 13px;border-radius:20px;cursor:pointer">
-      🏊 <span class="t" data-es="Nadar en Cenotes" data-en="Swim in Cenotes" data-pt="Nadar em Cenotes">Nadar en Cenotes</span>
-    </button>
-    
-    <button onclick="setOutfit('snorkelbuceo')" class="out-btn" data-key="snorkelbuceo" style="background:#161b22;border:1px solid #30363d;color:#6b7280;font-size:12px;font-weight:700;padding:7px 13px;border-radius:20px;cursor:pointer">
-      🤿 <span class="t" data-es="Snorkel/Buceo" data-en="Snorkel/Diving" data-pt="Snorkel/Mergulho">Snorkel/Buceo</span>
-    </button>
-    
-    <button onclick="setOutfit('disfrutarplaya')" class="out-btn" data-key="disfrutarplaya" style="background:#161b22;border:1px solid #30363d;color:#6b7280;font-size:12px;font-weight:700;padding:7px 13px;border-radius:20px;cursor:pointer">
-      🏖️ <span class="t" data-es="Disfrutar Playa" data-en="Enjoy Beach" data-pt="Desfrutar Praia">Disfrutar Playa</span>
-    </button>
-    
   </div>
 
   <!-- OUTFIT RESULT -->
@@ -1546,8 +1205,8 @@ body[data-theme="selva"]   {background:#0a140d}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <script>
 // Datos del anfitrión inyectados desde Python
-window.PROPS = [{"idx": 1, "nombre": "Vanesa", "direccion": "5GHR+F8, 77765 Tulum, Quintana Roo, Mexico", "lat": 20.1786127, "lng": -87.4591904, "barrio": "", "ciudad": "Tulum", "region": "Quintana Roo", "country": "Mexico", "formatted": "5GHR+F8, 77765 Tulum, Quintana Roo, Mexico", "maps_link": "https://maps.app.goo.gl/T5XgRq3z6pcHVhe39?g_st=ac", "instagram": "https://www.instagram.com/pedrovolpacchio?igsh=bnM4Njhwd2JvZ2dv", "video_es": {"kind": "photos", "embed_url": "", "raw_url": "https://photos.app.goo.gl/9qZtDZn9nGHW1fxY8", "message": "Google Photos no permite embed; el video se abre en pestaña aparte. Para mejor experiencia, subir a YouTube como 'No listado'."}, "video_en": {"kind": "none", "embed_url": "", "raw_url": "", "message": ""}, "wifi_ssid": "", "wifi_pass": "Fabian", "welcome": {"es": {"title": "Bienvenidos a Vanesa", "sub": "A 5 minutos a pie de Playa Mirador, ideal para días de playa."}, "en": {"title": "Welcome to Vanesa", "sub": "Just a 5-minute walk to Playa Mirador, perfect for beach days."}, "pt": {"title": "Bem-vindos a Vanesa", "sub": "A 5 minutos a pé da Playa Mirador, ideal para dias de praia."}}, "recomendaciones": [], "lugares": {"atracciones": [{"nombre": "Parque Dos Aguas", "rating": 4.4, "reviews": 2739, "direccion": "Calle Alfa Sur 1066, Tulum", "lat": 20.21016599999999, "lng": -87.46314699999999, "place_id": "ChIJ0dhDXazWT48RkzSmmMmCnjw", "maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJ0dhDXazWT48RkzSmmMmCnjw", "desc": {"es": "Oasis verde céntrico. Ideal para relajarse o pasear entre la vegetación local.", "en": "Central green oasis. Perfect for relaxing or strolling amidst local flora.", "pt": "Oásis verde central. Ideal para relaxar ou passear entre a flora local."}}, {"nombre": "Museo de la Cultura Maya Park", "rating": 4.4, "reviews": 785, "direccion": "Avenida Tulum 1, Centro, Tulum", "lat": 20.2106493, "lng": -87.46300509999999, "place_id": "ChIJs4lDfKzWT48RhfWVZP8wxU0", "maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJs4lDfKzWT48RhfWVZP8wxU0", "desc": {"es": "Parque temático que explora la rica historia y legado de la cultura maya.", "en": "Theme park exploring the rich history and legacy of Mayan culture.", "pt": "Parque temático que explora a rica história e legado da cultura maia."}}, {"nombre": "Playa Mirador", "rating": 4.5, "reviews": 512, "direccion": "camino boca pila, Javier Rojo Gómez", "lat": 20.1730008, "lng": -87.4480518, "place_id": "ChIJ5S4wVibRT48RgSgF64f2-Nw", "maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJ5S4wVibRT48RgSgF64f2-Nw", "desc": {"es": "Playa pública con vistas impresionantes al mar Caribe y acantilados.", "en": "Public beach offering stunning views of the Caribbean Sea and cliffs.", "pt": "Praia pública com vistas impressionantes do Mar do Caribe e falésias."}}, {"nombre": "Parque Rotario", "rating": 4, "reviews": 480, "direccion": "Neptuno Oriente 5, Tulum", "lat": 20.2094506, "lng": -87.4600252, "place_id": "ChIJ-TxJMVPRT48R7MLHEJ9kTG8", "maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJ-TxJMVPRT48R7MLHEJ9kTG8", "desc": {"es": "Parque comunitario con áreas verdes y juegos para niños, ideal para familias.", "en": "Community park with green spaces and playgrounds, ideal for families.", "pt": "Parque comunitário com áreas verdes e parques infantis, ideal para famílias."}}, {"nombre": "Koox Diving | Scuba Diving Center Tulum", "rating": 4.8, "reviews": 279, "direccion": "entre Géminis Nte. y Libra Nte, Avenida Tulum Manzana 7 Lote 5, Centro, Tulum", "lat": 20.2134817, "lng": -87.45636119999999, "place_id": "ChIJOVTPY6vWT48R7TDHA_oMT_E", "maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJOVTPY6vWT48R7TDHA_oMT_E", "desc": {"es": "Centro de buceo experto en explorar cenotes y los arrecifes del Caribe.", "en": "Expert dive center exploring cenotes and Caribbean reefs.", "pt": "Centro de mergulho especializado em explorar cenotes e recifes do Caribe."}}], "restaurantes": [{"nombre": "La Zebra Tulum, a Small Luxury Hotel", "rating": 4.6, "reviews": 2263, "direccion": "Carretera Tulum-Boca Paila 800, Zona Hotelera, Tulum", "lat": 20.145755, "lng": -87.45998399999999, "place_id": "ChIJv2GoULXQT48RSQG69AxwRw4", "maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJv2GoULXQT48RSQG69AxwRw4", "desc": {"es": "Cocina mexicana moderna junto al mar, ingredientes frescos en un entorno chic.", "en": "Modern Mexican cuisine by the sea, fresh ingredients in a chic setting.", "pt": "Cozinha mexicana moderna à beira-mar, ingredientes frescos em um ambiente chique."}}, {"nombre": "Papaya Playa Project", "rating": 4, "reviews": 2637, "direccion": "Carretera Tulum-Boca Paila Km 4.5, Zona Costera, Tulum", "lat": 20.1817029, "lng": -87.44466059999999, "place_id": "ChIJ6c8lMEvXT48RE0bKA7BKweA", "maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJ6c8lMEvXT48RE0bKA7BKweA", "desc": {"es": "Gastronomía con productos locales y frescos, frente al mar con ambiente bohemio.", "en": "Cuisine with local, fresh products, beachfront with a bohemian atmosphere.", "pt": "Gastronomia com produtos locais e frescos, à beira-mar com ambiente boêmio."}}, {"nombre": "Mateos Mexican Grill", "rating": 4.4, "reviews": 1536, "direccion": "Carretera, Boca Paila, 2 Supermanzana km 5 Manzana 10 Lote 16, Tulum", "lat": 20.1763473, "lng": -87.4470776, "place_id": "ChIJuWKoPCTRT48RP7jrWNFu2xQ", "maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJuWKoPCTRT48RP7jrWNFu2xQ", "desc": {"es": "Cocina mexicana casual con énfasis en tacos y platillos a la parrilla.", "en": "Casual Mexican cuisine with an emphasis on tacos and grilled dishes.", "pt": "Cozinha mexicana casual com ênfase em tacos e pratos grelhados."}}, {"nombre": "Amansala Resort |Beachclub | Spa", "rating": 4.4, "reviews": 1309, "direccion": "Carr. Tulum-Boca Paila KM 5.5, Tulum Beach, Zona Hotelera, Tulum", "lat": 20.1664039, "lng": -87.4514355, "place_id": "ChIJX4p1zlDRT48Rm7swd8OY1JA", "maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJX4p1zlDRT48Rm7swd8OY1JA", "desc": {"es": "Restaurante con enfoque en comida saludable y nutritiva, frente al mar.", "en": "Restaurant focused on healthy, nutritious food, directly on the beach.", "pt": "Restaurante focado em comida saudável e nutritiva, à beira-mar."}}, {"nombre": "Ana y José Hotel & Spa", "rating": 4.4, "reviews": 1136, "direccion": "Carretera Tulum-Boca Paila Km. 7, Punta Piedra, Tulum", "lat": 20.1573505, "lng": -87.4555053, "place_id": "ChIJd0ga_M3QT48Rci6wmFKHRik", "maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJd0ga_M3QT48Rci6wmFKHRik", "desc": {"es": "Elegante restaurante a orillas del mar, con especialidades mexicanas y mariscos.", "en": "Elegant beachfront restaurant, featuring Mexican specialties and seafood.", "pt": "Elegante restaurante à beira-mar, com especialidades mexicanas e frutos do mar."}}], "cafes": [{"nombre": "Bistró Alegría Cafe", "rating": 4.8, "reviews": 909, "direccion": "Calle Itzamna Manzana 12-L103 D10, Tulum", "lat": 20.198355, "lng": -87.4594331, "place_id": "ChIJFWyP5WXRT48RZPfH9xNq1Yw", "maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJFWyP5WXRT48RZPfH9xNq1Yw", "desc": {"es": "Acogedor bistró para café, desayunos y comidas ligeras con un toque francés.", "en": "Cozy bistro for coffee, breakfast, and light meals with a French touch.", "pt": "Bistrô aconchegante para café, cafés da manhã e refeições leves com toque francês."}}, {"nombre": "Nimeno Bakery", "rating": 4.7, "reviews": 846, "direccion": "Calle 14 sur y 7 sur, Tulum", "lat": 20.203593, "lng": -87.47302409999999, "place_id": "ChIJx5d3COXXT48REut3Yc417zo", "maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJx5d3COXXT48REut3Yc417zo", "desc": {"es": "Cafetería con panadería artesanal, ideal para desayunos y dulces caseros.", "en": "Cafe with artisanal bakery, perfect for breakfast and homemade sweets.", "pt": "Cafeteria com padaria artesanal, ideal para cafés da manhã e doces caseiros."}}, {"nombre": "Babel Cafe", "rating": 4.3, "reviews": 1013, "direccion": "Av. Tulum, Tulum Centro, Tulum", "lat": 20.2114947, "lng": -87.46252989999999, "place_id": "ChIJm9MZv67WT48R3lcxsMD5C-E", "maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJm9MZv67WT48R3lcxsMD5C-E", "desc": {"es": "Cafetería de especialidad con ambiente relajado y variadas opciones de café.", "en": "Specialty coffee shop with a relaxed atmosphere and diverse coffee options.", "pt": "Cafeteria especializada com ambiente descontraído e diversas opções de café."}}, {"nombre": "HARRTOO", "rating": 4.9, "reviews": 736, "direccion": "Calle Sol Ote. 10, Tulum Centro, Tulum", "lat": 20.2106697, "lng": -87.45973479999999, "place_id": "ChIJCVTuNTPRT48R0UGRU21cK3Y", "maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJCVTuNTPRT48R0UGRU21cK3Y", "desc": {"es": "Cafetería moderna con un estilo distintivo, ideal para trabajo o encuentro.", "en": "Modern coffee shop with a distinctive style, ideal for work or meetings.", "pt": "Cafeteria moderna com estilo distinto, ideal para trabalho ou encontro."}}, {"nombre": "Italdo Café Bistro", "rating": 4.5, "reviews": 794, "direccion": "AV. 5 Sur Manzana 892 Lote 6, Local 7, La Veleta, Tulum", "lat": 20.205353, "lng": -87.4793971, "place_id": "ChIJWXCLIcnXT48RHxmTskaJs4g", "maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJWXCLIcnXT48RHxmTskaJs4g", "desc": {"es": "Cafetería bistró con inspiración italiana, ofrece cafés, postres y sándwiches.", "en": "Italian-inspired cafe bistro, offering coffees, desserts, and sandwiches.", "pt": "Cafeteria bistrô com inspiração italiana, oferece cafés, sobremesas e sanduíches."}}], "cervecerias": [{"nombre": "RosaNegra | Best Latin American Restaurant in Tulum", "rating": 4.7, "reviews": 7734, "direccion": "Carr. Tulum-Boca Paila 5-Km 7, Tulum Beach, Zona Hotelera, Tulum", "lat": 20.1499568, "lng": -87.45893939999999, "place_id": "ChIJq3L-bMvQT48RDMd2nqKr400", "maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJq3L-bMvQT48RDMd2nqKr400", "desc": {"es": "Restaurante de alta cocina latinoamericana, con vibrante ambiente y coctelería.", "en": "High-end Latin American cuisine restaurant, with a vibrant ambiance and cocktails.", "pt": "Restaurante de alta gastronomia latino-americana, com ambiente vibrante e coquetelaria."}}, {"nombre": "La Barracuda", "rating": 4.4, "reviews": 3873, "direccion": "Av. Tulum MZ 2 LT 3, Tulum Centro, Centro, Tulum", "lat": 20.2095317, "lng": -87.4685621, "place_id": "ChIJCUv8EK_WT48RLotQ01YChoE", "maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJCUv8EK_WT48RLotQ01YChoE", "desc": {"es": "Marisquería casual con un ambiente relajado, ideal para cervezas y platillos frescos.", "en": "Casual seafood spot with a relaxed vibe, perfect for beers and fresh dishes.", "pt": "Restaurante de frutos do mar casual com ambiente relaxado, ideal para cervejas e pratos frescos."}}, {"nombre": "Batey Mojito and Guarapo Bar", "rating": 4.7, "reviews": 2596, "direccion": "C. Centauro Sur, Tulum Centro, Tulum", "lat": 20.2117185, "lng": -87.4592095, "place_id": "ChIJl8swoFTRT48RAJmcTldL2Z8", "maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJl8swoFTRT48RAJmcTldL2Z8", "desc": {"es": "Bar con mojitos artesanales y música en vivo, un clásico para salir en Tulum.", "en": "Bar with artisanal mojitos and live music, a classic for going out in Tulum.", "pt": "Bar com mojitos artesanais e música ao vivo, um clássico para sair em Tulum."}}, {"nombre": "Mistico Tulum", "rating": 4.9, "reviews": 2353, "direccion": "Andromeda Oriente Calle Centauro Sur entre, Tulum Centro, Tulum", "lat": 20.2112037, "lng": -87.4595757, "place_id": "ChIJUeD_e6nRT48Rx8CtKWiS2QU", "maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJUeD_e6nRT48Rx8CtKWiS2QU", "desc": {"es": "Bar con ambiente místico y música, ideal para disfrutar de la noche.", "en": "Bar with a mystical atmosphere and music, perfect for enjoying the night.", "pt": "Bar com ambiente místico e música, ideal para aproveitar a noite."}}, {"nombre": "ZIGGY - Beach Club & Restaurant", "rating": 4.5, "reviews": 2511, "direccion": "Carr. Tulum-Boca Paila km 7.5, Tulum Beach, Zona Hotelera, Tulum", "lat": 20.156147, "lng": -87.45642339999999, "place_id": "ChIJH1mU3c3QT48RNrnzb_J8Z3Y", "maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJH1mU3c3QT48RNrnzb_J8Z3Y", "desc": {"es": "Club de playa y restaurante con ambiente relajado, ideal para cocteles y el mar.", "en": "Beach club and restaurant with a relaxed atmosphere, perfect for cocktails by the sea.", "pt": "Clube de praia e restaurante com ambiente relaxado, ideal para coquetéis e o mar."}}], "salir": [{"nombre": "Vagalume Tulum", "rating": 4.6, "reviews": 3365, "direccion": "Supermanzana QROO 15, Tulum Beach, Tulum", "lat": 20.1517764, "lng": -87.4582982, "place_id": "ChIJUYzZCrHRT48RkFn1D14l8gA", "maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJUYzZCrHRT48RkFn1D14l8gA", "desc": {"es": "Club de playa con música y ambiente bohemio-chic, ideal para la fiesta nocturna.", "en": "Beach club with music and a bohemian-chic atmosphere, perfect for night parties.", "pt": "Clube de praia com música e ambiente boêmio-chique, ideal para a festa noturna."}}, {"nombre": "Batey Mojito and Guarapo Bar", "rating": 4.7, "reviews": 2596, "direccion": "C. Centauro Sur, Tulum Centro, Tulum", "lat": 20.2117185, "lng": -87.4592095, "place_id": "ChIJl8swoFTRT48RAJmcTldL2Z8", "maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJl8swoFTRT48RAJmcTldL2Z8", "desc": {"es": "Bar con mojitos artesanales y música en vivo, un clásico para salir en Tulum.", "en": "Bar with artisanal mojitos and live music, a classic for going out in Tulum.", "pt": "Bar com mojitos artesanais e música ao vivo, um clássico para sair em Tulum."}}, {"nombre": "Mistico Tulum", "rating": 4.9, "reviews": 2353, "direccion": "Andromeda Oriente Calle Centauro Sur entre, Tulum Centro, Tulum", "lat": 20.2112037, "lng": -87.4595757, "place_id": "ChIJUeD_e6nRT48Rx8CtKWiS2QU", "maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJUeD_e6nRT48Rx8CtKWiS2QU", "desc": {"es": "Bar con ambiente místico y música, ideal para disfrutar de la noche.", "en": "Bar with a mystical atmosphere and music, perfect for enjoying the night.", "pt": "Bar com ambiente místico e música, ideal para aproveitar a noite."}}, {"nombre": "Encanto Cantina", "rating": 4.5, "reviews": 2455, "direccion": "Av. Tulum 21, Tulum Centro, Tulum", "lat": 20.2102567, "lng": -87.46493710000001, "place_id": "ChIJqcb_DKzWT48Re0xp2im5p5w", "maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJqcb_DKzWT48Re0xp2im5p5w", "desc": {"es": "Cantina mexicana vibrante con música en vivo y ambiente festivo.", "en": "Vibrant Mexican cantina with live music and a festive atmosphere.", "pt": "Cantina mexicana vibrante com música ao vivo e ambiente festivo."}}, {"nombre": "Bonbonniere Tulum", "rating": 4.7, "reviews": 2234, "direccion": "Carretera estatal Tulum - Boca Paila, Parcela 1744-A NCPE José María Pino Suárez, Tulum", "lat": 20.1533051, "lng": -87.45774399999999, "place_id": "ChIJR9vscgrRT48RCsqDnAgYz5c", "maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJR9vscgrRT48RCsqDnAgYz5c", "desc": {"es": "Exclusiva discoteca y lounge, conocida por su música y ambiente sofisticado.", "en": "Exclusive nightclub and lounge, known for its music and sophisticated atmosphere.", "pt": "Discoteca e lounge exclusivos, conhecidos por sua música e ambiente sofisticado."}}], "supermercados": [{"nombre": "Selecto Chedraui", "rating": 4.2, "reviews": 5629, "direccion": "Neptuno Manzana 004, Tulum 2, Lomas de Padierna, Tulum", "lat": 20.2115397, "lng": -87.4501557, "place_id": "ChIJpd7P9FnRT48RcLQkxjtr1uc", "maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJpd7P9FnRT48RcLQkxjtr1uc", "desc": {"es": "Supermercado con amplia selección de productos, incluyendo opciones gourmet y frescas.", "en": "Supermarket with a wide selection of products, including gourmet and fresh options.", "pt": "Supermercado com ampla seleção de produtos, incluindo opções gourmet e frescas."}}, {"nombre": "Waldo's", "rating": 4, "reviews": 662, "direccion": "Avenida Tulum Lote Oriente 14, Tulum", "lat": 20.2111065, "lng": -87.4621719, "place_id": "ChIJGb_DnKzWT48RU0tyj14-tlY", "maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJGb_DnKzWT48RU0tyj14-tlY", "desc": {"es": "Tienda de descuentos con productos variados, desde abarrotes hasta artículos del hogar.", "en": "Discount store with various products, from groceries to household items.", "pt": "Loja de descontos com produtos variados, desde mercearia a artigos para o lar."}}, {"nombre": "La Macarena Tulum", "rating": 4.1, "reviews": 168, "direccion": "Calle Sol Poniente Manzana 4 Lote 5-C.P, Centro, Tulum", "lat": 20.20907619999999, "lng": -87.46628079999999, "place_id": "ChIJ4YzIqlrXT48Rhfoh9WDUzB4", "maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJ4YzIqlrXT48Rhfoh9WDUzB4", "desc": {"es": "Supermercado local con productos básicos y algunos artículos frescos.", "en": "Local supermarket with basic products and some fresh items.", "pt": "Supermercado local com produtos básicos e alguns itens frescos."}}, {"nombre": "Fresh Market", "rating": 3.5, "reviews": 131, "direccion": "AV. ITZAMNA ESQUINA AV. BALAM DZAKAB LOCAL 01 Y 02, Tulum", "lat": 20.1990895, "lng": -87.4569746, "place_id": "ChIJA0RN0wnRT48RD6aZ4pH2SaE", "maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJA0RN0wnRT48RD6aZ4pH2SaE", "desc": {"es": "Mercado especializado en productos frescos, orgánicos y opciones saludables.", "en": "Specialty market focused on fresh, organic products and healthy options.", "pt": "Mercado especializado em produtos frescos, orgânicos e opções saudáveis."}}, {"nombre": "Abarrotes Dunosusa Tulum Pueblo 3", "rating": 3.6, "reviews": 63, "direccion": "Tulum", "lat": 20.2087052, "lng": -87.4617408, "place_id": "ChIJmavF4KzWT48R4i6nDBLDWfM", "maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJmavF4KzWT48R4i6nDBLDWfM", "desc": {"es": "Tienda de abarrotes para compras rápidas y productos de primera necesidad.", "en": "Grocery store for quick purchases and essential products.", "pt": "Mercearia para compras rápidas e produtos de primeira necessidade."}}], "panaderias": [{"nombre": "Nimeno Bakery", "rating": 4.7, "reviews": 846, "direccion": "Calle 14 sur y 7 sur, Tulum", "lat": 20.2035913, "lng": -87.4730305, "place_id": "ChIJx5d3COXXT48REut3Yc417zo", "maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJx5d3COXXT48REut3Yc417zo", "desc": {"es": "Panadería artesanal con variedad de panes, pasteles y café fresco.", "en": "Artisanal bakery with a variety of breads, pastries, and fresh coffee.", "pt": "Padaria artesanal com variedade de pães, doces e café fresco."}}, {"nombre": "ROSSINA CAFE", "rating": 4.6, "reviews": 632, "direccion": "Region 14 Mza 12 Local 1 Lote 91, Tulum", "lat": 20.1986697, "lng": -87.45839389999999, "place_id": "ChIJ03_rAgzRT48RjGf3SRcY4Ps", "maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJ03_rAgzRT48RjGf3SRcY4Ps", "desc": {"es": "Café y panadería con ambiente acogedor, ideal para desayunos y meriendas.", "en": "Cafe and bakery with a cozy atmosphere, perfect for breakfast and snacks.", "pt": "Café e padaria com ambiente acolhedor, ideal para cafés da manhã e lanches."}}, {"nombre": "Holy Bakery Tulum - coffee and cookies", "rating": 4.9, "reviews": 276, "direccion": "IFRONT OF MEXIGO RENTAL, Paseo zama Manzana 26, Tulum", "lat": 20.1998859, "lng": -87.4630298, "place_id": "ChIJZ-vUAQDXT48RtxFYZu8hUh0", "maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJZ-vUAQDXT48RtxFYZu8hUh0", "desc": {"es": "Panadería con un toque especial en galletas y café, ideal para un dulce capricho.", "en": "Bakery with a special touch in cookies and coffee, perfect for a sweet treat.", "pt": "Padaria com um toque especial em biscoitos e café, ideal para um doce capricho."}}, {"nombre": "Nimeño Zama", "rating": 4.7, "reviews": 253, "direccion": "Aldea Zama Manzana 26 Lote 136, Tulum", "lat": 20.20000379999999, "lng": -87.4626802, "place_id": "ChIJkVk-7pjRT48RsVZqWsBtG_k", "maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJkVk-7pjRT48RsVZqWsBtG_k", "desc": {"es": "Panadería en Zama, ofrece pan fresco, pasteles y café en un entorno moderno.", "en": "Bakery in Zama, offering fresh bread, pastries, and coffee in a modern setting.", "pt": "Padaria em Zama, oferece pão fresco, bolos e café em um ambiente moderno."}}, {"nombre": "Abasto Veleta", "rating": 4.9, "reviews": 171, "direccion": "Calle 12 Sur esquina-7, La Veleta, Tulum", "lat": 20.2024981, "lng": -87.4738146, "place_id": "ChIJAX3BYADXT48RnifhfYtwC28", "maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJAX3BYADXT48RnifhfYtwC28", "desc": {"es": "Panadería local con productos frescos horneados a diario y especialidades.", "en": "Local bakery with fresh baked goods daily and specialties.", "pt": "Padaria local com produtos frescos assados diariamente e especialidades."}}]}}];
-window.OUTFITS = [{"key": "ruinasmayas", "emoji": "🏛️", "label": {"es": "Ruinas Mayas", "en": "Mayan Ruins", "pt": "Ruínas Maias"}, "outfit_frio": {"es": ["👖 Pantalón largo ligero", "👕 Camisa manga larga", "👟 Zapatillas cómodas", "🧢 Gorra", "💧 Botella agua"], "en": ["👖 Light long pants", "👕 Long sleeve shirt", "👟 Comfortable shoes", "🧢 Cap", "💧 Water bottle"], "pt": ["👖 Calça comprida leve", "👕 Camisa manga comprida", "👟 Sapatos confortáveis", "🧢 Boné", "💧 Garrafa água"]}, "outfit_templado": {"es": ["👕 Camiseta ligera", "🩳 Bermuda", "👟 Zapatillas cómodas", "🧢 Gorra", "🧴 Protector solar"], "en": ["👕 Light t-shirt", "🩳 Shorts", "👟 Comfortable shoes", "🧢 Cap", "🧴 Sunscreen"], "pt": ["👕 Camiseta leve", "🩳 Bermuda", "👟 Sapatos confortáveis", "🧢 Boné", "🧴 Protetor solar"]}, "outfit_calido": {"es": ["👕 Camiseta fresca", "🩳 Shorts", "👟 Sandalias cómodas", "🧢 Sombrero ala ancha", "🕶️ Gafas de sol", "🧴 Protector solar"], "en": ["👕 Cool t-shirt", "🩳 Shorts", "👟 Comfortable sandals", "🧢 Wide-brim hat", "🕶️ Sunglasses", "🧴 Sunscreen"], "pt": ["👕 Camiseta fresca", "🩳 Shorts", "👟 Sandálias confortáveis", "🧢 Chapéu aba larga", "🕶️ Óculos de sol", "🧴 Protetor solar"]}, "tip": {"es": "Llega temprano para evitar multitudes y el calor intenso. No olvides tu botella de agua y protector solar.", "en": "Arrive early to avoid crowds and intense heat. Do not forget your water bottle and sunscreen.", "pt": "Chegue cedo para evitar multidões e o calor intenso. Não esqueça sua garrafa de água e protetor solar."}}, {"key": "nadarcenotes", "emoji": "🏊", "label": {"es": "Nadar en Cenotes", "en": "Swim in Cenotes", "pt": "Nadar em Cenotes"}, "outfit_frio": {"es": ["👙 Traje de baño", "🩱 Traje de neopreno corto", "👕 Camiseta ligera", "🩴 Chanclas", "タオル Toalla"], "en": ["👙 Swimsuit", "🩱 Short wetsuit", "👕 Light t-shirt", "🩴 Flip-flops", "タオル Towel"], "pt": ["👙 Roupa de banho", "🩱 Roupa de mergulho curta", "👕 Camiseta leve", "🩴 Chinelos", "タオル Toalha"]}, "outfit_templado": {"es": ["👙 Traje de baño", "🩱 Rashguard", "🩳 Shorts", "🩴 Sandalias acuáticas", "タオル Toalla", "🧴 Protector solar biodegradable"], "en": ["👙 Swimsuit", "🩱 Rashguard", "🩳 Shorts", "🩴 Water sandals", "タオル Towel", "🧴 Biodegradable sunscreen"], "pt": ["👙 Roupa de banho", "🩱 Rashguard", "🩳 Shorts", "🩴 Sandálias aquáticas", "タオル Toalha", "🧴 Protetor solar biodegradável"]}, "outfit_calido": {"es": ["👙 Traje de baño", "🩱 Rashguard", "🩴 Chanclas", "タオル Toalla", "🕶️ Gafas de sol", "🧴 Protector solar biodegradable"], "en": ["👙 Swimsuit", "🩱 Rashguard", "🩴 Flip-flops", "タオル Towel", "🕶️ Sunglasses", "🧴 Biodegradable sunscreen"], "pt": ["👙 Roupa de banho", "🩱 Rashguard", "🩴 Chinelos", "タオル Toalha", "🕶️ Óculos de sol", "🧴 Protetor solar biodegradável"]}, "tip": {"es": "Usa protector solar y repelente de insectos biodegradables para proteger la pureza del agua. Explora diferentes tipos.", "en": "Use biodegradable sunscreen and insect repellent to protect the water's purity. Explore different types.", "pt": "Use protetor solar e repelente biodegradáveis para proteger a pureza da água. Explore diferentes tipos."}}, {"key": "snorkelbuceo", "emoji": "🤿", "label": {"es": "Snorkel/Buceo", "en": "Snorkel/Diving", "pt": "Snorkel/Mergulho"}, "outfit_frio": {"es": ["👙 Traje de baño", "🩱 Traje de neopreno corto", "👕 Camiseta manga larga", "タオル Toalla"], "en": ["👙 Swimsuit", "🩱 Short wetsuit", "👕 Long sleeve shirt", "タオル Towel"], "pt": ["👙 Roupa de banho", "🩱 Roupa de mergulho curta", "👕 Camisa manga comprida", "タオル Toalha"]}, "outfit_templado": {"es": ["👙 Traje de baño", "🩱 Rashguard", "🩴 Sandalias acuáticas", "タオル Toalla", "🧴 Protector solar biodegradable"], "en": ["👙 Swimsuit", "🩱 Rashguard", "🩴 Water sandals", "タオル Towel", "🧴 Biodegradable sunscreen"], "pt": ["👙 Roupa de banho", "🩱 Rashguard", "🩴 Sandálias aquáticas", "タオル Toalha", "🧴 Protetor solar biodegradável"]}, "outfit_calido": {"es": ["👙 Traje de baño", "🩱 Rashguard", "🩴 Chanclas", "タオル Toalla", "🕶️ Gafas de sol", "🧴 Protector solar biodegradable"], "en": ["👙 Swimsuit", "🩱 Rashguard", "🩴 Flip-flops", "タオル Toalla", "🕶️ Sunglasses", "🧴 Biodegradable sunscreen"], "pt": ["👙 Roupa de banho", "🩱 Rashguard", "🩴 Chinelos", "タオル Toalha", "🕶️ Óculos de sol", "🧴 Protetor solar biodegradável"]}, "tip": {"es": "Tulum ofrece arrecifes y cenotes para bucear. Siempre usa protector solar biodegradable para el ecosistema marino.", "en": "Tulum offers reefs and cenotes for diving. Always use biodegradable sunscreen for the marine ecosystem.", "pt": "Tulum oferece recifes e cenotes para mergulho. Sempre use protetor solar biodegradável para o ecossistema marinho."}}, {"key": "disfrutarplaya", "emoji": "🏖️", "label": {"es": "Disfrutar Playa", "en": "Enjoy Beach", "pt": "Desfrutar Praia"}, "outfit_frio": {"es": ["👙 Traje de baño", "🩱 Rashguard", "👕 Camiseta manga larga", "🩳 Bermuda", "🏖️ Pareo/Kaftán"], "en": ["👙 Swimsuit", "🩱 Rashguard", "👕 Long sleeve t-shirt", "🩳 Shorts", "🏖️ Sarong/Kaftan"], "pt": ["👙 Roupa de banho", "🩱 Rashguard", "👕 Camisa manga comprida", "🩳 Bermuda", "🏖️ Saída de praia/Caftan"]}, "outfit_templado": {"es": ["👙 Traje de baño", "👕 Camiseta ligera", "🩳 Bermuda", "🩴 Chanclas", "🧴 Protector solar", "🧢 Sombrero"], "en": ["👙 Swimsuit", "👕 Light t-shirt", "🩳 Shorts", "🩴 Flip-flops", "🧴 Sunscreen", "🧢 Hat"], "pt": ["👙 Roupa de banho", "👕 Camiseta leve", "🩳 Bermuda", "🩴 Chinelos", "🧴 Protetor solar", "🧢 Chapéu"]}, "outfit_calido": {"es": ["👙 Traje de baño", "🏖️ Pareo/Kaftán", "🩴 Chanclas", "🧢 Sombrero ala ancha", "🕶️ Gafas de sol", "🧴 Protector solar"], "en": ["👙 Swimsuit", "🏖️ Sarong/Kaftan", "🩴 Flip-flops", "🧢 Wide-brim hat", "🕶️ Sunglasses", "🧴 Sunscreen"], "pt": ["👙 Roupa de banho", "🏖️ Saída de praia/Caftan", "🩴 Chinelos", "🧢 Chapéu aba larga", "🕶️ Óculos de sol", "🧴 Protetor solar"]}, "tip": {"es": "Las playas de Tulum son famosas. Llega temprano para encontrar un buen lugar y disfrutar la tranquilidad matutina.", "en": "Tulum's beaches are famous. Arrive early to find a good spot and enjoy the morning tranquility.", "pt": "As praias de Tulum são famosas. Chegue cedo para encontrar um bom lugar e desfrutar da tranquilidade matinal."}}];
+window.PROPS = [{"idx": 1, "nombre": "Vanesa", "direccion": "5GHR+F8, 77765 Tulum, Quintana Roo, Mexico", "lat": 20.1786127, "lng": -87.4591904, "barrio": "", "ciudad": "Tulum", "region": "Quintana Roo", "country": "Mexico", "formatted": "5GHR+F8, 77765 Tulum, Quintana Roo, Mexico", "maps_link": "https://maps.app.goo.gl/T5XgRq3z6pcHVhe39?g_st=ac", "instagram": "https://www.instagram.com/pedrovolpacchio?igsh=bnM4Njhwd2JvZ2dv", "video_es": {"kind": "none", "embed_url": "", "raw_url": "", "message": ""}, "video_en": {"kind": "none", "embed_url": "", "raw_url": "", "message": ""}, "wifi_ssid": "", "wifi_pass": "Fabian", "welcome": {"es": {"title": "Bienvenidos al Vanesa", "sub": "En el corazón de Tulum"}, "en": {"title": "Welcome to Vanesa", "sub": "In the heart of Tulum"}, "pt": {"title": "Bem-vindos ao Vanesa", "sub": "No coração de Tulum"}}, "recomendaciones": [], "lugares": {"atracciones": [{"nombre": "Parque Dos Aguas", "rating": 4.4, "reviews": 2739, "direccion": "Calle Alfa Sur 1066, Tulum", "lat": 20.21016599999999, "lng": -87.46314699999999, "place_id": "ChIJ0dhDXazWT48RkzSmmMmCnjw", "maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJ0dhDXazWT48RkzSmmMmCnjw", "desc": {"es": "", "en": "", "pt": ""}}, {"nombre": "Museo de la Cultura Maya Park", "rating": 4.4, "reviews": 785, "direccion": "Avenida Tulum 1, Centro, Tulum", "lat": 20.2106493, "lng": -87.46300509999999, "place_id": "ChIJs4lDfKzWT48RhfWVZP8wxU0", "maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJs4lDfKzWT48RhfWVZP8wxU0", "desc": {"es": "", "en": "", "pt": ""}}, {"nombre": "Playa Mirador", "rating": 4.5, "reviews": 512, "direccion": "camino boca pila, Javier Rojo Gómez", "lat": 20.1730008, "lng": -87.4480518, "place_id": "ChIJ5S4wVibRT48RgSgF64f2-Nw", "maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJ5S4wVibRT48RgSgF64f2-Nw", "desc": {"es": "", "en": "", "pt": ""}}, {"nombre": "Parque Rotario", "rating": 4, "reviews": 480, "direccion": "Neptuno Oriente 5, Tulum", "lat": 20.2094506, "lng": -87.4600252, "place_id": "ChIJ-TxJMVPRT48R7MLHEJ9kTG8", "maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJ-TxJMVPRT48R7MLHEJ9kTG8", "desc": {"es": "", "en": "", "pt": ""}}, {"nombre": "Koox Diving | Scuba Diving Center Tulum", "rating": 4.8, "reviews": 279, "direccion": "entre Géminis Nte. y Libra Nte, Avenida Tulum Manzana 7 Lote 5, Centro, Tulum", "lat": 20.2134817, "lng": -87.45636119999999, "place_id": "ChIJOVTPY6vWT48R7TDHA_oMT_E", "maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJOVTPY6vWT48R7TDHA_oMT_E", "desc": {"es": "", "en": "", "pt": ""}}], "restaurantes": [{"nombre": "La Zebra Tulum, a Small Luxury Hotel", "rating": 4.6, "reviews": 2263, "direccion": "Carretera Tulum-Boca Paila 800, Zona Hotelera, Tulum", "lat": 20.145755, "lng": -87.45998399999999, "place_id": "ChIJv2GoULXQT48RSQG69AxwRw4", "maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJv2GoULXQT48RSQG69AxwRw4", "desc": {"es": "", "en": "", "pt": ""}}, {"nombre": "Papaya Playa Project", "rating": 4, "reviews": 2637, "direccion": "Carretera Tulum-Boca Paila Km 4.5, Zona Costera, Tulum", "lat": 20.1817029, "lng": -87.44466059999999, "place_id": "ChIJ6c8lMEvXT48RE0bKA7BKweA", "maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJ6c8lMEvXT48RE0bKA7BKweA", "desc": {"es": "", "en": "", "pt": ""}}, {"nombre": "Mateos Mexican Grill", "rating": 4.4, "reviews": 1536, "direccion": "Carretera, Boca Paila, 2 Supermanzana km 5 Manzana 10 Lote 16, Tulum", "lat": 20.1763473, "lng": -87.4470776, "place_id": "ChIJuWKoPCTRT48RP7jrWNFu2xQ", "maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJuWKoPCTRT48RP7jrWNFu2xQ", "desc": {"es": "", "en": "", "pt": ""}}, {"nombre": "Amansala Resort |Beachclub | Spa", "rating": 4.4, "reviews": 1309, "direccion": "Carr. Tulum-Boca Paila KM 5.5, Tulum Beach, Zona Hotelera, Tulum", "lat": 20.1664039, "lng": -87.4514355, "place_id": "ChIJX4p1zlDRT48Rm7swd8OY1JA", "maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJX4p1zlDRT48Rm7swd8OY1JA", "desc": {"es": "", "en": "", "pt": ""}}, {"nombre": "Ana y José Hotel & Spa", "rating": 4.4, "reviews": 1136, "direccion": "Carretera Tulum-Boca Paila Km. 7, Punta Piedra, Tulum", "lat": 20.1573505, "lng": -87.4555053, "place_id": "ChIJd0ga_M3QT48Rci6wmFKHRik", "maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJd0ga_M3QT48Rci6wmFKHRik", "desc": {"es": "", "en": "", "pt": ""}}], "cafes": [{"nombre": "Bistró Alegría Cafe", "rating": 4.8, "reviews": 911, "direccion": "Calle Itzamna Manzana 12-L103 D10, Tulum", "lat": 20.198355, "lng": -87.4594331, "place_id": "ChIJFWyP5WXRT48RZPfH9xNq1Yw", "maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJFWyP5WXRT48RZPfH9xNq1Yw", "desc": {"es": "", "en": "", "pt": ""}}, {"nombre": "Nimeno Bakery", "rating": 4.7, "reviews": 846, "direccion": "Calle 14 sur y 7 sur, Tulum", "lat": 20.203593, "lng": -87.47302409999999, "place_id": "ChIJx5d3COXXT48REut3Yc417zo", "maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJx5d3COXXT48REut3Yc417zo", "desc": {"es": "", "en": "", "pt": ""}}, {"nombre": "Babel Cafe", "rating": 4.3, "reviews": 1014, "direccion": "Av. Tulum, Tulum Centro, Tulum", "lat": 20.2114947, "lng": -87.46252989999999, "place_id": "ChIJm9MZv67WT48R3lcxsMD5C-E", "maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJm9MZv67WT48R3lcxsMD5C-E", "desc": {"es": "", "en": "", "pt": ""}}, {"nombre": "Italdo Café Bistro", "rating": 4.5, "reviews": 794, "direccion": "AV. 5 Sur Manzana 892 Lote 6, Local 7, La Veleta, Tulum", "lat": 20.205353, "lng": -87.4793971, "place_id": "ChIJWXCLIcnXT48RHxmTskaJs4g", "maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJWXCLIcnXT48RHxmTskaJs4g", "desc": {"es": "", "en": "", "pt": ""}}, {"nombre": "La Fournee", "rating": 4.6, "reviews": 563, "direccion": "Av. Tulum MZA 2 LTE 4 Loc. 7, Centro, Tulum", "lat": 20.2112834, "lng": -87.4630602, "place_id": "ChIJ7fmnf6zWT48RV_AXr2vuYOE", "maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJ7fmnf6zWT48RV_AXr2vuYOE", "desc": {"es": "", "en": "", "pt": ""}}], "cervecerias": [{"nombre": "RosaNegra | Best Latin American Restaurant in Tulum", "rating": 4.7, "reviews": 7736, "direccion": "Carr. Tulum-Boca Paila 5-Km 7, Tulum Beach, Zona Hotelera, Tulum", "lat": 20.1499568, "lng": -87.45893939999999, "place_id": "ChIJq3L-bMvQT48RDMd2nqKr400", "maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJq3L-bMvQT48RDMd2nqKr400", "desc": {"es": "", "en": "", "pt": ""}}, {"nombre": "La Barracuda", "rating": 4.4, "reviews": 3873, "direccion": "Av. Tulum MZ 2 LT 3, Tulum Centro, Centro, Tulum", "lat": 20.2095317, "lng": -87.4685621, "place_id": "ChIJCUv8EK_WT48RLotQ01YChoE", "maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJCUv8EK_WT48RLotQ01YChoE", "desc": {"es": "", "en": "", "pt": ""}}, {"nombre": "M tulum Hookah & Pool Lounge", "rating": 4.9, "reviews": 2608, "direccion": "Av. Tulum 88, Tulum Centro, Centro, Tulum", "lat": 20.2120512, "lng": -87.45921659999999, "place_id": "ChIJj7PAxKDRT48RpqeEr8jQ3Xw", "maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJj7PAxKDRT48RpqeEr8jQ3Xw", "desc": {"es": "", "en": "", "pt": ""}}, {"nombre": "Batey Mojito and Guarapo Bar", "rating": 4.7, "reviews": 2596, "direccion": "C. Centauro Sur, Tulum Centro, Tulum", "lat": 20.2117185, "lng": -87.4592095, "place_id": "ChIJl8swoFTRT48RAJmcTldL2Z8", "maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJl8swoFTRT48RAJmcTldL2Z8", "desc": {"es": "", "en": "", "pt": ""}}, {"nombre": "Mistico Tulum", "rating": 4.9, "reviews": 2353, "direccion": "Andromeda Oriente Calle Centauro Sur entre, Tulum Centro, Tulum", "lat": 20.2112037, "lng": -87.4595757, "place_id": "ChIJUeD_e6nRT48Rx8CtKWiS2QU", "maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJUeD_e6nRT48Rx8CtKWiS2QU", "desc": {"es": "", "en": "", "pt": ""}}], "salir": [{"nombre": "Vagalume Tulum", "rating": 4.6, "reviews": 3365, "direccion": "Supermanzana QROO 15, Tulum Beach, Tulum", "lat": 20.1517764, "lng": -87.4582982, "place_id": "ChIJUYzZCrHRT48RkFn1D14l8gA", "maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJUYzZCrHRT48RkFn1D14l8gA", "desc": {"es": "", "en": "", "pt": ""}}, {"nombre": "M tulum Hookah & Pool Lounge", "rating": 4.9, "reviews": 2608, "direccion": "Av. Tulum 88, Tulum Centro, Centro, Tulum", "lat": 20.2120512, "lng": -87.45921659999999, "place_id": "ChIJj7PAxKDRT48RpqeEr8jQ3Xw", "maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJj7PAxKDRT48RpqeEr8jQ3Xw", "desc": {"es": "", "en": "", "pt": ""}}, {"nombre": "Batey Mojito and Guarapo Bar", "rating": 4.7, "reviews": 2596, "direccion": "C. Centauro Sur, Tulum Centro, Tulum", "lat": 20.2117185, "lng": -87.4592095, "place_id": "ChIJl8swoFTRT48RAJmcTldL2Z8", "maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJl8swoFTRT48RAJmcTldL2Z8", "desc": {"es": "", "en": "", "pt": ""}}, {"nombre": "Mistico Tulum", "rating": 4.9, "reviews": 2353, "direccion": "Andromeda Oriente Calle Centauro Sur entre, Tulum Centro, Tulum", "lat": 20.2112037, "lng": -87.4595757, "place_id": "ChIJUeD_e6nRT48Rx8CtKWiS2QU", "maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJUeD_e6nRT48Rx8CtKWiS2QU", "desc": {"es": "", "en": "", "pt": ""}}, {"nombre": "Encanto Cantina", "rating": 4.5, "reviews": 2456, "direccion": "Av. Tulum 21, Tulum Centro, Tulum", "lat": 20.2102567, "lng": -87.46493710000001, "place_id": "ChIJqcb_DKzWT48Re0xp2im5p5w", "maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJqcb_DKzWT48Re0xp2im5p5w", "desc": {"es": "", "en": "", "pt": ""}}], "supermercados": [{"nombre": "Selecto Chedraui", "rating": 4.2, "reviews": 5629, "direccion": "Neptuno Manzana 004, Tulum 2, Lomas de Padierna, Tulum", "lat": 20.2115397, "lng": -87.4501557, "place_id": "ChIJpd7P9FnRT48RcLQkxjtr1uc", "maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJpd7P9FnRT48RcLQkxjtr1uc", "desc": {"es": "", "en": "", "pt": ""}}, {"nombre": "Waldo's", "rating": 4, "reviews": 662, "direccion": "Avenida Tulum Lote Oriente 14, Tulum", "lat": 20.2111065, "lng": -87.4621719, "place_id": "ChIJGb_DnKzWT48RU0tyj14-tlY", "maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJGb_DnKzWT48RU0tyj14-tlY", "desc": {"es": "", "en": "", "pt": ""}}, {"nombre": "La Macarena Tulum", "rating": 4.1, "reviews": 168, "direccion": "Calle Sol Poniente Manzana 4 Lote 5-C.P, Centro, Tulum", "lat": 20.20907619999999, "lng": -87.46628079999999, "place_id": "ChIJ4YzIqlrXT48Rhfoh9WDUzB4", "maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJ4YzIqlrXT48Rhfoh9WDUzB4", "desc": {"es": "", "en": "", "pt": ""}}, {"nombre": "Fresh Market", "rating": 3.5, "reviews": 131, "direccion": "AV. ITZAMNA ESQUINA AV. BALAM DZAKAB LOCAL 01 Y 02, Tulum", "lat": 20.1990895, "lng": -87.4569746, "place_id": "ChIJA0RN0wnRT48RD6aZ4pH2SaE", "maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJA0RN0wnRT48RD6aZ4pH2SaE", "desc": {"es": "", "en": "", "pt": ""}}, {"nombre": "Abarrotes Dunosusa Tulum Pueblo 3", "rating": 3.6, "reviews": 63, "direccion": "Tulum", "lat": 20.2087052, "lng": -87.4617408, "place_id": "ChIJmavF4KzWT48R4i6nDBLDWfM", "maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJmavF4KzWT48R4i6nDBLDWfM", "desc": {"es": "", "en": "", "pt": ""}}], "panaderias": [{"nombre": "Nimeno Bakery", "rating": 4.7, "reviews": 846, "direccion": "Calle 14 sur y 7 sur, Tulum", "lat": 20.2035913, "lng": -87.4730305, "place_id": "ChIJx5d3COXXT48REut3Yc417zo", "maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJx5d3COXXT48REut3Yc417zo", "desc": {"es": "", "en": "", "pt": ""}}, {"nombre": "ROSSINA CAFE", "rating": 4.6, "reviews": 632, "direccion": "Region 14 Mza 12 Local 1 Lote 91, Tulum", "lat": 20.1986697, "lng": -87.45839389999999, "place_id": "ChIJ03_rAgzRT48RjGf3SRcY4Ps", "maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJ03_rAgzRT48RjGf3SRcY4Ps", "desc": {"es": "", "en": "", "pt": ""}}, {"nombre": "Holy Bakery Tulum - coffee and cookies", "rating": 4.9, "reviews": 276, "direccion": "IFRONT OF MEXIGO RENTAL, Paseo zama Manzana 26, Tulum", "lat": 20.1998859, "lng": -87.4630298, "place_id": "ChIJZ-vUAQDXT48RtxFYZu8hUh0", "maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJZ-vUAQDXT48RtxFYZu8hUh0", "desc": {"es": "", "en": "", "pt": ""}}, {"nombre": "Nimeño Zama", "rating": 4.7, "reviews": 253, "direccion": "Aldea Zama Manzana 26 Lote 136, Tulum", "lat": 20.20000379999999, "lng": -87.4626802, "place_id": "ChIJkVk-7pjRT48RsVZqWsBtG_k", "maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJkVk-7pjRT48RsVZqWsBtG_k", "desc": {"es": "", "en": "", "pt": ""}}, {"nombre": "Abasto Veleta", "rating": 4.9, "reviews": 171, "direccion": "Calle 12 Sur esquina-7, La Veleta, Tulum", "lat": 20.2024981, "lng": -87.4738146, "place_id": "ChIJAX3BYADXT48RnifhfYtwC28", "maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJAX3BYADXT48RnifhfYtwC28", "desc": {"es": "", "en": "", "pt": ""}}]}}];
+window.OUTFITS = [];
 window.GEO = {
   lat: 20.1786127,
   lng: -87.4591904,
