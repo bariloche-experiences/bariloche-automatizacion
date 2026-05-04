@@ -996,13 +996,14 @@ def render(ctx: dict, slug: str, template_name: str) -> Path:
 # ============================================================
 # 9. EMAIL
 # ============================================================
-def enviar_email_anfitrion(destinatario: str, anfitrion: str) -> None:
+def enviar_email_anfitrion(destinatario: str, anfitrion: str, ciudad: str = "") -> None:
     """Email al anfitrión pidiéndole que grabe y envíe el video de check-in por WhatsApp."""
     PEDRO_WHATSAPP = os.environ.get("PEDRO_WHATSAPP", "+5491131952798")
     pedro_wa_link = "https://wa.me/" + PEDRO_WHATSAPP.replace("+", "").replace(" ", "").replace("-", "")
+    marca = f"{ciudad} Experiencias" if ciudad else "Experiencias"
 
     msg = MIMEMultipart("alternative")
-    msg["Subject"] = "¡Bienvenido a Bariloche Experiencias! Un paso más 🎬"
+    msg["Subject"] = f"¡Bienvenido a {marca}! Un paso más 🎬"
     msg["From"] = EMAIL_USER
     msg["To"] = destinatario
 
@@ -1034,7 +1035,7 @@ def enviar_email_anfitrion(destinatario: str, anfitrion: str) -> None:
   <p style="color:#6b7280;font-size:13px">Con el video listo, te mandamos el link de tu web personalizada para tus huéspedes.</p>
 
   <hr style="border:none;border-top:1px solid #e5e7eb;margin:24px 0">
-  <p style="font-size:13px;color:#6b7280;text-align:center"><strong style="color:#374151">Pedro Volpacchio</strong><br>Bariloche Experiencias</p>
+  <p style="font-size:13px;color:#6b7280;text-align:center"><strong style="color:#374151">Pedro Volpacchio</strong><br>{marca}</p>
 </div>
 </body></html>"""
 
@@ -1157,7 +1158,7 @@ Cualquier ajuste o duda, respondeme este mail o escribime al WhatsApp.
 ¡Saludos!
 
 — Pedro Volpacchio
-Bariloche Experiencias
+{ciudad + " Experiencias" if ciudad else "Experiencias"}
 """
 
     html = f"""<!DOCTYPE html>
@@ -1252,7 +1253,7 @@ Bariloche Experiencias
 
   <p style="font-size:13px;color:#6b7280;text-align:center">
     <strong style="color:#374151">Pedro Volpacchio</strong><br>
-    Bariloche Experiencias
+    {ciudad + " Experiencias" if ciudad else "Experiencias"}
   </p>
 
 </body>
@@ -1443,7 +1444,7 @@ def main():
 
     if email_dueno:
         try:
-            enviar_email_anfitrion(email_dueno, anfitrion)
+            enviar_email_anfitrion(email_dueno, anfitrion, ciudad)
         except Exception as e:
             print(f"⚠️  Email al anfitrión no enviado: {e}")
 
