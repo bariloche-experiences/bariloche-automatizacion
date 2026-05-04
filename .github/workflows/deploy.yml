@@ -2,7 +2,7 @@ name: Generar y desplegar webs
 
 on:
   repository_dispatch:
-    types: [nueva_propiedad]
+    types: [nueva_propiedad, sheet-updated]
   workflow_dispatch:
   schedule:
     - cron: "0 * * * *"   # cron de seguridad cada hora
