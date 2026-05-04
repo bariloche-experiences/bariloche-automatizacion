@@ -984,6 +984,55 @@ def render(ctx: dict, slug: str, template_name: str) -> Path:
 # ============================================================
 # 9. EMAIL
 # ============================================================
+def enviar_email_anfitrion(destinatario: str, anfitrion: str) -> None:
+    """Email al anfitrión pidiéndole que grabe y envíe el video de check-in por WhatsApp."""
+    PEDRO_WHATSAPP = os.environ.get("PEDRO_WHATSAPP", "+5491131952798")
+    pedro_wa_link = "https://wa.me/" + PEDRO_WHATSAPP.replace("+", "").replace(" ", "").replace("-", "")
+
+    msg = MIMEMultipart("alternative")
+    msg["Subject"] = "¡Bienvenido a Bariloche Experiencias! Un paso más 🎬"
+    msg["From"] = EMAIL_USER
+    msg["To"] = destinatario
+
+    html = f"""<!DOCTYPE html>
+<html><body style="font-family:-apple-system,sans-serif;background:#f9fafb;padding:24px">
+<div style="max-width:520px;margin:0 auto;background:#fff;border-radius:12px;padding:32px;border:1px solid #e5e7eb">
+  <h2 style="color:#111827">Hola {anfitrion} 👋</h2>
+  <p style="color:#374151">Ya registramos tu propiedad. Para completar tu perfil necesito que me envíes un <strong>video de check-in</strong> de tu depto.</p>
+
+  <div style="background:#f3f4f6;border-radius:8px;padding:16px;margin:20px 0">
+    <p style="margin:0 0 8px;font-weight:700;color:#111827">¿Qué tiene que mostrar el video?</p>
+    <ul style="color:#374151;margin:0;padding-left:20px">
+      <li>Entrada al edificio y cómo se abre</li>
+      <li>Cómo llegar al depto desde la puerta</li>
+      <li>Dónde está la llave / caja de seguridad</li>
+      <li>Recorrida rápida por los ambientes</li>
+      <li>WiFi y cualquier dato importante</li>
+    </ul>
+  </div>
+
+  <p style="color:#374151">Una vez que lo tengas, <strong>enviámelo por WhatsApp</strong>:</p>
+
+  <div style="text-align:center;margin:24px 0">
+    <a href="{pedro_wa_link}" style="background:#25d366;color:#fff;padding:14px 28px;border-radius:8px;text-decoration:none;font-weight:700;font-size:16px">
+      📲 Enviar video por WhatsApp
+    </a>
+  </div>
+
+  <p style="color:#6b7280;font-size:13px">Con el video listo, te mandamos el link de tu web personalizada para tus huéspedes.</p>
+
+  <hr style="border:none;border-top:1px solid #e5e7eb;margin:24px 0">
+  <p style="font-size:13px;color:#6b7280;text-align:center"><strong style="color:#374151">Pedro Volpacchio</strong><br>Bariloche Experiencias</p>
+</div>
+</body></html>"""
+
+    msg.attach(MIMEText(html, "html"))
+    with smtplib.SMTP_SSL("smtp.gmail.com", 465) as s:
+        s.login(EMAIL_USER, EMAIL_PASS)
+        s.send_message(msg)
+    print(f"✓ Email de video enviado a {destinatario}")
+
+
 def enviar_email(
     destinatario: str,
     link: str,
@@ -1217,7 +1266,7 @@ def main():
     row = leer_ultima_fila(sheet)
 
     anfitrion = get_field(row, "nombre_anfitrion", "anfitrion", "nombre", default="anfitrion")
-    email_dueno = get_field(row, "email_dueno", "email_anfitrion", "email")
+    email_dueno = get_field(row, "Email del anfitrion", "email_dueno", "email_anfitrion", "email")
     telefono_host = get_field(row, "telefono_host", "whatsapp", "whatsapp_contacto")
     print(f"→ Anfitrión: {anfitrion} ({email_dueno or 'sin email'})")
 
@@ -1378,7 +1427,13 @@ def main():
     try:
         enviar_email("volpacchio47@gmail.com", link, anfitrion, ciudad, propiedades=propiedades_dict)
     except Exception as e:
-        print(f"⚠️  Email no enviado: {e}")
+        print(f"⚠️  Email a Pedro no enviado: {e}")
+
+    if email_dueno:
+        try:
+            enviar_email_anfitrion(email_dueno, anfitrion)
+        except Exception as e:
+            print(f"⚠️  Email al anfitrión no enviado: {e}")
 
     print(f"✓ Listo → {out}")
 
