@@ -249,12 +249,18 @@ def extract_coords_from_maps_url(url: str) -> tuple[float, float] | None:
     # Link corto (goo.gl, maps.app.goo.gl) — expandir siguiendo redirects
     if 'goo.gl' in url or 'maps.app' in url:
         try:
-            req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0'})
-            with urllib.request.urlopen(req, timeout=5) as resp:
-                expanded = resp.url
+            import requests as req_lib
+            resp = req_lib.get(url, allow_redirects=True, timeout=8,
+                               headers={'User-Agent': 'Mozilla/5.0'})
+            expanded = resp.url
+            print(f"  → Maps URL expandida: {expanded[:120]}")
             result = _parse(expanded)
             if result:
                 return result
+            # Buscar coordenadas también en el contenido de la respuesta
+            m = re.search(r'@(-?\d+\.\d+),(-?\d+\.\d+)', resp.text[:5000])
+            if m:
+                return float(m.group(1)), float(m.group(2))
         except Exception as e:
             print(f"⚠️  No se pudo expandir Maps URL: {e}")
 
