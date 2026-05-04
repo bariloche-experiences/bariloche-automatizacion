@@ -104,10 +104,22 @@ def conectar_sheet():
 
 
 def leer_ultima_fila(sheet) -> dict[str, Any]:
-    rows = sheet.get_all_records()
-    if not rows:
+    all_values = sheet.get_all_values()
+    if len(all_values) < 2:
         raise ValueError("Hoja vacía.")
-    return rows[-1]
+    headers = all_values[0]
+    last_row = all_values[-1]
+    # Manejar headers duplicados agregando sufijo _2, _3, etc.
+    seen = {}
+    unique_headers = []
+    for h in headers:
+        if h in seen:
+            seen[h] += 1
+            unique_headers.append(f"{h}_{seen[h]}")
+        else:
+            seen[h] = 1
+            unique_headers.append(h)
+    return dict(zip(unique_headers, last_row))
 
 
 def get_field(row: dict, *names: str, default: str = "") -> str:
