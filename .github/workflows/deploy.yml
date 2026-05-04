@@ -69,10 +69,7 @@ jobs:
           git add sites/
           if ! git diff --cached --quiet; then
             git commit -m "🤖 Auto-generación de sitios"
-            for i in 1 2 3; do
-              git push && break
-              git pull --rebase origin main
-            done
+            git push || (git pull --rebase origin main && git push) || (git pull --rebase origin main && git push)
           fi
 
       - name: Setup Pages
