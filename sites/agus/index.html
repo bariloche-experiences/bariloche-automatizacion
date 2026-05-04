@@ -1,0 +1,1429 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mar del Plata Experiencias</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0f1a;color:#f1f5f9;min-height:100vh;padding-bottom:90px}
+body[data-theme="montana"] {background:#0a0f1a}
+body[data-theme="ciudad"]  {background:#0d1117}
+body[data-theme="playa"]   {background:#0a141d}
+body[data-theme="rio"]     {background:#0a1418}
+body[data-theme="desierto"]{background:#1a100a}
+body[data-theme="vinedo"]  {background:#150a10}
+body[data-theme="selva"]   {background:#0a140d}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 0%,var(--glow,rgba(147,197,253,0.15)) 0%,transparent 60%);pointer-events:none}
+.hero[data-theme="montana"] {--glow:rgba(147,197,253,0.18)}
+.hero[data-theme="ciudad"]  {--glow:rgba(165,180,252,0.12)}
+.hero[data-theme="playa"]   {--glow:rgba(110,231,183,0.20)}
+.hero[data-theme="rio"]     {--glow:rgba(125,211,252,0.18)}
+.hero[data-theme="desierto"]{--glow:rgba(251,191,36,0.18)}
+.hero[data-theme="vinedo"]  {--glow:rgba(244,114,182,0.18)}
+.hero[data-theme="selva"]   {--glow:rgba(110,231,183,0.20)}
+@keyframes pulse {0%,100% {transform:scale(1);opacity:1} 50% {transform:scale(1.08);opacity:0.85}}
+.hero{padding:2.8rem 1.5rem 2.2rem;text-align:center;position:relative;overflow:hidden;background:linear-gradient(170deg,#050d1a 0%,#0d2040 40%,#091428 100%)}
+.hero[data-theme="montana"] {background:linear-gradient(170deg,#050d1a 0%,#0d2040 40%,#091428 100%)}
+.hero[data-theme="ciudad"]  {background:linear-gradient(170deg,#0a0e1a 0%,#1a1f2e 40%,#0f1218 100%)}
+.hero[data-theme="playa"]   {background:linear-gradient(170deg,#06192e 0%,#0a4d6b 35%,#1a3a52 70%,#3d2e1f 100%)}
+.hero[data-theme="rio"]     {background:linear-gradient(170deg,#051519 0%,#0a3540 40%,#0f2a30 100%)}
+.hero[data-theme="desierto"]{background:linear-gradient(170deg,#1a0d05 0%,#3d1f0a 40%,#2d1408 100%)}
+.hero[data-theme="vinedo"]  {background:linear-gradient(170deg,#1a0510 0%,#3d0a1e 40%,#2d0815 100%)}
+.hero[data-theme="selva"]   {background:linear-gradient(170deg,#051a0d 0%,#0d3d1f 40%,#082d14 100%)}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 20% 60%,rgba(37,99,235,0.18) 0%,transparent 55%),radial-gradient(ellipse at 80% 20%,rgba(16,185,129,0.12) 0%,transparent 50%)}
+.hero-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(16,185,129,0.15);border:1px solid rgba(16,185,129,0.35);color:#6ee7b7;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:5px 14px;border-radius:20px;margin-bottom:1.2rem;position:relative}
+.hero h1{font-size:2.6rem;font-weight:900;line-height:1.05;background:linear-gradient(135deg,#fff 0%,#93c5fd 60%,#6ee7b7 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:0.4rem;position:relative}
+.hero-sub{font-size:0.9rem;color:#cbd5e1;position:relative;margin-bottom:1.6rem}
+.lang-bar{display:flex;gap:8px;justify-content:center;position:relative}
+.lang-btn{background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.15);color:#e2e8f0;font-size:15px;font-weight:600;padding:9px 24px;border-radius:20px;cursor:pointer;transition:all 0.2s}
+.lang-btn.active,.lang-btn:hover{background:#2563eb;border-color:#2563eb;color:#fff}
+.times-banner{display:flex;margin:1.2rem 1.5rem 0;gap:10px}
+.time-pill{flex:1;background:#161b22;border:1px solid #374151;border-radius:12px;padding:12px;text-align:center}
+.time-label{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#94a3b8;margin-bottom:4px}
+.time-val{font-size:1.4rem;font-weight:800}
+.time-sub{font-size:11px;color:#94a3b8;margin-top:2px}
+.time-pill.checkin .time-val{color:#10b981}
+.time-pill.checkout .time-val{color:#f59e0b}
+.sec{padding:1.5rem}
+.sec-title{font-size:11px;font-weight:800;letter-spacing:2.5px;text-transform:uppercase;margin-bottom:1rem;padding-left:2px;display:flex;align-items:center;gap:8px}
+.sec-title::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,#21262d,transparent)}
+.sec-title.green{color:#34d399}
+.sec-title.blue{color:#7dd3fc}
+.divider{height:1px;background:linear-gradient(90deg,transparent,#21262d,transparent);margin:0 1.5rem 1.5rem}
+.depto-tabs{display:flex;gap:8px;margin-bottom:1.2rem}
+.depto-btn{flex:1;background:#161b22;border:1px solid #374151;color:#cbd5e1;font-size:14px;font-weight:700;padding:12px 6px;border-radius:12px;cursor:pointer;transition:all 0.2s;text-align:center;line-height:1.3}
+.depto-btn.active{background:rgba(16,185,129,0.15);border-color:rgba(16,185,129,0.5);color:#34d399}
+.depto-group{display:none}
+.depto-group.visible{display:block}
+.video-lang-tabs{display:flex;gap:8px;margin-bottom:1rem}
+.vlang-btn{background:#161b22;border:1px solid #374151;color:#cbd5e1;font-size:12px;font-weight:700;padding:7px 18px;border-radius:20px;cursor:pointer;transition:all 0.2s}
+.vlang-btn.active{background:rgba(16,185,129,0.12);border-color:rgba(16,185,129,0.4);color:#6ee7b7}
+.video-block{display:none}
+.video-block.visible{display:block}
+.video-label{font-size:13px;color:#cbd5e1;margin-bottom:10px;line-height:1.5}
+.video-label strong{color:#fff;display:block;font-size:15px;margin-bottom:2px}
+.video-wrap{position:relative;width:100%;padding-bottom:177.78%;border-radius:16px;overflow:hidden;background:#161b22;border:1px solid #374151;cursor:pointer}
+.video-wrap iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:none}
+.video-thumb{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover}
+.video-play-btn{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:68px;height:68px;background:rgba(0,0,0,0.7);border-radius:50%;display:flex;align-items:center;justify-content:center;pointer-events:none}
+.video-play-btn::after{content:'';width:0;height:0;border-style:solid;border-width:15px 0 15px 26px;border-color:transparent transparent transparent #fff;margin-left:6px}
+.video-wrap:hover .video-play-btn{background:rgba(220,38,38,0.85)}
+.steps{display:flex;flex-direction:column;gap:8px;margin-top:1rem}
+.step-item{display:flex;gap:10px;align-items:center;background:#161b22;border:1px solid #374151;border-radius:10px;padding:10px 12px}
+.step-num{width:26px;height:26px;border-radius:50%;background:rgba(16,185,129,0.18);border:1px solid rgba(16,185,129,0.4);color:#34d399;font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.step-text{font-size:13px;color:#e2e8f0;line-height:1.4}
+.maps-btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;margin-top:1rem;background:rgba(37,99,235,0.15);border:1px solid rgba(37,99,235,0.4);color:#bfdbfe;font-size:13px;font-weight:700;padding:12px;border-radius:12px;cursor:pointer;text-decoration:none;transition:all 0.2s}
+.wifi-card{background:linear-gradient(135deg,#0f1f35 0%,#0a1628 100%);border:1px solid rgba(37,99,235,0.35);border-radius:16px;padding:1.1rem 1.3rem;display:flex;align-items:center;gap:14px;margin-bottom:10px}
+.wifi-icon{width:42px;height:42px;background:rgba(37,99,235,0.18);border-radius:11px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.wifi-icon svg{width:20px;height:20px;fill:none;stroke:#7dd3fc;stroke-width:2;stroke-linecap:round}
+.wifi-apt{font-size:10px;color:#7dd3fc;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:2px}
+.wifi-ssid{font-size:15px;font-weight:800;color:#fff}
+.wifi-pass{font-size:12px;color:#94a3b8;margin-top:2px}
+.wifi-pass span{color:#e2e8f0;font-weight:600}
+.rule-card{background:#161b22;border:1px solid #374151;border-radius:12px;padding:.9rem 1.1rem;display:flex;gap:12px;align-items:flex-start;margin-bottom:8px}
+.rule-icon{font-size:17px;line-height:1;flex-shrink:0;margin-top:1px}
+.rule-text{font-size:13.5px;color:#e2e8f0;line-height:1.55}
+[data-lang]{display:none}
+[data-lang].active{display:block}
+.ig-card{background:linear-gradient(135deg,#1a0a2e 0%,#2d0a3e 50%,#1a0a2e 100%);border:1px solid rgba(167,139,250,0.35);border-radius:20px;padding:1.5rem;margin:0 1.5rem 1.5rem;text-align:center;position:relative;overflow:hidden}
+.ig-card::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 30% 50%,rgba(236,72,153,0.12) 0%,transparent 60%),radial-gradient(ellipse at 70% 30%,rgba(167,139,250,0.1) 0%,transparent 50%)}
+.ig-icon{width:56px;height:56px;background:linear-gradient(135deg,#f59e0b,#ec4899,#8b5cf6);border-radius:16px;display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;position:relative}
+.ig-icon svg{width:28px;height:28px;fill:none;stroke:#fff;stroke-width:2;stroke-linecap:round}
+.ig-title{font-size:16px;font-weight:800;color:#fff;position:relative;margin-bottom:4px}
+.ig-handle{font-size:13px;color:#c4b5fd;font-weight:600;position:relative;margin-bottom:10px}
+.ig-desc{font-size:13px;color:#e2e8f0;line-height:1.5;position:relative;margin-bottom:1.2rem}
+.ig-tags{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;position:relative;margin-bottom:1.2rem}
+.ig-tag{background:rgba(167,139,250,0.15);border:1px solid rgba(167,139,250,0.3);color:#ddd6fe;font-size:11px;font-weight:600;padding:3px 10px;border-radius:20px}
+.ig-btn{display:inline-flex;align-items:center;gap:7px;background:linear-gradient(135deg,#ec4899,#8b5cf6);color:#fff;font-size:13px;font-weight:700;padding:11px 24px;border-radius:12px;text-decoration:none;position:relative;cursor:pointer;border:none}
+.wifi-qr-btn{display:flex;align-items:center;justify-content:center;gap:7px;width:100%;margin-top:10px;background:rgba(16,185,129,0.12);border:1px solid rgba(16,185,129,0.35);color:#6ee7b7;font-size:13px;font-weight:700;padding:10px;border-radius:10px;cursor:pointer;transition:all 0.2s}
+.wifi-qr-btn:hover{background:rgba(16,185,129,0.2)}
+.qr-panel{display:none;margin-top:10px;background:#0d1117;border:1px solid rgba(16,185,129,0.25);border-radius:14px;padding:1.2rem;text-align:center}
+.qr-panel.open{display:block}
+.qr-panel p{font-size:12px;color:#94a3b8;margin-top:10px;line-height:1.5}
+.qr-panel strong{color:#6ee7b7}
+/* WEATHER */
+.weather-card{background:linear-gradient(135deg,#0c1e35 0%,#0a1828 100%);border:1px solid rgba(37,99,235,0.3);border-radius:18px;padding:1.2rem 1.4rem;margin-bottom:10px}
+.weather-now{display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem}
+.weather-temp{font-size:3rem;font-weight:900;color:#fff;line-height:1}
+.weather-info{text-align:right}
+.weather-desc{font-size:13px;color:#bfdbfe;font-weight:600;margin-bottom:2px}
+.weather-wind{font-size:11px;color:#94a3b8}
+.weather-forecast{display:flex;gap:8px}
+.fc-day{flex:1;background:rgba(255,255,255,0.07);border-radius:10px;padding:8px 6px;text-align:center}
+.fc-label{font-size:10px;color:#94a3b8;font-weight:600;margin-bottom:4px}
+.fc-hi{font-size:13px;font-weight:700;color:#fff}
+.fc-lo{font-size:11px;color:#94a3b8}
+.fc-icon{font-size:16px;margin:3px 0}
+.weather-loading{color:#94a3b8;font-size:13px;text-align:center;padding:1rem 0}
+/* SERVICES */
+.service-card{background:#161b22;border:1px solid #374151;border-radius:14px;padding:1rem 1.2rem;margin-bottom:10px}
+.service-header{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.service-icon{width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.service-icon.green{background:rgba(16,185,129,0.15)}
+.service-icon.blue{background:rgba(37,99,235,0.15)}
+.service-icon.amber{background:rgba(245,158,11,0.15)}
+.service-title{font-size:14px;font-weight:700;color:#fff}
+.service-sub{font-size:11px;color:#94a3b8;margin-top:1px}
+.service-desc{font-size:13px;color:#e2e8f0;line-height:1.5;margin-bottom:10px}
+.service-btn{display:flex;align-items:center;justify-content:center;gap:7px;width:100%;padding:10px;border-radius:10px;font-size:13px;font-weight:700;text-decoration:none;border:none;cursor:pointer;transition:all 0.2s}
+.service-btn.wa{background:rgba(37,211,102,0.12);border:1px solid rgba(37,211,102,0.3);color:#4ade80}
+.service-btn.blue{background:rgba(37,99,235,0.12);border:1px solid rgba(37,99,235,0.3);color:#bfdbfe}
+.bus-row{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid #21262d}
+.bus-row:last-child{border-bottom:none}
+.bus-num{background:rgba(37,99,235,0.2);border:1px solid rgba(37,99,235,0.4);color:#bfdbfe;font-size:12px;font-weight:800;padding:3px 10px;border-radius:8px;min-width:40px;text-align:center;flex-shrink:0}
+.bus-dest{font-size:13px;color:#e2e8f0;line-height:1.3}
+.bus-dest span{font-size:11px;color:#94a3b8;display:block}
+.tip-item{display:flex;gap:10px;padding:9px 0;border-bottom:1px solid #21262d}
+.tip-item:last-child{border-bottom:none}
+.tip-emoji{font-size:16px;flex-shrink:0;margin-top:1px}
+.tip-text{font-size:13px;color:#e2e8f0;line-height:1.45}
+.tip-text strong{color:#fde68a}
+.season-row{display:flex;gap:10px;padding:9px 0;border-bottom:1px solid #21262d;align-items:flex-start}
+.season-row:last-child{border-bottom:none}
+.season-badge{font-size:11px;font-weight:700;padding:3px 10px;border-radius:8px;white-space:nowrap;flex-shrink:0}
+.season-badge.inv{background:rgba(147,197,253,0.15);color:#bfdbfe;border:1px solid rgba(147,197,253,0.3)}
+.season-badge.ver{background:rgba(16,185,129,0.15);color:#6ee7b7;border:1px solid rgba(16,185,129,0.3)}
+.season-badge.oto{background:rgba(245,158,11,0.15);color:#fde68a;border:1px solid rgba(245,158,11,0.3)}
+.season-badge.pri{background:rgba(244,114,182,0.15);color:#fbcfe8;border:1px solid rgba(244,114,182,0.3)}
+.season-text{font-size:13px;color:#e2e8f0;line-height:1.45}
+.extras-tabs{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;margin-bottom:1rem}
+.extras-tabs::-webkit-scrollbar{display:none}
+.ext-tab{background:#161b22;border:1px solid #374151;color:#cbd5e1;font-size:14px;font-weight:600;padding:10px 18px;border-radius:20px;cursor:pointer;white-space:nowrap;transition:all 0.2s;flex-shrink:0}
+.ext-tab.active,.ext-tab:hover{background:#2563eb;border-color:#2563eb;color:#fff}
+.ext-group{display:none}
+.ext-group.visible{display:block}
+.ext-content{display:none}
+.ext-content.active{display:block}
+.tabs-wrap{padding:0 1.5rem .5rem;overflow-x:auto;scrollbar-width:none}
+.tabs-wrap::-webkit-scrollbar{display:none}
+.tabs{display:flex;gap:8px;width:max-content}
+.tab{background:#161b22;border:1px solid #374151;color:#cbd5e1;font-size:14px;font-weight:600;padding:10px 18px;border-radius:20px;cursor:pointer;white-space:nowrap;transition:all 0.2s}
+.tab.active,.tab:hover{background:#2563eb;border-color:#2563eb;color:#fff}
+.places-wrap{padding:.5rem 1.5rem 1rem;display:flex;flex-direction:column;gap:10px}
+.place-card{background:#161b22;border:1px solid #374151;border-radius:14px;padding:.95rem 1.1rem;transition:all 0.2s}
+.place-card:hover{border-color:#2563eb;transform:translateY(-1px);box-shadow:0 4px 16px rgba(37,99,235,0.15)}
+.place-header{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
+.place-name{font-size:15px;font-weight:700;color:#fff;line-height:1.3}
+.place-badge{background:rgba(37,99,235,0.15);border:1px solid rgba(37,99,235,0.35);color:#bfdbfe;font-size:10px;font-weight:700;padding:3px 9px;border-radius:8px;white-space:nowrap;flex-shrink:0}
+.place-badge.new{background:rgba(16,185,129,0.15);border-color:rgba(16,185,129,0.35);color:#6ee7b7}
+.place-badge.gold{background:rgba(245,158,11,0.2);border:1.5px solid rgba(245,158,11,0.5);color:#fde68a;font-size:11px}
+.place-desc{font-size:13px;color:#e2e8f0;margin-top:5px;line-height:1.55}
+.place-tip{font-size:12px;color:#7dd3fc;margin-top:5px;font-style:italic}
+.cat-group{display:none}
+.cat-group.visible{display:block}
+.wa-float{position:fixed;bottom:20px;right:16px;z-index:999;display:flex;align-items:center;gap:10px;background:linear-gradient(135deg,#128c7e,#25d366);color:#fff;font-size:13px;font-weight:700;padding:12px 18px 12px 14px;border-radius:50px;box-shadow:0 4px 20px rgba(37,211,102,0.4);text-decoration:none}
+.wa-float svg{width:22px;height:22px;fill:#fff;flex-shrink:0}
+.wa-pulse{position:absolute;top:-3px;right:-3px;width:12px;height:12px;background:#25d366;border-radius:50%;border:2px solid #0a0f1a}
+.footer{text-align:center;padding:2rem 1.5rem;color:#64748b;font-size:12px;border-top:1px solid #161b22;margin-top:1rem}
+.footer-logo{font-size:1.2rem;font-weight:900;background:linear-gradient(135deg,#93c5fd,#6ee7b7);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:6px}
+</style>
+</head>
+<body data-theme="playa">
+
+<a class="wa-float" href="https://wa.me/" target="_blank">
+  <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+  <span id="wa-float-text">Contactanos</span>
+  <div class="wa-pulse"></div>
+</a>
+
+<div class="hero" data-theme="playa">
+  <div class="hero-badge" id="hero-badge">🏖️ Costa Atlántica · Mar del Plata</div>
+  <h1 id="hero-title">Mar del Plata<br>Experiencias</h1>
+  <p class="hero-sub">Av. Patricio Peralta Ramos 2341, B7600JUK Mar del Plata, Provincia de Buenos Aires, Argentina · <span id="hero-sub" class="t" data-es="Tu guía completa" data-en="Your full guide" data-pt="Seu guia completo">Tu guía completa</span></p>
+  <div class="lang-bar">
+    <button class="lang-btn active" onclick="setLang('es')">🇦🇷 ES</button>
+    <button class="lang-btn" onclick="setLang('en')">🇺🇸 EN</button>
+    <button class="lang-btn" onclick="setLang('pt')">🇧🇷 PT</button>
+  </div>
+</div>
+
+<div style="padding:1.2rem 1.5rem 0.5rem">
+  <div style="font-size:10px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:#6b7280;margin-bottom:8px;text-align:center" id="depto-label">¿Cuál es tu departamento?</div>
+  <div class="depto-tabs">
+    
+    <button class="depto-btn active" onclick="setDepto('d1')">🏠 Agus</button>
+    
+  </div>
+  <div id="welcome-msg" style="margin-top:12px;background:linear-gradient(135deg,rgba(16,185,129,0.12),rgba(37,99,235,0.10));border:1.5px solid rgba(16,185,129,0.45);border-radius:16px;padding:18px 16px;text-align:center;box-shadow:0 0 24px rgba(16,185,129,0.1)">
+    
+    <div style="font-size:28px;margin-bottom:6px">🏖️</div>
+    <div style="font-size:17px;font-weight:900;color:#fff;margin-bottom:5px;letter-spacing:-0.3px" id="welcome-title">Bienvenida a Agus, tu casa en Mardel</div>
+    <div style="font-size:13px;color:#a7f3d0;font-weight:500;font-style:italic" id="welcome-sub">Plaza Colón a 300 metros, cerca de la costa y el corazón de la ciudad.</div>
+  </div>
+
+  <!-- COMO LLEGAR — LO MÁS URGENTE -->
+  
+  <div id="maps-top-d1">
+    <a href="https://maps.app.goo.gl/JMTumc2futa7f7M8A?g_st=ac" target="_blank"
+      style="display:flex;align-items:center;justify-content:center;gap:10px;margin-top:14px;background:linear-gradient(135deg,#1d4ed8,#2563eb);color:#fff;font-size:15px;font-weight:800;padding:16px;border-radius:14px;text-decoration:none;box-shadow:0 4px 16px rgba(37,99,235,0.3)">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+      <span class="t" data-es="📍 Cómo llegar · Av. Patricio Peralta Ramos 2341, B7600JUK Mar del Plata, Provincia de Buenos Aires, Argentina" data-en="📍 Get directions · Av. Patricio Peralta Ramos 2341, B7600JUK Mar del Plata, Provincia de Buenos Aires, Argentina" data-pt="📍 Como chegar · Av. Patricio Peralta Ramos 2341, B7600JUK Mar del Plata, Provincia de Buenos Aires, Argentina">📍 Cómo llegar · Av. Patricio Peralta Ramos 2341, B7600JUK Mar del Plata, Provincia de Buenos Aires, Argentina</span>
+    </a>
+  </div>
+  
+</div>
+
+<div class="times-banner">
+  <div class="time-pill checkout">
+    <div class="time-label" id="tl-out">Check-out</div>
+    <div class="time-val">11:00</div>
+    <div class="time-sub" id="ts-out">Máximo</div>
+  </div>
+  <div class="time-pill checkin">
+    <div class="time-label" id="tl-in">Check-in</div>
+    <div class="time-val">15:00</div>
+    <div class="time-sub" id="ts-in">En adelante</div>
+  </div>
+</div>
+
+<div class="sec">
+  <div class="sec-title green">📹 Check-in · <span class="t" data-es="Cómo ingresar" data-en="How to check in" data-pt="Como entrar">Cómo ingresar</span></div>
+
+  
+  <div class="depto-group visible" id="dep-d1">
+    
+    <div class="video-block visible">
+      <div class="video-label"><strong>Agus</strong><span class="t" data-es="Estacionamiento, ubicación y llaves" data-en="Parking, location & keys" data-pt="Estacionamento, localização e chaves">Estacionamiento, ubicación y llaves</span></div>
+      <div class="video-wrap">
+        
+          <a href="https://photos.app.goo.gl/9qZtDZn9nGHW1fxY8" target="_blank" rel="noopener" style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;text-align:center;background:linear-gradient(135deg,#0a3d2e 0%,#0d4a3a 50%,#093527 100%);text-decoration:none;cursor:pointer">
+            <div style="position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(52,211,153,0.25) 0%,transparent 60%);pointer-events:none"></div>
+            <div style="font-size:72px;margin-bottom:8px;filter:drop-shadow(0 6px 20px rgba(52,211,153,0.6));position:relative;animation:pulse 2s ease-in-out infinite">▶️</div>
+            <p style="color:#fff;font-size:17px;margin-bottom:6px;font-weight:800;position:relative">
+              <span class="t" data-es="Video de check-in" data-en="Check-in video" data-pt="Vídeo de check-in">Video de check-in</span>
+            </p>
+            <p style="color:#a7f3d0;font-size:12px;margin-bottom:18px;line-height:1.4;position:relative">
+              <span class="t" data-es="Tocá para reproducir" data-en="Tap to play" data-pt="Toque para reproduzir">Tocá para reproducir</span>
+            </p>
+            <div style="background:linear-gradient(135deg,#10b981,#059669);color:#fff;padding:16px 32px;border-radius:14px;font-weight:900;font-size:14px;text-transform:uppercase;letter-spacing:1px;box-shadow:0 6px 20px rgba(16,185,129,0.5);position:relative">
+              ▶️ <span class="t" data-es="Reproducir ahora" data-en="Play now" data-pt="Reproduzir agora">Reproducir ahora</span>
+            </div>
+            <p style="color:#6ee7b7;font-size:10px;margin-top:14px;font-style:italic;opacity:0.7;position:relative">
+              <span class="t" data-es="Se abre en una pestaña nueva" data-en="Opens in new tab" data-pt="Abre em nova aba">Se abre en una pestaña nueva</span>
+            </p>
+          </a>
+        
+      </div>
+      
+    </div>
+    <div class="steps">
+      <div class="step-item"><div class="step-num">1</div>
+        <div class="step-text active" data-lang="es">🚗 Estacioná en el lugar indicado en el video</div>
+        <div class="step-text" data-lang="en">🚗 Park in the spot shown in the video</div>
+        <div class="step-text" data-lang="pt">🚗 Estacione no local indicado no vídeo</div>
+      </div>
+      <div class="step-item"><div class="step-num">2</div>
+        <div class="step-text active" data-lang="es">🏠 Tu propiedad: <strong>Agus</strong> · Av. Patricio Peralta Ramos 2341, B7600JUK Mar del Plata, Provincia de Buenos Aires, Argentina</div>
+        <div class="step-text" data-lang="en">🏠 Your place: <strong>Agus</strong> · Av. Patricio Peralta Ramos 2341, B7600JUK Mar del Plata, Provincia de Buenos Aires, Argentina</div>
+        <div class="step-text" data-lang="pt">🏠 Sua propriedade: <strong>Agus</strong> · Av. Patricio Peralta Ramos 2341, B7600JUK Mar del Plata, Provincia de Buenos Aires, Argentina</div>
+      </div>
+      <div class="step-item"><div class="step-num">3</div>
+        <div class="step-text active" data-lang="es">🔑 Retirá las llaves como se muestra en el video</div>
+        <div class="step-text" data-lang="en">🔑 Pick up the keys as shown in the video</div>
+        <div class="step-text" data-lang="pt">🔑 Retire as chaves conforme mostrado no vídeo</div>
+      </div>
+    </div>
+  </div>
+  
+</div>
+
+<div class="divider"></div>
+
+<div class="divider"></div>
+
+<div style="height:1px;background:linear-gradient(90deg,transparent,#21262d,transparent);margin:1.5rem 1.5rem 0"></div>
+
+<div class="sec" style="padding-bottom:0.5rem">
+  <div class="sec-title blue">WiFi</div>
+  
+  <div id="wifi-d1">
+    <div class="wifi-card">
+      <div class="wifi-icon"><svg viewBox="0 0 24 24"><path d="M5 12.55a11 11 0 0114.08 0"/><path d="M1.42 9a16 16 0 0121.16 0"/><path d="M8.53 16.11a6 6 0 016.95 0"/><circle cx="12" cy="20" r="1" fill="#60a5fa" stroke="none"/></svg></div>
+      <div>
+        <div class="wifi-apt">Agus</div>
+        <div class="wifi-ssid">—</div>
+        <div class="wifi-pass">Password: <span>Carli</span></div>
+      </div>
+    </div>
+    
+  </div>
+  
+</div>
+
+<div class="divider"></div>
+
+<div style="height:1px;background:linear-gradient(90deg,transparent,#21262d,transparent);margin:1.5rem 1.5rem 0"></div>
+
+<!-- INSTRUCCIONES DESTACADAS (data-driven via info.instrucciones) -->
+
+
+<!-- CLIMA SIEMPRE VISIBLE -->
+<div style="padding:0 1.5rem 1rem">
+  <div style="font-size:10px;font-weight:800;letter-spacing:2.5px;text-transform:uppercase;color:#7dd3fc;margin-bottom:8px;padding-left:2px">🌤️ Mar del Plata <span class="t" data-es="ahora" data-en="now" data-pt="agora">ahora</span></div>
+  <div class="weather-card" style="margin-bottom:6px">
+    <div id="weather-content"><div class="weather-loading">⏳ <span class="t" data-es="Cargando clima..." data-en="Loading weather..." data-pt="Carregando clima...">Cargando clima...</span></div></div>
+  </div>
+  
+  <div style="background:#161b22;border:1px solid #374151;border-radius:12px;padding:10px 12px;font-size:12px;color:#94a3b8;line-height:1.5">
+    💡 <strong style="color:#e2e8f0">Tip:</strong>
+    <span class="t" data-es="El viento es constante; siempre lleva un abrigo, incluso en verano." data-en="Wind is constant; always bring a jacket, even in summer." data-pt="O vento é constante; sempre traga um casaco, mesmo no verão.">El viento es constante; siempre lleva un abrigo, incluso en verano.</span>
+  </div>
+  
+</div>
+
+<div style="height:1px;background:linear-gradient(90deg,transparent,#21262d,transparent);margin:0 1.5rem 1rem"></div>
+
+<!-- EXTRAS SECTION (data-driven via info.X y lugares.X) -->
+<div class="sec">
+  <div class="sec-title green">🛠️ <span class="t" data-es="Info útil" data-en="Useful info" data-pt="Info útil">Info útil</span></div>
+  <div class="extras-tabs">
+    <button class="ext-tab active" onclick="setExt('autos')">🚗 <span class="t" data-es="Autos" data-en="Cars" data-pt="Carros">Autos</span></button>
+    <button class="ext-tab" onclick="setExt('colectivos')">🚌 <span class="t" data-es="Colectivos" data-en="Buses" data-pt="Ônibus">Colectivos</span></button>
+    <button class="ext-tab" onclick="setExt('temporadas')">📅 <span class="t" data-es="Temporadas" data-en="Seasons" data-pt="Estações">Temporadas</span></button>
+    <button class="ext-tab" onclick="setExt('tips')">💡 Tips</button>
+    <button class="ext-tab" onclick="setExt('emergencias')">🆘 <span class="t" data-es="Emergencias" data-en="Emergencies" data-pt="Emergências">Emergencias</span></button>
+  </div>
+
+  <!-- AUTOS -->
+  <div class="ext-content active" id="ext-autos">
+    
+
+    
+    
+    <div style="margin-top:10px;padding:0 4px">
+      <div style="font-size:10px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:#93c5fd;margin-bottom:8px">
+        <span class="t" data-es="📍 Alquileres cerca tuyo" data-en="📍 Rentals near you" data-pt="📍 Aluguéis perto">📍 Alquileres cerca tuyo</span>
+      </div>
+      
+      <a href="https://www.google.com/maps/place/?q=place_id:ChIJycPmtB3chJURhQEa1zOWq7w" target="_blank" style="display:block;background:#161b22;border:1px solid #30363d;border-radius:10px;padding:10px 12px;margin-bottom:6px;text-decoration:none;color:#e6edf3">
+        <div style="display:flex;justify-content:space-between;align-items:start;gap:8px">
+          <div style="flex:1;min-width:0">
+            <div style="font-weight:700;font-size:13px;line-height:1.3">ALTERNATIVE RENT A CAR Car Rental - Sale</div>
+            <div style="font-size:11px;color:#6b7280;margin-top:2px">Córdoba 2270, Mar del Plata</div>
+            <div style="font-size:11px;color:#6ee7b7;margin-top:3px;font-weight:600">📞 0223 422-4444</div>
+          </div>
+          <div style="background:rgba(251,191,36,0.15);color:#fbbf24;font-size:11px;font-weight:700;padding:3px 8px;border-radius:6px;white-space:nowrap">⭐ 4.9</div>
+        </div>
+      </a>
+      
+      <a href="https://www.google.com/maps/place/?q=place_id:ChIJ6U1kVxzchJURfLc9nQYVIs8" target="_blank" style="display:block;background:#161b22;border:1px solid #30363d;border-radius:10px;padding:10px 12px;margin-bottom:6px;text-decoration:none;color:#e6edf3">
+        <div style="display:flex;justify-content:space-between;align-items:start;gap:8px">
+          <div style="flex:1;min-width:0">
+            <div style="font-weight:700;font-size:13px;line-height:1.3">Hertz Mar del Plata - Centro</div>
+            <div style="font-size:11px;color:#6b7280;margin-top:2px">Córdoba 2149, Mar del Plata</div>
+            <div style="font-size:11px;color:#6ee7b7;margin-top:3px;font-weight:600">📞 011 7090-4000</div>
+          </div>
+          <div style="background:rgba(251,191,36,0.15);color:#fbbf24;font-size:11px;font-weight:700;padding:3px 8px;border-radius:6px;white-space:nowrap">⭐ 4.4</div>
+        </div>
+      </a>
+      
+      <a href="https://www.google.com/maps/place/?q=place_id:ChIJLfTZpjDZhJURwziLgkvgIdA" target="_blank" style="display:block;background:#161b22;border:1px solid #30363d;border-radius:10px;padding:10px 12px;margin-bottom:6px;text-decoration:none;color:#e6edf3">
+        <div style="display:flex;justify-content:space-between;align-items:start;gap:8px">
+          <div style="flex:1;min-width:0">
+            <div style="font-weight:700;font-size:13px;line-height:1.3">Special Cars</div>
+            <div style="font-size:11px;color:#6b7280;margin-top:2px">Alberti 3541, Mar del Plata</div>
+            <div style="font-size:11px;color:#6ee7b7;margin-top:3px;font-weight:600">📞 0223 527-6325</div>
+          </div>
+          <div style="background:rgba(251,191,36,0.15);color:#fbbf24;font-size:11px;font-weight:700;padding:3px 8px;border-radius:6px;white-space:nowrap">⭐ 4.8</div>
+        </div>
+      </a>
+      
+    </div>
+    
+
+    
+  </div>
+
+  <!-- COLECTIVOS -->
+  <div class="ext-content" id="ext-colectivos">
+    
+  </div>
+
+  <!-- TEMPORADAS -->
+  <div class="ext-content" id="ext-temporadas">
+    
+  </div>
+
+  <!-- TIPS LOCALES -->
+  <div class="ext-content" id="ext-tips">
+    
+    
+    <div class="extras-card">
+      <div class="extras-icon">🌬️</div>
+      <div class="extras-content">
+        <h3 class="t" data-es="EL VIENTO MARPLATENSE" data-en="MAR DEL PLATA WIND" data-pt="O VENTO DE MAR DEL PLATA">EL VIENTO MARPLATENSE</h3>
+        <p class="t" data-es="Aunque haga sol, el viento es una constante en Mar del Plata. Siempre lleva algo para abrigarte, incluso en verano." data-en="Even if it&#39;s sunny, wind is constant in Mar del Plata. Always carry something warm, even in summer." data-pt="Mesmo com sol, o vento é constante em Mar del Plata. Sempre leve algo para se agasalhar, mesmo no verão.">Aunque haga sol, el viento es una constante en Mar del Plata. Siempre lleva algo para abrigarte, incluso en verano.</p>
+      </div>
+    </div>
+    
+    <div class="extras-card">
+      <div class="extras-icon">🍤</div>
+      <div class="extras-content">
+        <h3 class="t" data-es="PESCADO FRESCO Y EL PUERTO" data-en="FRESH FISH AND THE PORT" data-pt="PEIXE FRESCO E O PORTO">PESCADO FRESCO Y EL PUERTO</h3>
+        <p class="t" data-es="Para el mejor pescado y mariscos, visita los restaurantes del Puerto. Precios más justos y directo de la descarga diaria." data-en="For the best fish and seafood, visit the Port restaurants. Fairer prices and direct from the daily catch." data-pt="Para o melhor peixe e frutos do mar, visite os restaurantes do Porto. Preços mais justos e direto da descarga diária.">Para el mejor pescado y mariscos, visita los restaurantes del Puerto. Precios más justos y directo de la descarga diaria.</p>
+      </div>
+    </div>
+    
+    <div class="extras-card">
+      <div class="extras-icon">🚌</div>
+      <div class="extras-content">
+        <h3 class="t" data-es="COLECTIVOS Y TARJETA SUBE" data-en="BUSES AND SUBE CARD" data-pt="ÔNIBUS E CARTÃO SUBE">COLECTIVOS Y TARJETA SUBE</h3>
+        <p class="t" data-es="Para usar los colectivos, necesitas la tarjeta SUBE. Compra una en kioscos o estaciones y cárgala con anticipación." data-en="To use the buses, you need a SUBE card. Buy one at kiosks or stations and top it up in advance." data-pt="Para usar os ônibus, você precisa do cartão SUBE. Compre um em quiosques ou estações e recarregue com antecedência.">Para usar los colectivos, necesitas la tarjeta SUBE. Compra una en kioscos o estaciones y cárgala con anticipación.</p>
+      </div>
+    </div>
+    
+    <div class="extras-card">
+      <div class="extras-icon">⏰</div>
+      <div class="extras-content">
+        <h3 class="t" data-es="CENA, HORARIOS MARPLATENSES" data-en="DINNER, MAR DEL PLATA HOURS" data-pt="JANTAR, HORÁRIOS LOCAIS">CENA, HORARIOS MARPLATENSES</h3>
+        <p class="t" data-es="La cena aquí es tarde. La mayoría de los restaurantes comienzan a llenarse a partir de las 21:00 o 21:30." data-en="Dinner here is late. Most restaurants start filling up from 9:00 PM or 9:30 PM." data-pt="O jantar aqui é tarde. A maioria dos restaurantes começa a encher a partir das 21:00 ou 21:30.">La cena aquí es tarde. La mayoría de los restaurantes comienzan a llenarse a partir de las 21:00 o 21:30.</p>
+      </div>
+    </div>
+    
+    
+  </div>
+
+  <!-- EMERGENCIAS -->
+  <div class="ext-content" id="ext-emergencias">
+    
+    <div class="extras-card">
+      <div class="extras-icon">🆘</div>
+      <div class="extras-content">
+        <h3><span class="t" data-es="Números útiles" data-en="Useful numbers" data-pt="Números úteis">Números útiles</span></h3>
+        <ul style="list-style:none;padding:0;margin:0">
+          
+          
+          
+          <li style="padding:6px 0"><span class="t" data-es="🆘 Emergencia general" data-en="🆘 Emergency" data-pt="🆘 Emergência">🆘 Emergencia general</span>: <strong style="color:#fff">911</strong></li>
+        </ul>
+        
+        <h3 style="margin-top:14px"><span class="t" data-es="Lo más cerca" data-en="Closest essentials" data-pt="Mais próximos">Lo más cerca</span></h3>
+        <ul style="list-style:none;padding:0;margin:0">
+          
+          
+          
+          <li style="padding:6px 0;border-bottom:1px solid #21262d">
+            <a href="https://www.google.com/maps/place/?q=place_id:ChIJJePmlgLfhJUR7nB8C61Ca18" target="_blank" style="color:#bfdbfe;text-decoration:none">
+              💊 <strong>Farmacia Mitre 2</strong>
+              <span style="color:#6b7280;font-size:12px">· Avenida Patricio Peralta Ramos 2481, Mar del Plata</span>
+            </a>
+          </li>
+          
+          
+          
+          
+          <li style="padding:6px 0;border-bottom:1px solid #21262d">
+            <a href="https://www.google.com/maps/place/?q=place_id:ChIJdaMNNADdhJUReUFL6u3TZAc" target="_blank" style="color:#bfdbfe;text-decoration:none">
+              🏥 <strong>Hospital Hpc</strong>
+              <span style="color:#6b7280;font-size:12px">· Entre Ríos 2554 B7600EDV, Mar del Plata</span>
+            </a>
+          </li>
+          
+          
+          
+          
+          <li style="padding:6px 0;border-bottom:1px solid #21262d">
+            <a href="https://www.google.com/maps/place/?q=place_id:ChIJazFyAxzchJURfZ2cFJB1Eig" target="_blank" style="color:#bfdbfe;text-decoration:none">
+              💳 <strong>Cajero Automático Banelco</strong>
+              <span style="color:#6b7280;font-size:12px">· FYE Mar del Plata Buenos Aires AR, Avenida Colón 2401-2499</span>
+            </a>
+          </li>
+          
+          
+          
+          
+          <li style="padding:6px 0;border-bottom:1px solid #21262d">
+            <a href="https://www.google.com/maps/place/?q=place_id:ChIJxZgAIhzchJURm3gByZEshcs" target="_blank" style="color:#bfdbfe;text-decoration:none">
+              ⛽ <strong>YPF ACA - Mar del Plata</strong>
+              <span style="color:#6b7280;font-size:12px">· Av. Colón 2450 Brown, Santa Fe y, Mar del Plata</span>
+            </a>
+          </li>
+          
+          
+        </ul>
+        
+      </div>
+    </div>
+    
+  </div>
+</div>
+
+<div style="height:1px;background:linear-gradient(90deg,transparent,#21262d,transparent);margin:0 1.5rem 1rem"></div>
+
+<!-- LUGARES PARA VISITAR — atracciones -->
+
+<div class="sec">
+  <div class="sec-title green">🌲 <span class="t" data-es="Lugares para visitar" data-en="Places to visit" data-pt="Lugares para visitar">Lugares para visitar</span></div>
+  <div class="places-wrap">
+    
+    <div class="place-card">
+      <div class="place-header">
+        <div class="place-name">Varese Beach</div>
+        <div class="place-badge">⭐ 4.5 · 63783</div>
+      </div>
+      
+      <div class="place-desc active" data-lang="es">Playa céntrica con arena fina y aguas calmas, ideal para disfrutar el sol y el mar.</div>
+      <div class="place-desc" data-lang="en">Central beach with fine sand and calm waters, ideal for sun and sea.</div>
+      <div class="place-desc" data-lang="pt">Praia central com areia fina e águas calmas, ideal para sol e mar.</div>
+      
+      <div style="font-size:11px;color:#6b7280;margin-top:4px">Paseo Jesús de Galindez 0, Mar del Plata</div>
+      <div style="display:flex;gap:6px;margin-top:8px;flex-wrap:wrap">
+        <a href="https://www.google.com/maps/place/?q=place_id:ChIJMY4rkzfchJURICM-ijVWZZ0" target="_blank" style="display:inline-flex;align-items:center;gap:5px;background:rgba(37,99,235,0.12);border:1px solid rgba(37,99,235,0.3);color:#bfdbfe;font-size:11px;font-weight:700;padding:5px 10px;border-radius:8px;text-decoration:none">📍 Maps</a>
+      </div>
+    </div>
+    
+    <div class="place-card">
+      <div class="place-header">
+        <div class="place-name">Plaza Colón</div>
+        <div class="place-badge">⭐ 4.4 · 42371</div>
+      </div>
+      
+      <div class="place-desc active" data-lang="es">Parque urbano emblemático frente al mar, con el Monumento al Descubrimiento de América.</div>
+      <div class="place-desc" data-lang="en">Iconic urban park facing the sea, featuring the Monument to the Discovery of America.</div>
+      <div class="place-desc" data-lang="pt">Parque urbano icônico de frente para o mar, com o Monumento ao Descobrimento da América.</div>
+      
+      <div style="font-size:11px;color:#6b7280;margin-top:4px">Buenos Aires EEH Mar del Plata Buenos Aires AR, Diagonal Centro 2100</div>
+      <div style="display:flex;gap:6px;margin-top:8px;flex-wrap:wrap">
+        <a href="https://www.google.com/maps/place/?q=place_id:ChIJVRdIzhnchJURCv4SwJ2Iq3k" target="_blank" style="display:inline-flex;align-items:center;gap:5px;background:rgba(37,99,235,0.12);border:1px solid rgba(37,99,235,0.3);color:#bfdbfe;font-size:11px;font-weight:700;padding:5px 10px;border-radius:8px;text-decoration:none">📍 Maps</a>
+      </div>
+    </div>
+    
+    <div class="place-card">
+      <div class="place-header">
+        <div class="place-name">Grand Beach</div>
+        <div class="place-badge">⭐ 4.5 · 24362</div>
+      </div>
+      
+      <div class="place-desc active" data-lang="es">Playa icónica en La Perla con amplias vistas, arena suave y servicios costeros.</div>
+      <div class="place-desc" data-lang="en">Iconic beach in La Perla with expansive views, soft sand, and coastal services.</div>
+      <div class="place-desc" data-lang="pt">Praia icônica em La Perla com vistas amplas, areia suave e serviços costeiros.</div>
+      
+      <div style="font-size:11px;color:#6b7280;margin-top:4px">Saavedra 65, Mar del Plata</div>
+      <div style="display:flex;gap:6px;margin-top:8px;flex-wrap:wrap">
+        <a href="https://www.google.com/maps/place/?q=place_id:ChIJD0zcgMvdhJURkZqCZ7ciEBY" target="_blank" style="display:inline-flex;align-items:center;gap:5px;background:rgba(37,99,235,0.12);border:1px solid rgba(37,99,235,0.3);color:#bfdbfe;font-size:11px;font-weight:700;padding:5px 10px;border-radius:8px;text-decoration:none">📍 Maps</a>
+      </div>
+    </div>
+    
+    <div class="place-card">
+      <div class="place-header">
+        <div class="place-name">Provincial Museum of Contemporary art MAR</div>
+        <div class="place-badge">⭐ 4.2 · 19429</div>
+      </div>
+      
+      <div class="place-desc active" data-lang="es">Moderno espacio cultural que exhibe arte contemporáneo en un edificio vanguardista.</div>
+      <div class="place-desc" data-lang="en">Modern cultural space exhibiting contemporary art in a avant-garde building.</div>
+      <div class="place-desc" data-lang="pt">Espaço cultural moderno que exibe arte contemporânea em um edifício vanguardista.</div>
+      
+      <div style="font-size:11px;color:#6b7280;margin-top:4px">Avenida Félix U. Camet, López de Gomara &amp;, Mar del Plata</div>
+      <div style="display:flex;gap:6px;margin-top:8px;flex-wrap:wrap">
+        <a href="https://www.google.com/maps/place/?q=place_id:ChIJe6iaRObbhJURoWAumTSrTkc" target="_blank" style="display:inline-flex;align-items:center;gap:5px;background:rgba(37,99,235,0.12);border:1px solid rgba(37,99,235,0.3);color:#bfdbfe;font-size:11px;font-weight:700;padding:5px 10px;border-radius:8px;text-decoration:none">📍 Maps</a>
+      </div>
+    </div>
+    
+    <div class="place-card">
+      <div class="place-header">
+        <div class="place-name">Plaza Mitre</div>
+        <div class="place-badge">⭐ 4.4 · 17662</div>
+      </div>
+      
+      <div class="place-desc active" data-lang="es">Parque central arbolado, punto de encuentro local con monumentos históricos.</div>
+      <div class="place-desc" data-lang="en">Tree-lined central park, a local meeting point with historical monuments.</div>
+      <div class="place-desc" data-lang="pt">Parque central arborizado, ponto de encontro local com monumentos históricos.</div>
+      
+      <div style="font-size:11px;color:#6b7280;margin-top:4px">Avenida Colón S/N, Mar del Plata</div>
+      <div style="display:flex;gap:6px;margin-top:8px;flex-wrap:wrap">
+        <a href="https://www.google.com/maps/place/?q=place_id:ChIJN3MWex3chJURm2hI9t6Gd-0" target="_blank" style="display:inline-flex;align-items:center;gap:5px;background:rgba(37,99,235,0.12);border:1px solid rgba(37,99,235,0.3);color:#bfdbfe;font-size:11px;font-weight:700;padding:5px 10px;border-radius:8px;text-decoration:none">📍 Maps</a>
+      </div>
+    </div>
+    
+  </div>
+</div>
+<div style="height:1px;background:linear-gradient(90deg,transparent,#21262d,transparent);margin:0 1.5rem 1rem"></div>
+
+
+<!-- HIKES / CAMINATAS — generadas por Gemini -->
+
+
+<!-- EXCURSIONES DE DÍA COMPLETO -->
+
+
+
+
+
+
+
+  
+    
+  
+
+  
+    
+  
+
+  
+    
+  
+
+  
+    
+  
+
+  
+    
+  
+
+  
+    
+  
+
+
+
+<div class="sec">
+  <div class="sec-title green">🍽️ <span class="t" data-es="Comer, beber, comprar" data-en="Eat, drink, shop" data-pt="Comer, beber, comprar">Comer, beber, comprar</span></div>
+  <div class="extras-tabs">
+    
+    <button class="ext-tab cb-tab active" data-cb-key="restaurantes" onclick="setCB('restaurantes')">
+      🍴 <span class="t" data-es="Restaurantes" data-en="Restaurants" data-pt="Restaurantes">Restaurantes</span>
+    </button>
+    
+    <button class="ext-tab cb-tab" data-cb-key="cervecerias" onclick="setCB('cervecerias')">
+      🍻 <span class="t" data-es="Cervecerías" data-en="Breweries" data-pt="Cervejarias">Cervecerías</span>
+    </button>
+    
+    <button class="ext-tab cb-tab" data-cb-key="cafes" onclick="setCB('cafes')">
+      ☕ <span class="t" data-es="Cafés" data-en="Cafés" data-pt="Cafés">Cafés</span>
+    </button>
+    
+    <button class="ext-tab cb-tab" data-cb-key="salir" onclick="setCB('salir')">
+      🥂 <span class="t" data-es="Salir" data-en="Nightlife" data-pt="Vida noturna">Salir</span>
+    </button>
+    
+    <button class="ext-tab cb-tab" data-cb-key="panaderias" onclick="setCB('panaderias')">
+      🥐 <span class="t" data-es="Panaderías" data-en="Bakeries" data-pt="Padarias">Panaderías</span>
+    </button>
+    
+    <button class="ext-tab cb-tab" data-cb-key="supermercados" onclick="setCB('supermercados')">
+      🛒 <span class="t" data-es="Supermercados" data-en="Supermarkets" data-pt="Supermercados">Supermercados</span>
+    </button>
+    
+  </div>
+  <div class="places-wrap">
+    
+    <div class="cb-content active" id="cb-restaurantes" >
+      
+      <div class="place-card">
+        <div class="place-header">
+          <div class="place-name">Los Gallegos Shopping</div>
+          <div class="place-badge">⭐ 4.2 · 42577</div>
+        </div>
+        
+        <div class="place-desc active" data-lang="es">Centro comercial con variadas opciones gastronómicas para todos los gustos.</div>
+        <div class="place-desc" data-lang="en">Shopping mall featuring diverse dining options to suit every taste.</div>
+        <div class="place-desc" data-lang="pt">Centro comercial com diversas opções gastronômicas para todos os gostos.</div>
+        
+        <div style="font-size:11px;color:#6b7280;margin-top:4px">Rivadavia 3050, Mar del Plata</div>
+        <div style="display:flex;gap:6px;margin-top:8px;flex-wrap:wrap">
+          <a href="https://www.google.com/maps/place/?q=place_id:ChIJCdOgaQLchJURC74yo2L0waM" target="_blank" style="display:inline-flex;align-items:center;gap:5px;background:rgba(37,99,235,0.12);border:1px solid rgba(37,99,235,0.3);color:#bfdbfe;font-size:11px;font-weight:700;padding:5px 10px;border-radius:8px;text-decoration:none">📍 Maps</a>
+        </div>
+      </div>
+      
+      <div class="place-card">
+        <div class="place-header">
+          <div class="place-name">Montecatini Colón</div>
+          <div class="place-badge">⭐ 4.3 · 14100</div>
+        </div>
+        
+        <div class="place-desc active" data-lang="es">Clásico restaurante familiar con especialidades en pastas y pescados. Ubicación Colón.</div>
+        <div class="place-desc" data-lang="en">Classic family restaurant specializing in pasta and fish dishes. Colón location.</div>
+        <div class="place-desc" data-lang="pt">Restaurante familiar clássico especializado em massas e peixes. Localização Colón.</div>
+        
+        <div style="font-size:11px;color:#6b7280;margin-top:4px">Avenida Colón 2309, Mar del Plata</div>
+        <div style="display:flex;gap:6px;margin-top:8px;flex-wrap:wrap">
+          <a href="https://www.google.com/maps/place/?q=place_id:ChIJZ1PHURnchJURL7JRwYAJ9MI" target="_blank" style="display:inline-flex;align-items:center;gap:5px;background:rgba(37,99,235,0.12);border:1px solid rgba(37,99,235,0.3);color:#bfdbfe;font-size:11px;font-weight:700;padding:5px 10px;border-radius:8px;text-decoration:none">📍 Maps</a>
+        </div>
+      </div>
+      
+      <div class="place-card">
+        <div class="place-header">
+          <div class="place-name">Montecatini Perla</div>
+          <div class="place-badge">⭐ 4.4 · 7924</div>
+        </div>
+        
+        <div class="place-desc active" data-lang="es">Tradicional restaurante familiar con pastas y mariscos. Ubicación en La Perla.</div>
+        <div class="place-desc" data-lang="en">Traditional family restaurant with pasta and seafood. Located in La Perla.</div>
+        <div class="place-desc" data-lang="pt">Restaurante familiar tradicional com massas e frutos do mar. Localizado em La Perla.</div>
+        
+        <div style="font-size:11px;color:#6b7280;margin-top:4px">La Rioja, 25 de Mayo y, Mar del Plata</div>
+        <div style="display:flex;gap:6px;margin-top:8px;flex-wrap:wrap">
+          <a href="https://www.google.com/maps/place/?q=place_id:ChIJAcyp2APchJUR7QCdgG41bdw" target="_blank" style="display:inline-flex;align-items:center;gap:5px;background:rgba(37,99,235,0.12);border:1px solid rgba(37,99,235,0.3);color:#bfdbfe;font-size:11px;font-weight:700;padding:5px 10px;border-radius:8px;text-decoration:none">📍 Maps</a>
+        </div>
+      </div>
+      
+      <div class="place-card">
+        <div class="place-header">
+          <div class="place-name">El Palacio del Bife - Restaurant</div>
+          <div class="place-badge">⭐ 4.6 · 6734</div>
+        </div>
+        
+        <div class="place-desc active" data-lang="es">Parrilla argentina clásica, famosa por sus cortes de carne y ambiente tradicional.</div>
+        <div class="place-desc" data-lang="en">Classic Argentine steakhouse, famous for its meat cuts and traditional atmosphere.</div>
+        <div class="place-desc" data-lang="pt">Churrascaria argentina clássica, famosa por seus cortes de carne e ambiente tradicional.</div>
+        
+        <div style="font-size:11px;color:#6b7280;margin-top:4px">Córdoba 1857, Mar del Plata</div>
+        <div style="display:flex;gap:6px;margin-top:8px;flex-wrap:wrap">
+          <a href="https://www.google.com/maps/place/?q=place_id:ChIJEc-UphzchJURTaLhE-FW0aw" target="_blank" style="display:inline-flex;align-items:center;gap:5px;background:rgba(37,99,235,0.12);border:1px solid rgba(37,99,235,0.3);color:#bfdbfe;font-size:11px;font-weight:700;padding:5px 10px;border-radius:8px;text-decoration:none">📍 Maps</a>
+        </div>
+      </div>
+      
+      <div class="place-card">
+        <div class="place-header">
+          <div class="place-name">HOTEL SAINTE JEANNE</div>
+          <div class="place-badge">⭐ 4.6 · 4629</div>
+        </div>
+        
+        <div class="place-desc active" data-lang="es">Restaurante de alta cocina en hotel boutique, con platos refinados y ambiente elegante.</div>
+        <div class="place-desc" data-lang="en">Fine dining restaurant in a boutique hotel, offering refined dishes and elegant ambiance.</div>
+        <div class="place-desc" data-lang="pt">Restaurante de alta gastronomia em hotel boutique, com pratos refinados e ambiente elegante.</div>
+        
+        <div style="font-size:11px;color:#6b7280;margin-top:4px">Martín Miguel de Güemes 2850, Mar del Plata</div>
+        <div style="display:flex;gap:6px;margin-top:8px;flex-wrap:wrap">
+          <a href="https://www.google.com/maps/place/?q=place_id:ChIJeW5mzzrchJUR6vsYtvxHdlM" target="_blank" style="display:inline-flex;align-items:center;gap:5px;background:rgba(37,99,235,0.12);border:1px solid rgba(37,99,235,0.3);color:#bfdbfe;font-size:11px;font-weight:700;padding:5px 10px;border-radius:8px;text-decoration:none">📍 Maps</a>
+        </div>
+      </div>
+      
+    </div>
+    
+    <div class="cb-content" id="cb-cervecerias" style="display:none">
+      
+      <div class="place-card">
+        <div class="place-header">
+          <div class="place-name">BrewHouse</div>
+          <div class="place-badge">⭐ 4.4 · 5549</div>
+        </div>
+        
+        <div class="place-desc active" data-lang="es">Cervecería artesanal con gran variedad de estilos de cerveza y propuestas gastronómicas.</div>
+        <div class="place-desc" data-lang="en">Craft brewery with a wide variety of beer styles and gastronomic offerings.</div>
+        <div class="place-desc" data-lang="pt">Cervejaria artesanal com grande variedade de estilos de cerveja e propostas gastronômicas.</div>
+        
+        <div style="font-size:11px;color:#6b7280;margin-top:4px">Diag. Garibaldi 4830, Mar del Plata</div>
+        <div style="display:flex;gap:6px;margin-top:8px;flex-wrap:wrap">
+          <a href="https://www.google.com/maps/place/?q=place_id:ChIJqb3knC_chJURLLBWdthL5iM" target="_blank" style="display:inline-flex;align-items:center;gap:5px;background:rgba(37,99,235,0.12);border:1px solid rgba(37,99,235,0.3);color:#bfdbfe;font-size:11px;font-weight:700;padding:5px 10px;border-radius:8px;text-decoration:none">📍 Maps</a>
+        </div>
+      </div>
+      
+      <div class="place-card">
+        <div class="place-header">
+          <div class="place-name">Che Picadas</div>
+          <div class="place-badge">⭐ 4.4 · 4945</div>
+        </div>
+        
+        <div class="place-desc active" data-lang="es">Cervecería con un toque argentino, ideal para picadas y cervezas artesanales.</div>
+        <div class="place-desc" data-lang="en">Brewery with an Argentine touch, ideal for &#39;picadas&#39; (platters) and craft beers.</div>
+        <div class="place-desc" data-lang="pt">Cervejaria com um toque argentino, ideal para &#39;picadas&#39; (tabuas) e cervejas artesanais.</div>
+        
+        <div style="font-size:11px;color:#6b7280;margin-top:4px">Olavarría, 3325, Mar del Plata</div>
+        <div style="display:flex;gap:6px;margin-top:8px;flex-wrap:wrap">
+          <a href="https://www.google.com/maps/place/?q=place_id:ChIJk3P7eCXchJURVfQFygYPmFU" target="_blank" style="display:inline-flex;align-items:center;gap:5px;background:rgba(37,99,235,0.12);border:1px solid rgba(37,99,235,0.3);color:#bfdbfe;font-size:11px;font-weight:700;padding:5px 10px;border-radius:8px;text-decoration:none">📍 Maps</a>
+        </div>
+      </div>
+      
+      <div class="place-card">
+        <div class="place-header">
+          <div class="place-name">Bruder Beer Garden</div>
+          <div class="place-badge">⭐ 4.3 · 4080</div>
+        </div>
+        
+        <div class="place-desc active" data-lang="es">Beer garden al aire libre con cervezas artesanales y ambiente festivo para grupos.</div>
+        <div class="place-desc" data-lang="en">Outdoor beer garden with craft beers and a festive atmosphere for groups.</div>
+        <div class="place-desc" data-lang="pt">Beer garden ao ar livre com cervejas artesanais e ambiente festivo para grupos.</div>
+        
+        <div style="font-size:11px;color:#6b7280;margin-top:4px">BWH Mar del Plata Buenos Aires AR, Bartolomé Mitre 3188</div>
+        <div style="display:flex;gap:6px;margin-top:8px;flex-wrap:wrap">
+          <a href="https://www.google.com/maps/place/?q=place_id:ChIJsTcWgqHehJUR9yXL4Wbjuxw" target="_blank" style="display:inline-flex;align-items:center;gap:5px;background:rgba(37,99,235,0.12);border:1px solid rgba(37,99,235,0.3);color:#bfdbfe;font-size:11px;font-weight:700;padding:5px 10px;border-radius:8px;text-decoration:none">📍 Maps</a>
+        </div>
+      </div>
+      
+      <div class="place-card">
+        <div class="place-header">
+          <div class="place-name">Barracuda</div>
+          <div class="place-badge">⭐ 4.2 · 3348</div>
+        </div>
+        
+        <div class="place-desc active" data-lang="es">Cervecería con vista al mar, ideal para disfrutar buena cerveza y ambiente costero.</div>
+        <div class="place-desc" data-lang="en">Brewery with sea views, perfect for enjoying good beer and a coastal atmosphere.</div>
+        <div class="place-desc" data-lang="pt">Cervejaria com vista para o mar, ideal para desfrutar boa cerveja e ambiente costeiro.</div>
+        
+        <div style="font-size:11px;color:#6b7280;margin-top:4px">Corrientes 1899, Mar del Plata</div>
+        <div style="display:flex;gap:6px;margin-top:8px;flex-wrap:wrap">
+          <a href="https://www.google.com/maps/place/?q=place_id:ChIJXww1tBvchJURd3en4_na-R0" target="_blank" style="display:inline-flex;align-items:center;gap:5px;background:rgba(37,99,235,0.12);border:1px solid rgba(37,99,235,0.3);color:#bfdbfe;font-size:11px;font-weight:700;padding:5px 10px;border-radius:8px;text-decoration:none">📍 Maps</a>
+        </div>
+      </div>
+      
+      <div class="place-card">
+        <div class="place-header">
+          <div class="place-name">Bar restaurante Pan y Manteca</div>
+          <div class="place-badge">⭐ 4.4 · 2644</div>
+        </div>
+        
+        <div class="place-desc active" data-lang="es">Bar-restaurante versátil que ofrece cervezas, platos caseros y ambiente acogedor.</div>
+        <div class="place-desc" data-lang="en">Versatile bar-restaurant offering beers, homemade dishes, and a cozy atmosphere.</div>
+        <div class="place-desc" data-lang="pt">Bar-restaurante versátil que oferece cervejas, pratos caseiros e ambiente acolhedor.</div>
+        
+        <div style="font-size:11px;color:#6b7280;margin-top:4px">25 de Mayo 3599, Mar del Plata</div>
+        <div style="display:flex;gap:6px;margin-top:8px;flex-wrap:wrap">
+          <a href="https://www.google.com/maps/place/?q=place_id:ChIJuQUMLVXZhJUR3fohRHPkoj0" target="_blank" style="display:inline-flex;align-items:center;gap:5px;background:rgba(37,99,235,0.12);border:1px solid rgba(37,99,235,0.3);color:#bfdbfe;font-size:11px;font-weight:700;padding:5px 10px;border-radius:8px;text-decoration:none">📍 Maps</a>
+        </div>
+      </div>
+      
+    </div>
+    
+    <div class="cb-content" id="cb-cafes" style="display:none">
+      
+      <div class="place-card">
+        <div class="place-header">
+          <div class="place-name">Punto y Banca Bar-Restaurante</div>
+          <div class="place-badge">⭐ 4.4 · 12678</div>
+        </div>
+        
+        <div class="place-desc active" data-lang="es">Bar-restaurante con ambiente relajado, ideal para un café, almuerzo o cena informal.</div>
+        <div class="place-desc" data-lang="en">Bar-restaurant with a relaxed atmosphere, ideal for coffee, casual lunch or dinner.</div>
+        <div class="place-desc" data-lang="pt">Bar-restaurante com ambiente descontraído, ideal para um café, almoço ou jantar informal.</div>
+        
+        <div style="font-size:11px;color:#6b7280;margin-top:4px">Buenos Aires 1993, Mar del Plata</div>
+        <div style="display:flex;gap:6px;margin-top:8px;flex-wrap:wrap">
+          <a href="https://www.google.com/maps/place/?q=place_id:ChIJ30EhkRnchJURnHI7RJocdPw" target="_blank" style="display:inline-flex;align-items:center;gap:5px;background:rgba(37,99,235,0.12);border:1px solid rgba(37,99,235,0.3);color:#bfdbfe;font-size:11px;font-weight:700;padding:5px 10px;border-radius:8px;text-decoration:none">📍 Maps</a>
+        </div>
+      </div>
+      
+      <div class="place-card">
+        <div class="place-header">
+          <div class="place-name">Fonte D&#39;Oro</div>
+          <div class="place-badge">⭐ 4.3 · 11523</div>
+        </div>
+        
+        <div class="place-desc active" data-lang="es">Cafetería tradicional con amplia carta, pastelería y opciones para un brunch completo.</div>
+        <div class="place-desc" data-lang="en">Traditional coffee shop with extensive menu, pastries, and full brunch options.</div>
+        <div class="place-desc" data-lang="pt">Cafeteria tradicional com amplo menu, confeitaria e opções para um brunch completo.</div>
+        
+        <div style="font-size:11px;color:#6b7280;margin-top:4px">TCM, Martín Miguel de Güemes 2782, Mar del Plata</div>
+        <div style="display:flex;gap:6px;margin-top:8px;flex-wrap:wrap">
+          <a href="https://www.google.com/maps/place/?q=place_id:ChIJj7nO3TrchJURBPH2dx3kbAQ" target="_blank" style="display:inline-flex;align-items:center;gap:5px;background:rgba(37,99,235,0.12);border:1px solid rgba(37,99,235,0.3);color:#bfdbfe;font-size:11px;font-weight:700;padding:5px 10px;border-radius:8px;text-decoration:none">📍 Maps</a>
+        </div>
+      </div>
+      
+      <div class="place-card">
+        <div class="place-header">
+          <div class="place-name">La Fonte D&#39;Oro</div>
+          <div class="place-badge">⭐ 4.2 · 6887</div>
+        </div>
+        
+        <div class="place-desc active" data-lang="es">Emblemática cafetería local, ideal para disfrutar un buen café y encuentro social.</div>
+        <div class="place-desc" data-lang="en">Iconic local coffee shop, perfect for enjoying good coffee and social gatherings.</div>
+        <div class="place-desc" data-lang="pt">Cafeteria local icônica, perfeita para desfrutar um bom café e encontros sociais.</div>
+        
+        <div style="font-size:11px;color:#6b7280;margin-top:4px">San Martín 2604, Mar del Plata</div>
+        <div style="display:flex;gap:6px;margin-top:8px;flex-wrap:wrap">
+          <a href="https://www.google.com/maps/place/?q=place_id:ChIJOdn-qAPchJUR_Hkuwhs3L8U" target="_blank" style="display:inline-flex;align-items:center;gap:5px;background:rgba(37,99,235,0.12);border:1px solid rgba(37,99,235,0.3);color:#bfdbfe;font-size:11px;font-weight:700;padding:5px 10px;border-radius:8px;text-decoration:none">📍 Maps</a>
+        </div>
+      </div>
+      
+      <div class="place-card">
+        <div class="place-header">
+          <div class="place-name">La Fonte D&#39;Oro | Sucursal Yrigoyen (Mar del Plata)</div>
+          <div class="place-badge">⭐ 4.3 · 5032</div>
+        </div>
+        
+        <div class="place-desc active" data-lang="es">Sucursal céntrica de la clásica cafetería, con ambiente acogedor para pausa o trabajo.</div>
+        <div class="place-desc" data-lang="en">Central branch of the classic coffee shop, with a cozy atmosphere for breaks or work.</div>
+        <div class="place-desc" data-lang="pt">Filial central da cafeteria clássica, com ambiente acolhedor para pausas ou trabalho.</div>
+        
+        <div style="font-size:11px;color:#6b7280;margin-top:4px">Hipólito Yrigoyen 1603, Mar del Plata</div>
+        <div style="display:flex;gap:6px;margin-top:8px;flex-wrap:wrap">
+          <a href="https://www.google.com/maps/place/?q=place_id:ChIJe3TmqAPchJURqpHMbNs9E-E" target="_blank" style="display:inline-flex;align-items:center;gap:5px;background:rgba(37,99,235,0.12);border:1px solid rgba(37,99,235,0.3);color:#bfdbfe;font-size:11px;font-weight:700;padding:5px 10px;border-radius:8px;text-decoration:none">📍 Maps</a>
+        </div>
+      </div>
+      
+      <div class="place-card">
+        <div class="place-header">
+          <div class="place-name">La Esquina de Güemes</div>
+          <div class="place-badge">⭐ 4.2 · 4513</div>
+        </div>
+        
+        <div class="place-desc active" data-lang="es">Cafetería boutique en el corazón de Güemes, con especialidades de café y repostería.</div>
+        <div class="place-desc" data-lang="en">Boutique coffee shop in the heart of Güemes, offering specialty coffee and pastries.</div>
+        <div class="place-desc" data-lang="pt">Cafeteria boutique no coração de Güemes, com especialidades de café e confeitaria.</div>
+        
+        <div style="font-size:11px;color:#6b7280;margin-top:4px">Martín Miguel de Güemes 2606, Mar del Plata</div>
+        <div style="display:flex;gap:6px;margin-top:8px;flex-wrap:wrap">
+          <a href="https://www.google.com/maps/place/?q=place_id:ChIJV7eVDzvchJUR4m3Wq9dQcpE" target="_blank" style="display:inline-flex;align-items:center;gap:5px;background:rgba(37,99,235,0.12);border:1px solid rgba(37,99,235,0.3);color:#bfdbfe;font-size:11px;font-weight:700;padding:5px 10px;border-radius:8px;text-decoration:none">📍 Maps</a>
+        </div>
+      </div>
+      
+    </div>
+    
+    <div class="cb-content" id="cb-salir" style="display:none">
+      
+      <div class="place-card">
+        <div class="place-header">
+          <div class="place-name">Estelares La Perla</div>
+          <div class="place-badge">⭐ 4.3 · 6607</div>
+        </div>
+        
+        <div class="place-desc active" data-lang="es">Bar-restaurante en La Perla con ambiente moderno y oferta variada de tragos y comidas.</div>
+        <div class="place-desc" data-lang="en">Bar-restaurant in La Perla with modern ambiance and varied drinks and food.</div>
+        <div class="place-desc" data-lang="pt">Bar-restaurante em La Perla com ambiente moderno e oferta variada de bebidas e comidas.</div>
+        
+        <div style="font-size:11px;color:#6b7280;margin-top:4px">B7600HJC, Av. Libertad 3175, Mar del Plata</div>
+        <div style="display:flex;gap:6px;margin-top:8px;flex-wrap:wrap">
+          <a href="https://www.google.com/maps/place/?q=place_id:ChIJaY5t1RjdhJURvjWm-GzdGlM" target="_blank" style="display:inline-flex;align-items:center;gap:5px;background:rgba(37,99,235,0.12);border:1px solid rgba(37,99,235,0.3);color:#bfdbfe;font-size:11px;font-weight:700;padding:5px 10px;border-radius:8px;text-decoration:none">📍 Maps</a>
+        </div>
+      </div>
+      
+      <div class="place-card">
+        <div class="place-header">
+          <div class="place-name">Las Nubes Café de Manantiales</div>
+          <div class="place-badge">⭐ 4.2 · 6799</div>
+        </div>
+        
+        <div class="place-desc active" data-lang="es">Café en Manantiales con vistas espectaculares, ideal para relajarse y disfrutar la vista.</div>
+        <div class="place-desc" data-lang="en">Café in Manantiales with spectacular views, ideal for relaxing and enjoying the scenery.</div>
+        <div class="place-desc" data-lang="pt">Café em Manantiales com vistas espetaculares, ideal para relaxar e apreciar a paisagem.</div>
+        
+        <div style="font-size:11px;color:#6b7280;margin-top:4px">Alberti 453, Mar del Plata</div>
+        <div style="display:flex;gap:6px;margin-top:8px;flex-wrap:wrap">
+          <a href="https://www.google.com/maps/place/?q=place_id:ChIJJbdMGTbchJURJFYVozYBiXg" target="_blank" style="display:inline-flex;align-items:center;gap:5px;background:rgba(37,99,235,0.12);border:1px solid rgba(37,99,235,0.3);color:#bfdbfe;font-size:11px;font-weight:700;padding:5px 10px;border-radius:8px;text-decoration:none">📍 Maps</a>
+        </div>
+      </div>
+      
+      <div class="place-card">
+        <div class="place-header">
+          <div class="place-name">BrewHouse</div>
+          <div class="place-badge">⭐ 4.4 · 5549</div>
+        </div>
+        
+        <div class="place-desc active" data-lang="es">Local nocturno con música en vivo y ambiente animado, ideal para salir de fiesta.</div>
+        <div class="place-desc" data-lang="en">Night venue with live music and lively atmosphere, ideal for going out and partying.</div>
+        <div class="place-desc" data-lang="pt">Local noturno com música ao vivo e ambiente animado, ideal para sair e se divertir.</div>
+        
+        <div style="font-size:11px;color:#6b7280;margin-top:4px">Diag. Garibaldi 4830, Mar del Plata</div>
+        <div style="display:flex;gap:6px;margin-top:8px;flex-wrap:wrap">
+          <a href="https://www.google.com/maps/place/?q=place_id:ChIJqb3knC_chJURLLBWdthL5iM" target="_blank" style="display:inline-flex;align-items:center;gap:5px;background:rgba(37,99,235,0.12);border:1px solid rgba(37,99,235,0.3);color:#bfdbfe;font-size:11px;font-weight:700;padding:5px 10px;border-radius:8px;text-decoration:none">📍 Maps</a>
+        </div>
+      </div>
+      
+      <div class="place-card">
+        <div class="place-header">
+          <div class="place-name">Che Picadas</div>
+          <div class="place-badge">⭐ 4.4 · 4945</div>
+        </div>
+        
+        <div class="place-desc active" data-lang="es">Ambiente distendido para compartir picadas y cervezas, perfecto para un after-office.</div>
+        <div class="place-desc" data-lang="en">Relaxed atmosphere for sharing platters and beers, perfect for after-work gatherings.</div>
+        <div class="place-desc" data-lang="pt">Ambiente descontraído para compartilhar tábuas e cervejas, perfeito para um happy hour.</div>
+        
+        <div style="font-size:11px;color:#6b7280;margin-top:4px">Olavarría, 3325, Mar del Plata</div>
+        <div style="display:flex;gap:6px;margin-top:8px;flex-wrap:wrap">
+          <a href="https://www.google.com/maps/place/?q=place_id:ChIJk3P7eCXchJURVfQFygYPmFU" target="_blank" style="display:inline-flex;align-items:center;gap:5px;background:rgba(37,99,235,0.12);border:1px solid rgba(37,99,235,0.3);color:#bfdbfe;font-size:11px;font-weight:700;padding:5px 10px;border-radius:8px;text-decoration:none">📍 Maps</a>
+        </div>
+      </div>
+      
+      <div class="place-card">
+        <div class="place-header">
+          <div class="place-name">Quba, café de mar</div>
+          <div class="place-badge">⭐ 4.1 · 5094</div>
+        </div>
+        
+        <div class="place-desc active" data-lang="es">Café de mar con diseño moderno y vistas panorámicas, ideal para tragos y relax costero.</div>
+        <div class="place-desc" data-lang="en">Sea-side cafe with modern design and panoramic views, ideal for drinks and coastal relaxation.</div>
+        <div class="place-desc" data-lang="pt">Café de mar com design moderno e vistas panorâmicas, ideal para bebidas e relax costeiro.</div>
+        
+        <div style="font-size:11px;color:#6b7280;margin-top:4px">Escollera Nte., Mar del Plata</div>
+        <div style="display:flex;gap:6px;margin-top:8px;flex-wrap:wrap">
+          <a href="https://www.google.com/maps/place/?q=place_id:ChIJh8cjScjdhJURoWA_wHOnk0g" target="_blank" style="display:inline-flex;align-items:center;gap:5px;background:rgba(37,99,235,0.12);border:1px solid rgba(37,99,235,0.3);color:#bfdbfe;font-size:11px;font-weight:700;padding:5px 10px;border-radius:8px;text-decoration:none">📍 Maps</a>
+        </div>
+      </div>
+      
+    </div>
+    
+    <div class="cb-content" id="cb-panaderias" style="display:none">
+      
+      <div class="place-card">
+        <div class="place-header">
+          <div class="place-name">Havanna</div>
+          <div class="place-badge">⭐ 4.3 · 3924</div>
+        </div>
+        
+        <div class="place-desc active" data-lang="es">Cafetería y panadería emblemática, famosa por sus alfajores y delicias argentinas.</div>
+        <div class="place-desc" data-lang="en">Iconic coffee shop and bakery, famous for its alfajores and Argentine delicacies.</div>
+        <div class="place-desc" data-lang="pt">Cafeteria e padaria emblemática, famosa por seus alfajores e delícias argentinas.</div>
+        
+        <div style="font-size:11px;color:#6b7280;margin-top:4px">EMO, Martín Miguel de Güemes 2701, Mar del Plata</div>
+        <div style="display:flex;gap:6px;margin-top:8px;flex-wrap:wrap">
+          <a href="https://www.google.com/maps/place/?q=place_id:ChIJhUykHzvchJURZLwzLSMOPEc" target="_blank" style="display:inline-flex;align-items:center;gap:5px;background:rgba(37,99,235,0.12);border:1px solid rgba(37,99,235,0.3);color:#bfdbfe;font-size:11px;font-weight:700;padding:5px 10px;border-radius:8px;text-decoration:none">📍 Maps</a>
+        </div>
+      </div>
+      
+      <div class="place-card">
+        <div class="place-header">
+          <div class="place-name">El Cóndor</div>
+          <div class="place-badge">⭐ 4.2 · 3868</div>
+        </div>
+        
+        <div class="place-desc active" data-lang="es">Tradicional panadería con amplia variedad de panificados, facturas y postres.</div>
+        <div class="place-desc" data-lang="en">Traditional bakery with a wide variety of baked goods, pastries, and desserts.</div>
+        <div class="place-desc" data-lang="pt">Padaria tradicional com ampla variedade de pães, doces e sobremesas.</div>
+        
+        <div style="font-size:11px;color:#6b7280;margin-top:4px">Martín Miguel de Güemes 2945, Mar del Plata</div>
+        <div style="display:flex;gap:6px;margin-top:8px;flex-wrap:wrap">
+          <a href="https://www.google.com/maps/place/?q=place_id:ChIJQY3ySiXchJURPdfr2WElZXI" target="_blank" style="display:inline-flex;align-items:center;gap:5px;background:rgba(37,99,235,0.12);border:1px solid rgba(37,99,235,0.3);color:#bfdbfe;font-size:11px;font-weight:700;padding:5px 10px;border-radius:8px;text-decoration:none">📍 Maps</a>
+        </div>
+      </div>
+      
+      <div class="place-card">
+        <div class="place-header">
+          <div class="place-name">Panadería Postres y Poemas</div>
+          <div class="place-badge">⭐ 4.7 · 1149</div>
+        </div>
+        
+        <div class="place-desc active" data-lang="es">Panadería y confitería de autor, con postres creativos y ambiente acogedor.</div>
+        <div class="place-desc" data-lang="en">Signature bakery and confectionery, with creative desserts and a cozy atmosphere.</div>
+        <div class="place-desc" data-lang="pt">Padaria e confeitaria de autor, com sobremesas criativas e ambiente acolhedor.</div>
+        
+        <div style="font-size:11px;color:#6b7280;margin-top:4px">Olavarría 3122, Mar del Plata</div>
+        <div style="display:flex;gap:6px;margin-top:8px;flex-wrap:wrap">
+          <a href="https://www.google.com/maps/place/?q=place_id:ChIJ2x03biXchJURjKeCvIMCuxw" target="_blank" style="display:inline-flex;align-items:center;gap:5px;background:rgba(37,99,235,0.12);border:1px solid rgba(37,99,235,0.3);color:#bfdbfe;font-size:11px;font-weight:700;padding:5px 10px;border-radius:8px;text-decoration:none">📍 Maps</a>
+        </div>
+      </div>
+      
+      <div class="place-card">
+        <div class="place-header">
+          <div class="place-name">Havanna</div>
+          <div class="place-badge">⭐ 4.4 · 1051</div>
+        </div>
+        
+        <div class="place-desc active" data-lang="es">Un clásico para disfrutar café y alfajores, con productos regionales de calidad.</div>
+        <div class="place-desc" data-lang="en">A classic spot for coffee and alfajores, offering quality regional products.</div>
+        <div class="place-desc" data-lang="pt">Um clássico para desfrutar café e alfajores, com produtos regionais de qualidade.</div>
+        
+        <div style="font-size:11px;color:#6b7280;margin-top:4px">Sarmiento 2685, Mar del Plata</div>
+        <div style="display:flex;gap:6px;margin-top:8px;flex-wrap:wrap">
+          <a href="https://www.google.com/maps/place/?q=place_id:ChIJsfMuZSPchJURg3PYyrRkkV8" target="_blank" style="display:inline-flex;align-items:center;gap:5px;background:rgba(37,99,235,0.12);border:1px solid rgba(37,99,235,0.3);color:#bfdbfe;font-size:11px;font-weight:700;padding:5px 10px;border-radius:8px;text-decoration:none">📍 Maps</a>
+        </div>
+      </div>
+      
+      <div class="place-card">
+        <div class="place-header">
+          <div class="place-name">Sans Gluten de La Reina del Parque</div>
+          <div class="place-badge">⭐ 4.4 · 979</div>
+        </div>
+        
+        <div class="place-desc active" data-lang="es">Panadería especializada en productos sin gluten, con opciones saludables y deliciosas.</div>
+        <div class="place-desc" data-lang="en">Bakery specializing in gluten-free products, offering healthy and delicious options.</div>
+        <div class="place-desc" data-lang="pt">Padaria especializada em produtos sem glúten, com opções saudáveis e deliciosas.</div>
+        
+        <div style="font-size:11px;color:#6b7280;margin-top:4px">DIW, Avenida Independencia 2598, Mar del Plata</div>
+        <div style="display:flex;gap:6px;margin-top:8px;flex-wrap:wrap">
+          <a href="https://www.google.com/maps/place/?q=place_id:ChIJJbbkBqbehJURj4Z_sW0M9ow" target="_blank" style="display:inline-flex;align-items:center;gap:5px;background:rgba(37,99,235,0.12);border:1px solid rgba(37,99,235,0.3);color:#bfdbfe;font-size:11px;font-weight:700;padding:5px 10px;border-radius:8px;text-decoration:none">📍 Maps</a>
+        </div>
+      </div>
+      
+    </div>
+    
+    <div class="cb-content" id="cb-supermercados" style="display:none">
+      
+      <div class="place-card">
+        <div class="place-header">
+          <div class="place-name">Supermercados Toledo - J B Justo</div>
+          <div class="place-badge">⭐ 3.6 · 5237</div>
+        </div>
+        
+        <div class="place-desc active" data-lang="es">Sucursal del supermercado Toledo en J.B. Justo, con amplio surtido de productos.</div>
+        <div class="place-desc" data-lang="en">Toledo supermarket branch on J.B. Justo, with a wide assortment of products.</div>
+        <div class="place-desc" data-lang="pt">Filial do supermercado Toledo em J.B. Justo, com grande variedade de produtos.</div>
+        
+        <div style="font-size:11px;color:#6b7280;margin-top:4px">Avenida Juan B. Justo 750, Mar del Plata</div>
+        <div style="display:flex;gap:6px;margin-top:8px;flex-wrap:wrap">
+          <a href="https://www.google.com/maps/place/?q=place_id:ChIJhfy68NbdhJURHG91Pl2RkUA" target="_blank" style="display:inline-flex;align-items:center;gap:5px;background:rgba(37,99,235,0.12);border:1px solid rgba(37,99,235,0.3);color:#bfdbfe;font-size:11px;font-weight:700;padding:5px 10px;border-radius:8px;text-decoration:none">📍 Maps</a>
+        </div>
+      </div>
+      
+      <div class="place-card">
+        <div class="place-header">
+          <div class="place-name">Toledo Supermarket</div>
+          <div class="place-badge">⭐ 3.7 · 3488</div>
+        </div>
+        
+        <div class="place-desc active" data-lang="es">Supermercado local con variedad de productos frescos y precios competitivos.</div>
+        <div class="place-desc" data-lang="en">Local supermarket with a variety of fresh products and competitive prices.</div>
+        <div class="place-desc" data-lang="pt">Supermercado local com variedade de produtos frescos e preços competitivos.</div>
+        
+        <div style="font-size:11px;color:#6b7280;margin-top:4px">Falucho 2007, Mar del Plata</div>
+        <div style="display:flex;gap:6px;margin-top:8px;flex-wrap:wrap">
+          <a href="https://www.google.com/maps/place/?q=place_id:ChIJcUL4wRjchJURW7JFxkx3TS0" target="_blank" style="display:inline-flex;align-items:center;gap:5px;background:rgba(37,99,235,0.12);border:1px solid rgba(37,99,235,0.3);color:#bfdbfe;font-size:11px;font-weight:700;padding:5px 10px;border-radius:8px;text-decoration:none">📍 Maps</a>
+        </div>
+      </div>
+      
+      <div class="place-card">
+        <div class="place-header">
+          <div class="place-name">Supermercados Toledo - Colón</div>
+          <div class="place-badge">⭐ 3.6 · 3608</div>
+        </div>
+        
+        <div class="place-desc active" data-lang="es">Sucursal del supermercado Toledo en Avenida Colón, ideal para compras diarias.</div>
+        <div class="place-desc" data-lang="en">Toledo supermarket branch on Colón Avenue, ideal for daily grocery shopping.</div>
+        <div class="place-desc" data-lang="pt">Filial do supermercado Toledo na Avenida Colón, ideal para compras diárias.</div>
+        
+        <div style="font-size:11px;color:#6b7280;margin-top:4px">Avenida Colón 1554, Mar del Plata</div>
+        <div style="display:flex;gap:6px;margin-top:8px;flex-wrap:wrap">
+          <a href="https://www.google.com/maps/place/?q=place_id:ChIJxWjzBD3chJURemZCFOXyRo0" target="_blank" style="display:inline-flex;align-items:center;gap:5px;background:rgba(37,99,235,0.12);border:1px solid rgba(37,99,235,0.3);color:#bfdbfe;font-size:11px;font-weight:700;padding:5px 10px;border-radius:8px;text-decoration:none">📍 Maps</a>
+        </div>
+      </div>
+      
+      <div class="place-card">
+        <div class="place-header">
+          <div class="place-name">Disco</div>
+          <div class="place-badge">⭐ 4 · 2744</div>
+        </div>
+        
+        <div class="place-desc active" data-lang="es">Cadena de supermercados con amplio surtido de marcas y promociones frecuentes.</div>
+        <div class="place-desc" data-lang="en">Supermarket chain with a wide assortment of brands and frequent promotions.</div>
+        <div class="place-desc" data-lang="pt">Rede de supermercados com ampla variedade de marcas e promoções frequentes.</div>
+        
+        <div style="font-size:11px;color:#6b7280;margin-top:4px">Rawson 1199, Mar del Plata</div>
+        <div style="display:flex;gap:6px;margin-top:8px;flex-wrap:wrap">
+          <a href="https://www.google.com/maps/place/?q=place_id:ChIJ67H99jrchJURpuX1W4eBZI8" target="_blank" style="display:inline-flex;align-items:center;gap:5px;background:rgba(37,99,235,0.12);border:1px solid rgba(37,99,235,0.3);color:#bfdbfe;font-size:11px;font-weight:700;padding:5px 10px;border-radius:8px;text-decoration:none">📍 Maps</a>
+        </div>
+      </div>
+      
+      <div class="place-card">
+        <div class="place-header">
+          <div class="place-name">Toledo Supermarket</div>
+          <div class="place-badge">⭐ 3.8 · 2889</div>
+        </div>
+        
+        <div class="place-desc active" data-lang="es">Práctico supermercado con oferta completa para las necesidades del hogar.</div>
+        <div class="place-desc" data-lang="en">Convenient supermarket with a complete offer for household needs.</div>
+        <div class="place-desc" data-lang="pt">Supermercado prático com oferta completa para as necessidades do lar.</div>
+        
+        <div style="font-size:11px;color:#6b7280;margin-top:4px">Rivadavia 2248, Mar del Plata</div>
+        <div style="display:flex;gap:6px;margin-top:8px;flex-wrap:wrap">
+          <a href="https://www.google.com/maps/place/?q=place_id:ChIJq6xNRhrchJURsko1Ey0tWA4" target="_blank" style="display:inline-flex;align-items:center;gap:5px;background:rgba(37,99,235,0.12);border:1px solid rgba(37,99,235,0.3);color:#bfdbfe;font-size:11px;font-weight:700;padding:5px 10px;border-radius:8px;text-decoration:none">📍 Maps</a>
+        </div>
+      </div>
+      
+    </div>
+    
+  </div>
+</div>
+<div style="height:1px;background:linear-gradient(90deg,transparent,#21262d,transparent);margin:0 1.5rem 1rem"></div>
+
+
+<!-- RECOMENDACIONES DEL ANFITRIÓN -->
+
+
+<!-- ROPA Y CLIMA -->
+<div style="padding:0 1.5rem 1.5rem">
+  <div style="font-size:10px;font-weight:800;letter-spacing:2.5px;text-transform:uppercase;color:#10b981;margin-bottom:1rem" id="outfit-title">👗 ¿Qué ropa llevar hoy?</div>
+
+  <!-- CLIMA ACTUAL BADGE -->
+  <div id="outfit-weather-badge" style="background:#161b22;border:1px solid #30363d;border-radius:12px;padding:10px 14px;display:flex;align-items:center;gap:10px;margin-bottom:12px">
+    <div style="font-size:24px" id="outfit-weather-icon">⏳</div>
+    <div>
+      <div style="font-size:13px;font-weight:700;color:#e6edf3" id="outfit-weather-text">Cargando clima...</div>
+      <div style="font-size:11px;color:#6b7280" id="outfit-weather-sub"></div>
+    </div>
+  </div>
+
+  <!-- ACTIVIDAD SELECTOR (data-driven via outfit_actividades) -->
+  <div style="font-size:11px;color:#6b7280;font-weight:600;margin-bottom:8px">
+    <span class="t" data-es="¿A dónde vas hoy?" data-en="Where are you going today?" data-pt="Para onde vai hoje?">¿A dónde vas hoy?</span>
+  </div>
+  <div style="display:flex;gap:7px;flex-wrap:wrap;margin-bottom:14px" id="outfit-act-btns">
+    
+  </div>
+
+  <!-- OUTFIT RESULT -->
+  <div id="outfit-result" style="background:#161b22;border:1px solid #30363d;border-radius:14px;padding:1.1rem 1.2rem">
+    <div id="outfit-alert" style="display:none;padding:8px 12px;border-radius:8px;font-size:12px;font-weight:700;margin-bottom:10px"></div>
+    <div id="outfit-items" style="display:flex;flex-direction:column;gap:7px"></div>
+    <div id="outfit-tip" style="font-size:12px;color:#60a5fa;margin-top:10px;font-style:italic;border-top:1px solid #21262d;padding-top:8px"></div>
+  </div>
+</div>
+
+<div style="height:1px;background:linear-gradient(90deg,transparent,#21262d,transparent);margin:0 1.5rem 1.5rem"></div>
+
+<div class="footer">
+  <div class="footer-logo">Mar del Plata Experiencias</div>
+  <strong style="color:#6b7280;display:block;font-size:13px;margin-bottom:6px">Av. Patricio Peralta Ramos 2341, B7600JUK Mar del Plata, Provincia de Buenos Aires, Argentina</strong>
+  Agus<br><br>
+  
+  <a href="https://www.instagram.com/https://www.instagram.com/pedrovolpacchio?igsh=bnM4Njhwd2JvZ2dv" target="_blank" style="color:#a78bfa;text-decoration:none;font-weight:600">@https://www.instagram.com/pedrovolpacchio?igsh=bnM4Njhwd2JvZ2dv</a>
+  
+  <div style="margin-top:12px;font-size:12px;color:#4b5563" id="footer-wa-msg">Contactanos por cualquier duda — respondemos rápido 🙌</div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script>
+// Datos del anfitrión inyectados desde Python
+window.PROPS = [{"idx": 1, "nombre": "Agus", "direccion": "Av. Patricio Peralta Ramos 2341, B7600JUK Mar del Plata, Provincia de Buenos Aires, Argentina", "lat": -38.0054771, "lng": -57.5426106, "barrio": "", "ciudad": "Mar del Plata", "region": "Provincia de Buenos Aires", "country": "Argentina", "formatted": "Av. Patricio Peralta Ramos 2341, B7600JUK Mar del Plata, Provincia de Buenos Aires, Argentina", "maps_link": "https://maps.app.goo.gl/JMTumc2futa7f7M8A?g_st=ac", "instagram": "https://www.instagram.com/pedrovolpacchio?igsh=bnM4Njhwd2JvZ2dv", "video_es": {"kind": "photos", "embed_url": "", "raw_url": "https://photos.app.goo.gl/9qZtDZn9nGHW1fxY8", "message": "Google Photos no permite embed; el video se abre en pestaña aparte. Para mejor experiencia, subir a YouTube como 'No listado'."}, "video_en": {"kind": "none", "embed_url": "", "raw_url": "", "message": ""}, "wifi_ssid": "", "wifi_pass": "Carli", "welcome": {"es": {"title": "Bienvenida a Agus, tu casa en Mardel", "sub": "Plaza Colón a 300 metros, cerca de la costa y el corazón de la ciudad."}, "en": {"title": "Welcome to Agus, your home in Mardel", "sub": "Plaza Colón is 300 meters away, close to the coast and city center."}, "pt": {"title": "Bem-vindo a Agus, sua casa em Mardel", "sub": "A Plaza Colón fica a 300 metros, perto da costa e do coração da cidade."}}, "recomendaciones": [], "lugares": {"atracciones": [{"nombre": "Varese Beach", "rating": 4.5, "reviews": 63783, "direccion": "Paseo Jesús de Galindez 0, Mar del Plata", "lat": -38.0142542, "lng": -57.530676, "place_id": "ChIJMY4rkzfchJURICM-ijVWZZ0", "maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJMY4rkzfchJURICM-ijVWZZ0", "desc": {"es": "Playa céntrica con arena fina y aguas calmas, ideal para disfrutar el sol y el mar.", "en": "Central beach with fine sand and calm waters, ideal for sun and sea.", "pt": "Praia central com areia fina e águas calmas, ideal para sol e mar."}}, {"nombre": "Plaza Colón", "rating": 4.4, "reviews": 42371, "direccion": "Buenos Aires EEH Mar del Plata Buenos Aires AR, Diagonal Centro 2100", "lat": -38.0056254, "lng": -57.54348239999999, "place_id": "ChIJVRdIzhnchJURCv4SwJ2Iq3k", "maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJVRdIzhnchJURCv4SwJ2Iq3k", "desc": {"es": "Parque urbano emblemático frente al mar, con el Monumento al Descubrimiento de América.", "en": "Iconic urban park facing the sea, featuring the Monument to the Discovery of America.", "pt": "Parque urbano icônico de frente para o mar, com o Monumento ao Descobrimento da América."}}, {"nombre": "Grand Beach", "rating": 4.5, "reviews": 24362, "direccion": "Saavedra 65, Mar del Plata", "lat": -38.02779219999999, "lng": -57.53231719999999, "place_id": "ChIJD0zcgMvdhJURkZqCZ7ciEBY", "maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJD0zcgMvdhJURkZqCZ7ciEBY", "desc": {"es": "Playa icónica en La Perla con amplias vistas, arena suave y servicios costeros.", "en": "Iconic beach in La Perla with expansive views, soft sand, and coastal services.", "pt": "Praia icônica em La Perla com vistas amplas, areia suave e serviços costeiros."}}, {"nombre": "Provincial Museum of Contemporary art MAR", "rating": 4.2, "reviews": 19429, "direccion": "Avenida Félix U. Camet, López de Gomara &, Mar del Plata", "lat": -37.9732139, "lng": -57.54301220000001, "place_id": "ChIJe6iaRObbhJURoWAumTSrTkc", "maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJe6iaRObbhJURoWAumTSrTkc", "desc": {"es": "Moderno espacio cultural que exhibe arte contemporáneo en un edificio vanguardista.", "en": "Modern cultural space exhibiting contemporary art in a avant-garde building.", "pt": "Espaço cultural moderno que exibe arte contemporânea em um edifício vanguardista."}}, {"nombre": "Plaza Mitre", "rating": 4.4, "reviews": 17662, "direccion": "Avenida Colón S/N, Mar del Plata", "lat": -38.003334, "lng": -57.5528522, "place_id": "ChIJN3MWex3chJURm2hI9t6Gd-0", "maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJN3MWex3chJURm2hI9t6Gd-0", "desc": {"es": "Parque central arbolado, punto de encuentro local con monumentos históricos.", "en": "Tree-lined central park, a local meeting point with historical monuments.", "pt": "Parque central arborizado, ponto de encontro local com monumentos históricos."}}], "restaurantes": [{"nombre": "Los Gallegos Shopping", "rating": 4.2, "reviews": 42577, "direccion": "Rivadavia 3050, Mar del Plata", "lat": -37.99827930000001, "lng": -57.5524777, "place_id": "ChIJCdOgaQLchJURC74yo2L0waM", "maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJCdOgaQLchJURC74yo2L0waM", "desc": {"es": "Centro comercial con variadas opciones gastronómicas para todos los gustos.", "en": "Shopping mall featuring diverse dining options to suit every taste.", "pt": "Centro comercial com diversas opções gastronômicas para todos os gostos."}}, {"nombre": "Montecatini Colón", "rating": 4.3, "reviews": 14100, "direccion": "Avenida Colón 2309, Mar del Plata", "lat": -38.00477569999999, "lng": -57.54719499999999, "place_id": "ChIJZ1PHURnchJURL7JRwYAJ9MI", "maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJZ1PHURnchJURL7JRwYAJ9MI", "desc": {"es": "Clásico restaurante familiar con especialidades en pastas y pescados. Ubicación Colón.", "en": "Classic family restaurant specializing in pasta and fish dishes. Colón location.", "pt": "Restaurante familiar clássico especializado em massas e peixes. Localização Colón."}}, {"nombre": "Montecatini Perla", "rating": 4.4, "reviews": 7924, "direccion": "La Rioja, 25 de Mayo y, Mar del Plata", "lat": -37.99556749999999, "lng": -57.5495506, "place_id": "ChIJAcyp2APchJUR7QCdgG41bdw", "maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJAcyp2APchJUR7QCdgG41bdw", "desc": {"es": "Tradicional restaurante familiar con pastas y mariscos. Ubicación en La Perla.", "en": "Traditional family restaurant with pasta and seafood. Located in La Perla.", "pt": "Restaurante familiar tradicional com massas e frutos do mar. Localizado em La Perla."}}, {"nombre": "El Palacio del Bife - Restaurant", "rating": 4.6, "reviews": 6734, "direccion": "Córdoba 1857, Mar del Plata", "lat": -38.000588, "lng": -57.5479241, "place_id": "ChIJEc-UphzchJURTaLhE-FW0aw", "maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJEc-UphzchJURTaLhE-FW0aw", "desc": {"es": "Parrilla argentina clásica, famosa por sus cortes de carne y ambiente tradicional.", "en": "Classic Argentine steakhouse, famous for its meat cuts and traditional atmosphere.", "pt": "Churrascaria argentina clássica, famosa por seus cortes de carne e ambiente tradicional."}}, {"nombre": "HOTEL SAINTE JEANNE", "rating": 4.6, "reviews": 4629, "direccion": "Martín Miguel de Güemes 2850, Mar del Plata", "lat": -38.0153814, "lng": -57.54131379999999, "place_id": "ChIJeW5mzzrchJUR6vsYtvxHdlM", "maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJeW5mzzrchJUR6vsYtvxHdlM", "desc": {"es": "Restaurante de alta cocina en hotel boutique, con platos refinados y ambiente elegante.", "en": "Fine dining restaurant in a boutique hotel, offering refined dishes and elegant ambiance.", "pt": "Restaurante de alta gastronomia em hotel boutique, com pratos refinados e ambiente elegante."}}], "cafes": [{"nombre": "Punto y Banca Bar-Restaurante", "rating": 4.4, "reviews": 12678, "direccion": "Buenos Aires 1993, Mar del Plata", "lat": -38.00421409999999, "lng": -57.5438619, "place_id": "ChIJ30EhkRnchJURnHI7RJocdPw", "maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJ30EhkRnchJURnHI7RJocdPw", "desc": {"es": "Bar-restaurante con ambiente relajado, ideal para un café, almuerzo o cena informal.", "en": "Bar-restaurant with a relaxed atmosphere, ideal for coffee, casual lunch or dinner.", "pt": "Bar-restaurante com ambiente descontraído, ideal para um café, almoço ou jantar informal."}}, {"nombre": "Fonte D'Oro", "rating": 4.3, "reviews": 11523, "direccion": "TCM, Martín Miguel de Güemes 2782, Mar del Plata", "lat": -38.0146086, "lng": -57.5406808, "place_id": "ChIJj7nO3TrchJURBPH2dx3kbAQ", "maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJj7nO3TrchJURBPH2dx3kbAQ", "desc": {"es": "Cafetería tradicional con amplia carta, pastelería y opciones para un brunch completo.", "en": "Traditional coffee shop with extensive menu, pastries, and full brunch options.", "pt": "Cafeteria tradicional com amplo menu, confeitaria e opções para um brunch completo."}}, {"nombre": "La Fonte D'Oro", "rating": 4.2, "reviews": 6887, "direccion": "San Martín 2604, Mar del Plata", "lat": -37.9994967, "lng": -57.5471045, "place_id": "ChIJOdn-qAPchJUR_Hkuwhs3L8U", "maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJOdn-qAPchJUR_Hkuwhs3L8U", "desc": {"es": "Emblemática cafetería local, ideal para disfrutar un buen café y encuentro social.", "en": "Iconic local coffee shop, perfect for enjoying good coffee and social gatherings.", "pt": "Cafeteria local icônica, perfeita para desfrutar um bom café e encontros sociais."}}, {"nombre": "La Fonte D'Oro | Sucursal Yrigoyen (Mar del Plata)", "rating": 4.3, "reviews": 5032, "direccion": "Hipólito Yrigoyen 1603, Mar del Plata", "lat": -37.9978307, "lng": -57.54991249999999, "place_id": "ChIJe3TmqAPchJURqpHMbNs9E-E", "maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJe3TmqAPchJURqpHMbNs9E-E", "desc": {"es": "Sucursal céntrica de la clásica cafetería, con ambiente acogedor para pausa o trabajo.", "en": "Central branch of the classic coffee shop, with a cozy atmosphere for breaks or work.", "pt": "Filial central da cafeteria clássica, com ambiente acolhedor para pausas ou trabalho."}}, {"nombre": "La Esquina de Güemes", "rating": 4.2, "reviews": 4513, "direccion": "Martín Miguel de Güemes 2606, Mar del Plata", "lat": -38.0134353, "lng": -57.53976919999999, "place_id": "ChIJV7eVDzvchJUR4m3Wq9dQcpE", "maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJV7eVDzvchJUR4m3Wq9dQcpE", "desc": {"es": "Cafetería boutique en el corazón de Güemes, con especialidades de café y repostería.", "en": "Boutique coffee shop in the heart of Güemes, offering specialty coffee and pastries.", "pt": "Cafeteria boutique no coração de Güemes, com especialidades de café e confeitaria."}}], "cervecerias": [{"nombre": "BrewHouse", "rating": 4.4, "reviews": 5549, "direccion": "Diag. Garibaldi 4830, Mar del Plata", "lat": -38.0376445, "lng": -57.565904, "place_id": "ChIJqb3knC_chJURLLBWdthL5iM", "maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJqb3knC_chJURLLBWdthL5iM", "desc": {"es": "Cervecería artesanal con gran variedad de estilos de cerveza y propuestas gastronómicas.", "en": "Craft brewery with a wide variety of beer styles and gastronomic offerings.", "pt": "Cervejaria artesanal com grande variedade de estilos de cerveja e propostas gastronômicas."}}, {"nombre": "Che Picadas", "rating": 4.4, "reviews": 4945, "direccion": "Olavarría, 3325, Mar del Plata", "lat": -38.01855279999999, "lng": -57.54564359999999, "place_id": "ChIJk3P7eCXchJURVfQFygYPmFU", "maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJk3P7eCXchJURVfQFygYPmFU", "desc": {"es": "Cervecería con un toque argentino, ideal para picadas y cervezas artesanales.", "en": "Brewery with an Argentine touch, ideal for 'picadas' (platters) and craft beers.", "pt": "Cervejaria com um toque argentino, ideal para 'picadas' (tabuas) e cervejas artesanais."}}, {"nombre": "Bruder Beer Garden", "rating": 4.3, "reviews": 4080, "direccion": "BWH Mar del Plata Buenos Aires AR, Bartolomé Mitre 3188", "lat": -38.0104256, "lng": -57.5584016, "place_id": "ChIJsTcWgqHehJUR9yXL4Wbjuxw", "maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJsTcWgqHehJUR9yXL4Wbjuxw", "desc": {"es": "Beer garden al aire libre con cervezas artesanales y ambiente festivo para grupos.", "en": "Outdoor beer garden with craft beers and a festive atmosphere for groups.", "pt": "Beer garden ao ar livre com cervejas artesanais e ambiente festivo para grupos."}}, {"nombre": "Barracuda", "rating": 4.2, "reviews": 3348, "direccion": "Corrientes 1899, Mar del Plata", "lat": -38.002409, "lng": -57.5451956, "place_id": "ChIJXww1tBvchJURd3en4_na-R0", "maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJXww1tBvchJURd3en4_na-R0", "desc": {"es": "Cervecería con vista al mar, ideal para disfrutar buena cerveza y ambiente costero.", "en": "Brewery with sea views, perfect for enjoying good beer and a coastal atmosphere.", "pt": "Cervejaria com vista para o mar, ideal para desfrutar boa cerveja e ambiente costeiro."}}, {"nombre": "Bar restaurante Pan y Manteca", "rating": 4.4, "reviews": 2644, "direccion": "25 de Mayo 3599, Mar del Plata", "lat": -37.99253849999999, "lng": -57.555538, "place_id": "ChIJuQUMLVXZhJUR3fohRHPkoj0", "maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJuQUMLVXZhJUR3fohRHPkoj0", "desc": {"es": "Bar-restaurante versátil que ofrece cervezas, platos caseros y ambiente acogedor.", "en": "Versatile bar-restaurant offering beers, homemade dishes, and a cozy atmosphere.", "pt": "Bar-restaurante versátil que oferece cervejas, pratos caseiros e ambiente acolhedor."}}], "salir": [{"nombre": "Estelares La Perla", "rating": 4.3, "reviews": 6607, "direccion": "B7600HJC, Av. Libertad 3175, Mar del Plata", "lat": -37.9907308, "lng": -57.54791629999999, "place_id": "ChIJaY5t1RjdhJURvjWm-GzdGlM", "maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJaY5t1RjdhJURvjWm-GzdGlM", "desc": {"es": "Bar-restaurante en La Perla con ambiente moderno y oferta variada de tragos y comidas.", "en": "Bar-restaurant in La Perla with modern ambiance and varied drinks and food.", "pt": "Bar-restaurante em La Perla com ambiente moderno e oferta variada de bebidas e comidas."}}, {"nombre": "Las Nubes Café de Manantiales", "rating": 4.2, "reviews": 6799, "direccion": "Alberti 453, Mar del Plata", "lat": -38.01745289999999, "lng": -57.5309872, "place_id": "ChIJJbdMGTbchJURJFYVozYBiXg", "maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJJbdMGTbchJURJFYVozYBiXg", "desc": {"es": "Café en Manantiales con vistas espectaculares, ideal para relajarse y disfrutar la vista.", "en": "Café in Manantiales with spectacular views, ideal for relaxing and enjoying the scenery.", "pt": "Café em Manantiales com vistas espetaculares, ideal para relaxar e apreciar a paisagem."}}, {"nombre": "BrewHouse", "rating": 4.4, "reviews": 5549, "direccion": "Diag. Garibaldi 4830, Mar del Plata", "lat": -38.0376445, "lng": -57.565904, "place_id": "ChIJqb3knC_chJURLLBWdthL5iM", "maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJqb3knC_chJURLLBWdthL5iM", "desc": {"es": "Local nocturno con música en vivo y ambiente animado, ideal para salir de fiesta.", "en": "Night venue with live music and lively atmosphere, ideal for going out and partying.", "pt": "Local noturno com música ao vivo e ambiente animado, ideal para sair e se divertir."}}, {"nombre": "Che Picadas", "rating": 4.4, "reviews": 4945, "direccion": "Olavarría, 3325, Mar del Plata", "lat": -38.01855279999999, "lng": -57.54564359999999, "place_id": "ChIJk3P7eCXchJURVfQFygYPmFU", "maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJk3P7eCXchJURVfQFygYPmFU", "desc": {"es": "Ambiente distendido para compartir picadas y cervezas, perfecto para un after-office.", "en": "Relaxed atmosphere for sharing platters and beers, perfect for after-work gatherings.", "pt": "Ambiente descontraído para compartilhar tábuas e cervejas, perfeito para um happy hour."}}, {"nombre": "Quba, café de mar", "rating": 4.1, "reviews": 5094, "direccion": "Escollera Nte., Mar del Plata", "lat": -38.0312768, "lng": -57.53223790000001, "place_id": "ChIJh8cjScjdhJURoWA_wHOnk0g", "maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJh8cjScjdhJURoWA_wHOnk0g", "desc": {"es": "Café de mar con diseño moderno y vistas panorámicas, ideal para tragos y relax costero.", "en": "Sea-side cafe with modern design and panoramic views, ideal for drinks and coastal relaxation.", "pt": "Café de mar com design moderno e vistas panorâmicas, ideal para bebidas e relax costeiro."}}], "supermercados": [{"nombre": "Supermercados Toledo - J B Justo", "rating": 3.6, "reviews": 5237, "direccion": "Avenida Juan B. Justo 750, Mar del Plata", "lat": -38.035296, "lng": -57.54985500000001, "place_id": "ChIJhfy68NbdhJURHG91Pl2RkUA", "maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJhfy68NbdhJURHG91Pl2RkUA", "desc": {"es": "Sucursal del supermercado Toledo en J.B. Justo, con amplio surtido de productos.", "en": "Toledo supermarket branch on J.B. Justo, with a wide assortment of products.", "pt": "Filial do supermercado Toledo em J.B. Justo, com grande variedade de produtos."}}, {"nombre": "Toledo Supermarket", "rating": 3.7, "reviews": 3488, "direccion": "Falucho 2007, Mar del Plata", "lat": -38.00763999999999, "lng": -57.5461949, "place_id": "ChIJcUL4wRjchJURW7JFxkx3TS0", "maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJcUL4wRjchJURW7JFxkx3TS0", "desc": {"es": "Supermercado local con variedad de productos frescos y precios competitivos.", "en": "Local supermarket with a variety of fresh products and competitive prices.", "pt": "Supermercado local com variedade de produtos frescos e preços competitivos."}}, {"nombre": "Supermercados Toledo - Colón", "rating": 3.6, "reviews": 3608, "direccion": "Avenida Colón 1554, Mar del Plata", "lat": -38.0088832, "lng": -57.5397772, "place_id": "ChIJxWjzBD3chJURemZCFOXyRo0", "maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJxWjzBD3chJURemZCFOXyRo0", "desc": {"es": "Sucursal del supermercado Toledo en Avenida Colón, ideal para compras diarias.", "en": "Toledo supermarket branch on Colón Avenue, ideal for daily grocery shopping.", "pt": "Filial do supermercado Toledo na Avenida Colón, ideal para compras diárias."}}, {"nombre": "Disco", "rating": 4, "reviews": 2744, "direccion": "Rawson 1199, Mar del Plata", "lat": -38.0145384, "lng": -57.53920100000001, "place_id": "ChIJ67H99jrchJURpuX1W4eBZI8", "maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJ67H99jrchJURpuX1W4eBZI8", "desc": {"es": "Cadena de supermercados con amplio surtido de marcas y promociones frecuentes.", "en": "Supermarket chain with a wide assortment of brands and frequent promotions.", "pt": "Rede de supermercados com ampla variedade de marcas e promoções frequentes."}}, {"nombre": "Toledo Supermarket", "rating": 3.8, "reviews": 2889, "direccion": "Rivadavia 2248, Mar del Plata", "lat": -38.00214630000001, "lng": -57.5440477, "place_id": "ChIJq6xNRhrchJURsko1Ey0tWA4", "maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJq6xNRhrchJURsko1Ey0tWA4", "desc": {"es": "Práctico supermercado con oferta completa para las necesidades del hogar.", "en": "Convenient supermarket with a complete offer for household needs.", "pt": "Supermercado prático com oferta completa para as necessidades do lar."}}], "panaderias": [{"nombre": "Havanna", "rating": 4.3, "reviews": 3924, "direccion": "EMO, Martín Miguel de Güemes 2701, Mar del Plata", "lat": -38.0141358, "lng": -57.5406906, "place_id": "ChIJhUykHzvchJURZLwzLSMOPEc", "maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJhUykHzvchJURZLwzLSMOPEc", "desc": {"es": "Cafetería y panadería emblemática, famosa por sus alfajores y delicias argentinas.", "en": "Iconic coffee shop and bakery, famous for its alfajores and Argentine delicacies.", "pt": "Cafeteria e padaria emblemática, famosa por seus alfajores e delícias argentinas."}}, {"nombre": "El Cóndor", "rating": 4.2, "reviews": 3868, "direccion": "Martín Miguel de Güemes 2945, Mar del Plata", "lat": -38.0159214, "lng": -57.54206500000001, "place_id": "ChIJQY3ySiXchJURPdfr2WElZXI", "maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJQY3ySiXchJURPdfr2WElZXI", "desc": {"es": "Tradicional panadería con amplia variedad de panificados, facturas y postres.", "en": "Traditional bakery with a wide variety of baked goods, pastries, and desserts.", "pt": "Padaria tradicional com ampla variedade de pães, doces e sobremesas."}}, {"nombre": "Panadería Postres y Poemas", "rating": 4.7, "reviews": 1149, "direccion": "Olavarría 3122, Mar del Plata", "lat": -38.0170208, "lng": -57.5439917, "place_id": "ChIJ2x03biXchJURjKeCvIMCuxw", "maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJ2x03biXchJURjKeCvIMCuxw", "desc": {"es": "Panadería y confitería de autor, con postres creativos y ambiente acogedor.", "en": "Signature bakery and confectionery, with creative desserts and a cozy atmosphere.", "pt": "Padaria e confeitaria de autor, com sobremesas criativas e ambiente acolhedor."}}, {"nombre": "Havanna", "rating": 4.4, "reviews": 1051, "direccion": "Sarmiento 2685, Mar del Plata", "lat": -38.012509, "lng": -57.54445200000001, "place_id": "ChIJsfMuZSPchJURg3PYyrRkkV8", "maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJsfMuZSPchJURg3PYyrRkkV8", "desc": {"es": "Un clásico para disfrutar café y alfajores, con productos regionales de calidad.", "en": "A classic spot for coffee and alfajores, offering quality regional products.", "pt": "Um clássico para desfrutar café e alfajores, com produtos regionais de qualidade."}}, {"nombre": "Sans Gluten de La Reina del Parque", "rating": 4.4, "reviews": 979, "direccion": "DIW, Avenida Independencia 2598, Mar del Plata", "lat": -38.00360060000001, "lng": -57.55859770000001, "place_id": "ChIJJbbkBqbehJURj4Z_sW0M9ow", "maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJJbbkBqbehJURj4Z_sW0M9ow", "desc": {"es": "Panadería especializada en productos sin gluten, con opciones saludables y deliciosas.", "en": "Bakery specializing in gluten-free products, offering healthy and delicious options.", "pt": "Padaria especializada em produtos sem glúten, com opções saudáveis e deliciosas."}}]}}];
+window.OUTFITS = [];
+window.GEO = {
+  lat: -38.0054771,
+  lng: -57.5426106,
+  ciudad: "Mar del Plata"
+};
+
+function loadVideo(el, id){
+  el.innerHTML='<iframe src="https://www.youtube.com/embed/'+id+'?autoplay=1" allowfullscreen allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" style="position:absolute;top:0;left:0;width:100%;height:100%;border:none"></iframe>';
+  el.style.cursor='default';
+}
+let currentLang='es';
+let currentDepto=1;
+let currentOutfit = (window.OUTFITS && window.OUTFITS[0] && window.OUTFITS[0].key) || 'ciudad';
+let weatherTemp=null;
+let weatherCode=null;
+let qrGenerated={};
+
+function syncVideos(){
+  // Solo placeholder — los videos ahora vienen del template Jinja con un solo
+  // bloque por depto (no ES+EN duplicados). Mantengo la función por compat.
+  return;
+}
+function setLang(lang){
+  currentLang = lang;
+  document.querySelectorAll('.lang-btn').forEach((b,i) => b.classList.toggle('active', ['es','en','pt'][i] === lang));
+  document.querySelectorAll('[data-lang]').forEach(el => el.classList.toggle('active', el.dataset.lang === lang));
+  document.querySelectorAll('.t').forEach(el => {
+    const k = 'data-' + lang;
+    if (el.hasAttribute(k)) el.textContent = el.getAttribute(k);
+  });
+  // Times labels
+  const tin = {es:'Check-in',en:'Check-in',pt:'Check-in'};
+  const tout = {es:'Check-out',en:'Check-out',pt:'Check-out'};
+  const sin = {es:'En adelante',en:'Onwards',pt:'Em diante'};
+  const sout = {es:'Máximo',en:'Maximum',pt:'Máximo'};
+  const tle = document.getElementById('tl-in'); if (tle) tle.textContent = tin[lang];
+  const tlo = document.getElementById('tl-out'); if (tlo) tlo.textContent = tout[lang];
+  const tse = document.getElementById('ts-in'); if (tse) tse.textContent = sin[lang];
+  const tso = document.getElementById('ts-out'); if (tso) tso.textContent = sout[lang];
+  // Depto label
+  const deptoLabels = {es:'¿Cuál es tu departamento?',en:'Which is your apartment?',pt:'Qual é o seu apartamento?'};
+  const dl = document.getElementById('depto-label'); if (dl) dl.textContent = deptoLabels[lang];
+  // Float WA
+  const waFloatText = {es:'Contactanos',en:'Contact us',pt:'Fale conosco'};
+  const wft = document.getElementById('wa-float-text'); if (wft) wft.textContent = waFloatText[lang];
+  // Footer
+  const footerMsg = {es:'Contactanos por cualquier duda — respondemos rápido 🙌',en:'Contact us for anything — we reply fast 🙌',pt:'Entre em contato — respondemos rápido 🙌'};
+  const fm = document.getElementById('footer-wa-msg'); if (fm) fm.textContent = footerMsg[lang];
+  // Outfit y welcome se actualizan con lang nuevo
+  if (typeof renderOutfit === 'function') renderOutfit();
+  if (typeof updateWelcome === 'function') updateWelcome();
+}
+function setTab(tab){
+  const tabs=['atracciones','restaurantes','cervecerias','salir'];
+  document.querySelectorAll('.tab').forEach((b,i)=>b.classList.toggle('active',tabs[i]===tab));
+  document.querySelectorAll('.cat-group').forEach(g=>g.classList.remove('visible'));
+  document.getElementById('cat-'+tab).classList.add('visible');
+}
+function updateWelcome(){
+  const lang=currentLang;
+  if (!window.PROPS || window.PROPS.length === 0) return;
+  // currentDepto ya guarda el índice activo
+  const idx = (typeof currentDepto === 'number' ? currentDepto : 1) - 1;
+  const prop = window.PROPS[idx] || window.PROPS[0];
+  if (!prop || !prop.welcome) return;
+  const w = prop.welcome[lang] || prop.welcome.es;
+  const t=document.getElementById('welcome-title');if(t)t.textContent=w.title;
+  const s=document.getElementById('welcome-sub');if(s)s.textContent=w.sub;
+}
+function setDepto(dep){
+  const idx = parseInt(dep.replace('d',''), 10);
+  currentDepto = idx;
+  document.querySelectorAll('.depto-btn').forEach((b,i)=>b.classList.toggle('active', i === idx-1));
+  document.querySelectorAll('.depto-group').forEach(g=>g.classList.remove('visible'));
+  const dg = document.getElementById('dep-d'+idx); if(dg) dg.classList.add('visible');
+  // Mostrar WiFi y Maps de la propiedad activa
+  if (window.PROPS) {
+    for (let i = 1; i <= window.PROPS.length; i++) {
+      const w = document.getElementById('wifi-d'+i); if (w) w.style.display = i === idx ? 'block' : 'none';
+      const m = document.getElementById('maps-top-d'+i); if (m) m.style.display = i === idx ? 'block' : 'none';
+    }
+  }
+  syncVideos();
+  updateWelcome();
+}
+function setExt(tab){
+  const tabs = ['autos','colectivos','temporadas','tips','emergencias'];
+  // Solo las pestañas de Info útil (no las de Comer/Beber/Comprar)
+  document.querySelectorAll('.ext-tab:not(.cb-tab)').forEach((b,i) => b.classList.toggle('active', tabs[i] === tab));
+  document.querySelectorAll('.ext-content').forEach(g => g.classList.remove('active'));
+  const target = document.getElementById('ext-' + tab); if (target) target.classList.add('active');
+}
+
+function setCB(key){
+  // Pestañas de Comer, Beber, Comprar
+  document.querySelectorAll('.cb-tab').forEach(b => {
+    b.classList.toggle('active', b.dataset.cbKey === key);
+  });
+  document.querySelectorAll('.cb-content').forEach(c => {
+    const isActive = c.id === 'cb-' + key;
+    c.classList.toggle('active', isActive);
+    c.style.display = isActive ? '' : 'none';
+  });
+}
+async function loadWeather(){
+  if (!window.GEO || !window.GEO.lat || !window.GEO.lng) return;
+  const wc={0:'Despejado',1:'Mayormente despejado',2:'Parcialmente nublado',3:'Nublado',45:'Neblina',51:'Llovizna',61:'Lluvia',71:'Nevada',80:'Chubascos',95:'Tormenta'};
+  const days=['Dom','Lun','Mar','Mié','Jue','Vie','Sáb'];
+  const gi=c=>{if(c<=1)return'☀️';if(c<=3)return'⛅';if(c<=48)return'🌫️';if(c<=55)return'🌦️';if(c<=65)return'🌧️';if(c<=75)return'🌨️';if(c<=82)return'🌦️';return'⛈️'};
+  try{
+    const url = `https://api.open-meteo.com/v1/forecast?latitude=${window.GEO.lat}&longitude=${window.GEO.lng}&current=temperature_2m,weather_code,wind_speed_10m&daily=weather_code,temperature_2m_max,temperature_2m_min&timezone=auto&forecast_days=4`;
+    const r=await fetch(url);
+    const d=await r.json();
+    const cur=d.current,day=d.daily;
+    let fc='';
+    for(let i=1;i<4;i++){const dt=new Date(day.time[i]+'T12:00:00');fc+=`<div class="fc-day"><div class="fc-label">${days[dt.getDay()]}</div><div class="fc-icon">${gi(day.weather_code[i])}</div><div class="fc-hi">${Math.round(day.temperature_2m_max[i])}°</div><div class="fc-lo">${Math.round(day.temperature_2m_min[i])}°</div></div>`;}
+    document.getElementById('weather-content').innerHTML=`<div class="weather-now"><div><div class="weather-temp">${Math.round(cur.temperature_2m)}°C</div><div style="font-size:11px;color:#6b7280;margin-top:2px">${window.GEO.ciudad}</div></div><div class="weather-info"><div class="weather-desc">${gi(cur.weather_code)} ${wc[cur.weather_code]||'Variable'}</div><div class="weather-wind">💨 ${Math.round(cur.wind_speed_10m)} km/h</div></div></div><div class="weather-forecast">${fc}</div>`;
+    weatherTemp=cur.temperature_2m;
+    weatherCode=cur.weather_code;
+    const icon=gi(cur.weather_code);
+    const el=document.getElementById('outfit-weather-icon');if(el)el.textContent=icon;
+    const wt=document.getElementById('outfit-weather-text');if(wt)wt.textContent=`${Math.round(cur.temperature_2m)}°C · ${wc[cur.weather_code]||'Variable'}`;
+    const ws=document.getElementById('outfit-weather-sub');if(ws)ws.textContent=`💨 Viento ${Math.round(cur.wind_speed_10m)} km/h`;
+    renderOutfit();
+  }catch(e){document.getElementById('weather-content').innerHTML='<div class="weather-loading">No se pudo cargar el clima.</div>';}
+}
+loadWeather();
+renderOutfit();
+
+function setOutfit(act){
+  currentOutfit = act;
+  document.querySelectorAll('.out-btn').forEach(b => {
+    const isActive = b.dataset.key === act;
+    b.style.background = isActive ? 'rgba(37,99,235,0.15)' : '#161b22';
+    b.style.borderColor = isActive ? 'rgba(37,99,235,0.35)' : '#30363d';
+    b.style.color = isActive ? '#93c5fd' : '#6b7280';
+  });
+  renderOutfit();
+}
+
+function renderOutfit(){
+  if (!window.OUTFITS || window.OUTFITS.length === 0) return;
+  const a = window.OUTFITS.find(o => o.key === currentOutfit) || window.OUTFITS[0];
+  if (!a) return;
+  const lang = currentLang;
+  // Categoría según temperatura
+  const t = weatherTemp;
+  let cat = 'outfit_templado';
+  if (t !== null && t <= 10) cat = 'outfit_frio';
+  else if (t !== null && t > 22) cat = 'outfit_calido';
+  const items = (a[cat] && a[cat][lang]) || (a[cat] && a[cat].es) || [];
+  const tip = (a.tip && a.tip[lang]) || (a.tip && a.tip.es) || '';
+  // Alert según condiciones extremas
+  const wc = weatherCode;
+  const cold = t !== null && t <= 5;
+  const rainy = wc !== null && (wc >= 51 && wc <= 82);
+  const warm = t !== null && t > 22;
+  const alertEl = document.getElementById('outfit-alert');
+  let alert = null;
+  if (cold) alert = {msg:'🥶 Hace mucho frío — abrigáte / Very cold', bg:'rgba(147,197,253,0.15)', bd:'rgba(147,197,253,0.3)', tx:'#93c5fd'};
+  else if (rainy) alert = {msg:'🌧️ Hay lluvia — llevá impermeable / Rain expected', bg:'rgba(251,191,36,0.12)', bd:'rgba(251,191,36,0.3)', tx:'#fbbf24'};
+  else if (warm) alert = {msg:'☀️ Día cálido / Warm day', bg:'rgba(16,185,129,0.12)', bd:'rgba(16,185,129,0.3)', tx:'#6ee7b7'};
+  if (alertEl) {
+    if (alert) {
+      alertEl.style.display='block'; alertEl.style.background=alert.bg;
+      alertEl.style.border='1px solid '+alert.bd; alertEl.style.color=alert.tx;
+      alertEl.textContent=alert.msg;
+    } else { alertEl.style.display='none'; }
+  }
+  const itemsEl = document.getElementById('outfit-items');
+  if (itemsEl) itemsEl.innerHTML = items.map(i =>
+    `<div style="display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid #21262d;font-size:13px;color:#c9d1d9">${i}</div>`
+  ).join('');
+  const tipEl = document.getElementById('outfit-tip');
+  if (tipEl) tipEl.textContent = tip ? '💡 ' + tip : '';
+  const titles = {es:'👗 ¿Qué ropa llevar hoy?', en:'👗 What to wear today?', pt:'👗 O que vestir hoje?'};
+  const titleEl = document.getElementById('outfit-title');
+  if (titleEl) titleEl.textContent = titles[lang];
+}
+function toggleQR(idx){
+  // idx puede venir como número (1,2) o string legacy ('qr1','qr2') — soportamos ambos
+  if (typeof idx === 'string') idx = parseInt(idx.replace(/\D/g,''), 10) || 1;
+  const panel = document.getElementById('qr-d' + idx);
+  if (!panel) return;
+  panel.classList.toggle('open');
+  if (panel.classList.contains('open') && !qrGenerated[idx]) {
+    const prop = window.PROPS && window.PROPS[idx - 1];
+    if (prop && prop.wifi_ssid && prop.wifi_pass && window.QRCode) {
+      const str = 'WIFI:T:WPA;S:' + prop.wifi_ssid + ';P:' + prop.wifi_pass + ';;';
+      QRCode.toCanvas(document.getElementById('canvas-qr-d' + idx), str,
+        {width: 200, margin: 2, color: {dark:'#000000', light:'#ffffff'}});
+      qrGenerated[idx] = true;
+    }
+  }
+}
+
+</script>
+</body>
+</html>
