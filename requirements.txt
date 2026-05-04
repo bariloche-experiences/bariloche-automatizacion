@@ -1,3 +1,7 @@
-jinja2
-gspread
-python-slugify
+gspread==6.1.2
+oauth2client==4.1.3
+googlemaps==4.10.0
+google-generativeai==0.8.3
+Jinja2==3.1.4
+python-slugify==8.0.4
+requests==2.32.3

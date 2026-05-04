@@ -1,5 +1,8 @@
-__pycache__/
-outputs/
-output/
 credentials.json
+.env
+__pycache__/
+*.pyc
+.venv/
 .DS_Store
+.idea/
+.vscode/
