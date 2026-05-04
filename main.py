@@ -1269,12 +1269,11 @@ def main():
     slug = slugify(anfitrion) or "guest"
     out = render(ctx, slug, template_name)
 
-    if email_dueno:
-        link = f"{GITHUB_PAGES_BASE}/sites/{slug}/"
-        try:
-            enviar_email(email_dueno, link, anfitrion, ciudad, propiedades=propiedades_dict)
-        except Exception as e:
-            print(f"⚠️  Email no enviado: {e}")
+    link = f"{GITHUB_PAGES_BASE}/sites/{slug}/"
+    try:
+        enviar_email("volpacchio47@gmail.com", link, anfitrion, ciudad, propiedades=propiedades_dict)
+    except Exception as e:
+        print(f"⚠️  Email no enviado: {e}")
 
     print(f"✓ Listo → {out}")
 
