@@ -884,6 +884,8 @@ class Propiedad:
     lng: float | None
     barrio: str
     ciudad: str
+    region: str
+    country: str
     formatted: str
     maps_link: str
     instagram: str
@@ -918,6 +920,8 @@ def procesar_propiedad(row: dict, idx: int) -> Propiedad | None:
     lng = geo["lng"] if geo else None
     ciudad = geo["ciudad"] if geo else (get_field(row, "ciudad") or "")
     barrio = geo["barrio"] if geo else ""
+    region = geo["region"] if geo else ""
+    country = geo["country"] if geo else ""
     formatted = geo["formatted"] if geo else (direccion or "")
 
     welcome = generar_welcome(ciudad, barrio, formatted, nombre)
@@ -931,6 +935,8 @@ def procesar_propiedad(row: dict, idx: int) -> Propiedad | None:
         lng=lng,
         barrio=barrio,
         ciudad=ciudad,
+        region=region,
+        country=country,
         formatted=formatted,
         maps_link=(
             maps_url
