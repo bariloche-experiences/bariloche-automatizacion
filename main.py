@@ -34,6 +34,7 @@ from urllib.parse import parse_qs, quote_plus, urlparse
 import google.generativeai as genai
 import googlemaps
 import gspread
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from jinja2 import Environment, FileSystemLoader
 from oauth2client.service_account import ServiceAccountCredentials
 from slugify import slugify
@@ -429,34 +430,30 @@ def _normalize_place(p):
         "lng": p["geometry"]["location"]["lng"],
         "place_id": p.get("place_id", ""),
         "maps_url": f"https://www.google.com/maps/place/?q=place_id:{p.get('place_id','')}",
+        "desc": {"es": "", "en": "", "pt": ""},
     }
 
 
 def lugares_por_categoria(lat: float, lng: float, radius: int = 4000) -> dict[str, list[dict]]:
-    """Para cada categoría, hace múltiples búsquedas, deduplica por place_id,
+    """Para cada categoría, hace múltiples búsquedas en paralelo, deduplica por place_id,
     ordena por rating × log(reseñas) y devuelve hasta 5.
-    
+
     Si una categoría sale vacía, reintenta con radio expandido (8km).
     """
     if not GMAPS_API_KEY:
         return {k: [] for k, *_ in CATEGORIAS}
 
     gm = gmaps_client()
-    out: dict[str, list[dict]] = {}
 
-    for key, _es, _en, _pt, queries in CATEGORIAS:
+    def _buscar_categoria(key, queries):
         all_results = []
         seen_ids = set()
-
-        # Intento 1: radio normal con todas las queries
         for places_type, keyword in queries:
             for p in _places_search(gm, (lat, lng), radius, places_type, keyword):
                 pid = p.get("place_id", "")
                 if pid and pid not in seen_ids and p.get("business_status") != "CLOSED_PERMANENTLY":
                     seen_ids.add(pid)
                     all_results.append(p)
-
-        # Intento 2: si sigue vacío, expandir radio a 8km
         if not all_results:
             print(f"  ⚠️  {key} vacío con radio {radius}m, reintentando con 8000m")
             for places_type, keyword in queries:
@@ -465,15 +462,20 @@ def lugares_por_categoria(lat: float, lng: float, radius: int = 4000) -> dict[st
                     if pid and pid not in seen_ids and p.get("business_status") != "CLOSED_PERMANENTLY":
                         seen_ids.add(pid)
                         all_results.append(p)
-
-        # Ordenar por rating × log(reseñas)
         all_results.sort(
             key=lambda p: (p.get("rating", 0) * (1 + (p.get("user_ratings_total", 0) ** 0.5))),
             reverse=True,
         )
-        out[key] = [_normalize_place(p) for p in all_results[:5]]
-        print(f"  ✓ {key}: {len(out[key])} lugares")
+        return key, [_normalize_place(p) for p in all_results[:5]]
 
+    out: dict[str, list[dict]] = {}
+    with ThreadPoolExecutor(max_workers=len(CATEGORIAS)) as executor:
+        futures = {executor.submit(_buscar_categoria, key, queries): key
+                   for key, *_, queries in CATEGORIAS}
+        for future in as_completed(futures):
+            key, result = future.result()
+            out[key] = result
+            print(f"  ✓ {key}: {len(result)} lugares")
     return out
 
 
@@ -493,10 +495,10 @@ def _gemini_json(prompt: str, fallback: Any, retries: int = 3) -> Any:
     model = _gemini()
     if not model:
         return fallback
-    # Espaciar llamadas para no superar 20 req/min (1 cada 3s)
+    # Espaciar llamadas para no superar 20 req/min
     elapsed = time.time() - _last_gemini_call
-    if elapsed < 3:
-        time.sleep(3 - elapsed)
+    if elapsed < 1:
+        time.sleep(1 - elapsed)
     _last_gemini_call = time.time()
     for attempt in range(retries):
         try:
@@ -949,18 +951,10 @@ def obtener_alquileres_auto(lat: float, lng: float) -> list[dict]:
             if p.get("business_status") == "CLOSED_PERMANENTLY":
                 continue
             place_id = p.get("place_id", "")
-            # Buscar teléfono via Place Details
-            phone = ""
-            try:
-                details = gm.place(place_id, fields=["formatted_phone_number"])
-                phone = details.get("result", {}).get("formatted_phone_number", "")
-            except Exception:
-                pass
             out.append({
                 "nombre": p.get("name", ""),
                 "direccion": p.get("vicinity", ""),
                 "rating": p.get("rating"),
-                "telefono": phone,
                 "maps_url": f"https://www.google.com/maps/place/?q=place_id:{place_id}",
             })
         return out
@@ -1478,15 +1472,8 @@ def main():
                 print(f"  → Modo BARILOCHE")
                 if geo_principal:
                     lugares_cerca = lugares_por_categoria(geo_principal.lat, geo_principal.lng, radius=1500)
-                    flat = [item for items in lugares_cerca.values() for item in items][:8]
-                    for p in propiedades:
-                        p.welcome = (
-                            generar_welcome("Bariloche", p.barrio or "Bariloche", p.formatted, p.nombre, lugares_cercanos=flat)
-                            if p.lat and p.lng else _fallback_welcome(p, "Bariloche")
-                        )
-                else:
-                    for p in propiedades:
-                        p.welcome = _fallback_welcome(p, "Bariloche")
+                for p in propiedades:
+                    p.welcome = _fallback_welcome(p, "Bariloche")
 
                 propiedades_dict = [p.__dict__ for p in propiedades]
                 ctx = {
@@ -1502,19 +1489,22 @@ def main():
             else:
                 print(f"  → Modo GENÉRICO ({ciudad})")
                 if geo_principal:
-                    lugares = lugares_por_categoria(geo_principal.lat, geo_principal.lng)
-                    lugares = describir_lugares(lugares, geo_principal.ciudad)
+                    with ThreadPoolExecutor(max_workers=3) as executor:
+                        f_lugares = executor.submit(lugares_por_categoria, geo_principal.lat, geo_principal.lng)
+                        f_esenciales = executor.submit(obtener_esenciales, geo_principal.lat, geo_principal.lng)
+                        f_alquileres = executor.submit(obtener_alquileres_auto, geo_principal.lat, geo_principal.lng)
+                        lugares = f_lugares.result()
+                        esenciales = f_esenciales.result()
+                        alquileres = f_alquileres.result()
                     for p in propiedades:
                         p.lugares = lugares
-                    flat_lugares = [item for items in lugares.values() for item in items][:8]
-                    for p in propiedades:
-                        if p.lat and p.lng:
-                            p.welcome = generar_welcome(p.ciudad, p.barrio, p.formatted, p.nombre, lugares_cercanos=flat_lugares)
-                    esenciales = obtener_esenciales(geo_principal.lat, geo_principal.lng)
+                        p.welcome = _fallback_welcome(p, ciudad)
                 else:
                     for p in propiedades:
                         p.lugares = {k: [] for k, *_ in CATEGORIAS}
+                        p.welcome = _fallback_welcome(p, ciudad)
                     esenciales = {key: None for key, *_ in ESENCIALES}
+                    alquileres = []
 
                 region_label = geo_principal.region if geo_principal else ""
                 country = geo_principal.country if geo_principal else "Argentina"
@@ -1547,11 +1537,9 @@ def main():
                     "excursiones":   ctx_ciudad.get("excursiones", []),
                     "emergencias":   ctx_ciudad.get("emergencias", {"emergencia_general": "911"}),
                 }
-                if geo_principal:
-                    alquileres = obtener_alquileres_auto(geo_principal.lat, geo_principal.lng)
-                    if not isinstance(info.get("autos"), dict):
-                        info["autos"] = {}
-                    info["autos"]["alquileres_cercanos"] = alquileres
+                if not isinstance(info.get("autos"), dict):
+                    info["autos"] = {}
+                info["autos"]["alquileres_cercanos"] = alquileres
 
                 propiedades_dict = [p.__dict__ for p in propiedades]
                 ctx = {
