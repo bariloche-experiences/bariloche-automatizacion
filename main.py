@@ -407,6 +407,9 @@ ESENCIALES = [
 # Detector de ciudades donde Pedro tiene promos personales
 CIUDADES_PEDRO = {"bariloche", "san carlos de bariloche"}
 
+# Categorías donde interesa el más cercano, no el mejor rateado
+CATEGORIAS_DISTANCIA = {"supermercados", "panaderias"}
+
 
 def _places_search(gm, location, radius, places_type, keyword=None):
     """Una llamada a places_nearby, devuelve lista de results crudos."""
@@ -434,11 +437,11 @@ def _normalize_place(p):
     }
 
 
-def lugares_por_categoria(lat: float, lng: float, radius: int = 4000) -> dict[str, list[dict]]:
-    """Para cada categoría, hace múltiples búsquedas en paralelo, deduplica por place_id,
-    ordena por rating × log(reseñas) y devuelve hasta 5.
+def lugares_por_categoria(lat: float, lng: float, radius: int = 1500) -> dict[str, list[dict]]:
+    """Para cada categoría, hace búsquedas en paralelo, deduplica por place_id y devuelve hasta 5.
 
-    Si una categoría sale vacía, reintenta con radio expandido (8km).
+    Categorías en CATEGORIAS_DISTANCIA (supermercados, panaderías): rank_by=distance → el más cercano primero.
+    Resto: radio 1500m ordenado por rating (si no hay resultados, reintenta con 8km).
     """
     if not GMAPS_API_KEY:
         return {k: [] for k, *_ in CATEGORIAS}
@@ -448,24 +451,42 @@ def lugares_por_categoria(lat: float, lng: float, radius: int = 4000) -> dict[st
     def _buscar_categoria(key, queries):
         all_results = []
         seen_ids = set()
-        for places_type, keyword in queries:
-            for p in _places_search(gm, (lat, lng), radius, places_type, keyword):
-                pid = p.get("place_id", "")
-                if pid and pid not in seen_ids and p.get("business_status") != "CLOSED_PERMANENTLY":
-                    seen_ids.add(pid)
-                    all_results.append(p)
-        if not all_results:
-            print(f"  ⚠️  {key} vacío con radio {radius}m, reintentando con 8000m")
+
+        if key in CATEGORIAS_DISTANCIA:
+            # Más cercano primero — sin radio, rank_by="distance"
             for places_type, keyword in queries:
-                for p in _places_search(gm, (lat, lng), 8000, places_type, keyword):
+                kwargs = {"location": (lat, lng), "rank_by": "distance", "type": places_type}
+                if keyword:
+                    kwargs["keyword"] = keyword
+                try:
+                    for p in gm.places_nearby(**kwargs).get("results", []):
+                        pid = p.get("place_id", "")
+                        if pid and pid not in seen_ids and p.get("business_status") != "CLOSED_PERMANENTLY":
+                            seen_ids.add(pid)
+                            all_results.append(p)
+                except Exception as e:
+                    print(f"  ⚠️  {key} distancia error ({places_type}): {e}")
+        else:
+            # Mejor rateado dentro del radio
+            for places_type, keyword in queries:
+                for p in _places_search(gm, (lat, lng), radius, places_type, keyword):
                     pid = p.get("place_id", "")
                     if pid and pid not in seen_ids and p.get("business_status") != "CLOSED_PERMANENTLY":
                         seen_ids.add(pid)
                         all_results.append(p)
-        all_results.sort(
-            key=lambda p: (p.get("rating", 0) * (1 + (p.get("user_ratings_total", 0) ** 0.5))),
-            reverse=True,
-        )
+            if not all_results:
+                print(f"  ⚠️  {key} vacío con radio {radius}m, reintentando con 8000m")
+                for places_type, keyword in queries:
+                    for p in _places_search(gm, (lat, lng), 8000, places_type, keyword):
+                        pid = p.get("place_id", "")
+                        if pid and pid not in seen_ids and p.get("business_status") != "CLOSED_PERMANENTLY":
+                            seen_ids.add(pid)
+                            all_results.append(p)
+            all_results.sort(
+                key=lambda p: (p.get("rating", 0) * (1 + (p.get("user_ratings_total", 0) ** 0.5))),
+                reverse=True,
+            )
+
         return key, [_normalize_place(p) for p in all_results[:5]]
 
     out: dict[str, list[dict]] = {}
