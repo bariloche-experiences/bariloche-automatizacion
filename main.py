@@ -62,6 +62,10 @@ TEMPLATE_GENERICO = "template_generico.html"
 OUTPUT_DIR = Path("sites")
 MAX_PROPIEDADES = 10
 
+# Si fue disparado por un form (no por el cron), siempre mandamos email
+TRIGGER = os.environ.get("TRIGGER", "schedule")
+FORCE_EMAIL = TRIGGER in ("repository_dispatch", "workflow_dispatch")
+
 if GEMINI_API_KEY:
     genai.configure(api_key=GEMINI_API_KEY)
 
@@ -1542,13 +1546,23 @@ def main():
                     print(f"  → Contexto de {ciudad} ya generado, reutilizando")
 
                 ctx_ciudad = _ctx_cache[ciudad_key]
-                marca = ctx_ciudad.get("marca", {
+                marca = dict(ctx_ciudad.get("marca", {
                     "nombre_corto": f"{ciudad} Experiencias",
                     "hero_titulo_html": f"{ciudad}<br>Experiencias",
                     "hero_badge": f"📍 {ciudad}",
                     "region_label": ciudad,
                     "theme": "ciudad",
-                })
+                }))
+
+                # Si hay propiedades en más de una ciudad, combinar el título
+                ciudades_unicas = list(dict.fromkeys(
+                    p.ciudad for p in propiedades if p.ciudad
+                ))
+                if len(ciudades_unicas) > 1:
+                    titulo = " & ".join(ciudades_unicas)
+                    marca["nombre_corto"] = f"{titulo} Experiencias"
+                    marca["hero_titulo_html"] = f"{titulo}<br>Experiencias"
+                    marca["hero_badge"] = f"📍 {titulo}"
                 info = {
                     "instrucciones": ctx_ciudad.get("instrucciones", []),
                     "autos":         ctx_ciudad.get("autos", {}),
@@ -1588,7 +1602,9 @@ def main():
             out = render(ctx, slug, template_name)
             link = f"{GITHUB_PAGES_BASE}/sites/{slug}/"
 
-            if is_new:
+            if is_new or FORCE_EMAIL:
+                motivo = "NUEVO" if is_new else "form submit"
+                print(f"  → Enviando email ({motivo})")
                 try:
                     enviar_email("volpacchio47@gmail.com", link, anfitrion, ciudad, propiedades=propiedades_dict)
                 except Exception as e:
@@ -1599,7 +1615,7 @@ def main():
                     except Exception as e:
                         print(f"  ⚠️  Email al anfitrión no enviado: {e}")
             else:
-                print(f"  → Sitio regenerado sin email (ya existía)")
+                print(f"  → Sitio regenerado sin email (cron, ya existía)")
 
             ok += 1
 
