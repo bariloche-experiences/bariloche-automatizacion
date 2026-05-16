@@ -428,6 +428,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
     <button class="ext-tab" onclick="setExt('temporadas')">🍂 Temporadas</button>
     <button class="ext-tab" onclick="setExt('tips')">🧠 Tips locales</button>
     <button class="ext-tab" onclick="setExt('basicos')">🛒 Básicos</button>
+    <button class="ext-tab" onclick="setExt('ski')">⛷️ Ski & Snow</button>
   </div>
 
   <!-- AUTOS -->
@@ -517,6 +518,47 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
       <div class="tip-item"><div class="tip-emoji">💊</div><div class="tip-text"><strong>Farmacity</strong> — Mitre 160. Abierta hasta las 22hs. También venden artículos de perfumería y primeros auxilios.</div></div>
       <div class="tip-item" style="border:none"><div class="tip-emoji">🌙</div><div class="tip-text"><strong>Farmacia de turno</strong> — Para horarios fuera de lo normal, buscá "farmacia de turno Bariloche" en Google para ver cuál está abierta.</div></div>
       <a href="https://www.google.com/maps/search/farmacia+Bariloche" target="_blank" class="service-btn blue" style="display:flex;align-items:center;justify-content:center;gap:7px;padding:10px;border-radius:10px;font-size:13px;font-weight:700;text-decoration:none;background:rgba(37,99,235,0.12);border:1px solid rgba(37,99,235,0.3);color:#93c5fd;margin-top:10px">📍 Farmacias cerca</a>
+    </div>
+  </div>
+
+  <!-- SKI & SNOW RENTALS -->
+  <div class="ext-group" id="ext-ski">
+    <div style="font-size:12px;color:#7dd3fc;font-weight:600;margin-bottom:10px;padding:0 2px">
+      ⛷️ Alquiler de equipo completo: tablas, esquís, bastones, botas, casco
+    </div>
+    {% if rentals_ski %}
+    {% for r in rentals_ski %}
+    <div class="service-card" {% if not loop.first %}style="margin-top:8px"{% endif %}>
+      <div class="service-header">
+        <div class="service-icon" style="background:rgba(125,211,252,0.12);border:1px solid rgba(125,211,252,0.3)">⛷️</div>
+        <div>
+          <div class="service-title">{{ r.nombre }}</div>
+          {% if r.direccion %}<div class="service-sub">{{ r.direccion }}</div>{% endif %}
+        </div>
+        {% if r.rating %}
+        <div style="margin-left:auto;text-align:right;flex-shrink:0">
+          <div style="font-size:13px;font-weight:800;color:#fbbf24">⭐ {{ r.rating }}</div>
+          {% if r.reviews %}<div style="font-size:10px;color:#6b7280">{{ r.reviews }} reseñas</div>{% endif %}
+        </div>
+        {% endif %}
+      </div>
+      <a href="{{ r.maps_url }}" target="_blank" class="service-btn blue" style="display:flex;align-items:center;justify-content:center;gap:7px;padding:10px;border-radius:10px;font-size:13px;font-weight:700;text-decoration:none;background:rgba(37,99,235,0.12);border:1px solid rgba(37,99,235,0.3);color:#93c5fd;margin-top:10px">
+        📍 Ver en Maps
+      </a>
+    </div>
+    {% endfor %}
+    {% else %}
+    <div class="service-card">
+      <div style="font-size:13px;color:#9ca3af;line-height:1.6">
+        Para alquilar equipo de ski o snowboard buscá en Google Maps "alquiler ski Bariloche" — hay varias opciones en el centro y en la base del Catedral.
+      </div>
+      <a href="https://www.google.com/maps/search/alquiler+ski+snowboard+Bariloche" target="_blank" class="service-btn blue" style="display:flex;align-items:center;justify-content:center;gap:7px;padding:10px;border-radius:10px;font-size:13px;font-weight:700;text-decoration:none;background:rgba(37,99,235,0.12);border:1px solid rgba(37,99,235,0.3);color:#93c5fd;margin-top:10px">
+        📍 Buscar en Maps
+      </a>
+    </div>
+    {% endif %}
+    <div style="font-size:11px;color:#4b5563;text-align:center;margin-top:10px;padding:0 4px">
+      Resultados según calificación en Google · Actualizados automáticamente
     </div>
   </div>
 

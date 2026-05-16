@@ -988,6 +988,38 @@ def obtener_alquileres_auto(lat: float, lng: float) -> list[dict]:
         return []
 
 
+def obtener_rentals_ski(lat: float, lng: float) -> list[dict]:
+    """Busca los mejores locales de alquiler de ski/snow en Bariloche via Places API."""
+    if not GMAPS_API_KEY:
+        return []
+    gm = gmaps_client()
+    try:
+        resp = gm.places_nearby(
+            location=(lat, lng), radius=8000, keyword="alquiler ski snowboard tablas nieve"
+        )
+        results = resp.get("results", [])
+        results.sort(
+            key=lambda p: (p.get("rating", 0) * (1 + (p.get("user_ratings_total", 0) ** 0.5))),
+            reverse=True,
+        )
+        out = []
+        for p in results[:3]:
+            if p.get("business_status") == "CLOSED_PERMANENTLY":
+                continue
+            place_id = p.get("place_id", "")
+            out.append({
+                "nombre": p.get("name", ""),
+                "direccion": p.get("vicinity", ""),
+                "rating": p.get("rating"),
+                "reviews": p.get("user_ratings_total"),
+                "maps_url": f"https://www.google.com/maps/place/?q=place_id:{place_id}",
+            })
+        return out
+    except Exception as e:
+        print(f"⚠️  rentals ski error: {e}")
+        return []
+
+
 def obtener_esenciales(lat: float, lng: float) -> dict[str, dict | None]:
     """Devuelve {key: {nombre, direccion, maps_url, distancia_aprox} | None}.
     Busca el más cercano de cada categoría esencial.
@@ -1495,8 +1527,10 @@ def main():
 
             if es_bariloche:
                 print(f"  → Modo BARILOCHE")
+                rentals_ski = []
                 if geo_principal:
                     lugares_cerca = lugares_por_categoria(geo_principal.lat, geo_principal.lng, radius=1500)
+                    rentals_ski = obtener_rentals_ski(geo_principal.lat, geo_principal.lng)
                 for p in propiedades:
                     p.welcome = _fallback_welcome(p, "Bariloche")
 
@@ -1508,6 +1542,7 @@ def main():
                     "checkin": horario_checkin,
                     "checkout": horario_checkout,
                     "propiedades": propiedades_dict,
+                    "rentals_ski": rentals_ski,
                 }
                 template_name = TEMPLATE_BARILOCHE
 
