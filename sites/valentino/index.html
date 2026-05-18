@@ -1,0 +1,1078 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bariloche Experiencias</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0f1a;color:#f1f5f9;min-height:100vh;padding-bottom:90px}
+@keyframes pulse {0%,100% {transform:scale(1);opacity:1} 50% {transform:scale(1.08);opacity:0.85}}
+.hero{background:linear-gradient(170deg,#050d1a 0%,#0d2040 40%,#091428 100%);padding:2.8rem 1.5rem 2.2rem;text-align:center;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 20% 60%,rgba(37,99,235,0.18) 0%,transparent 55%),radial-gradient(ellipse at 80% 20%,rgba(16,185,129,0.12) 0%,transparent 50%)}
+.hero-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(16,185,129,0.15);border:1px solid rgba(16,185,129,0.35);color:#6ee7b7;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:5px 14px;border-radius:20px;margin-bottom:1.2rem;position:relative}
+.hero h1{font-size:2.6rem;font-weight:900;line-height:1.05;background:linear-gradient(135deg,#a7f3d0 0%,#34d399 55%,#059669 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:0.4rem;position:relative}
+.hero-sub{font-size:0.9rem;color:#cbd5e1;position:relative;margin-bottom:1.6rem}
+.lang-bar{display:flex;gap:8px;justify-content:center;position:relative}
+.lang-btn{background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.15);color:#e2e8f0;font-size:15px;font-weight:600;padding:9px 24px;border-radius:20px;cursor:pointer;transition:all 0.2s}
+.lang-btn.active,.lang-btn:hover{background:#2563eb;border-color:#2563eb;color:#fff}
+.times-banner{display:flex;margin:1.2rem 1.5rem 0;gap:10px}
+.time-pill{flex:1;background:#161b22;border:1px solid #374151;border-radius:12px;padding:12px;text-align:center}
+.time-label{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#94a3b8;margin-bottom:4px}
+.time-val{font-size:1.4rem;font-weight:800}
+.time-sub{font-size:11px;color:#94a3b8;margin-top:2px}
+.time-pill.checkin .time-val{color:#10b981}
+.time-pill.checkout .time-val{color:#f59e0b}
+.sec{padding:1.5rem}
+.sec-title{font-size:11px;font-weight:800;letter-spacing:2.5px;text-transform:uppercase;margin-bottom:1rem;padding-left:2px;display:flex;align-items:center;gap:8px}
+.sec-title::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,#21262d,transparent)}
+.sec-title.green{color:#34d399}
+.sec-title.blue{color:#7dd3fc}
+.divider{height:1px;background:linear-gradient(90deg,transparent,#21262d,transparent);margin:0 1.5rem 1.5rem}
+.depto-tabs{display:flex;gap:8px;margin-bottom:1.2rem}
+.depto-btn{flex:1;background:#161b22;border:1px solid #374151;color:#cbd5e1;font-size:14px;font-weight:700;padding:12px 6px;border-radius:12px;cursor:pointer;transition:all 0.2s;text-align:center;line-height:1.3}
+.depto-btn.active{background:rgba(16,185,129,0.15);border-color:rgba(16,185,129,0.5);color:#34d399}
+.depto-group{display:none}
+.depto-group.visible{display:block}
+.video-lang-tabs{display:flex;gap:8px;margin-bottom:1rem}
+.vlang-btn{background:#161b22;border:1px solid #374151;color:#cbd5e1;font-size:12px;font-weight:700;padding:7px 18px;border-radius:20px;cursor:pointer;transition:all 0.2s}
+.vlang-btn.active{background:rgba(16,185,129,0.12);border-color:rgba(16,185,129,0.4);color:#6ee7b7}
+.video-block{display:none}
+.video-block.visible{display:block}
+.video-label{font-size:13px;color:#cbd5e1;margin-bottom:10px;line-height:1.5}
+.video-label strong{color:#fff;display:block;font-size:15px;margin-bottom:2px}
+.video-wrap{position:relative;width:100%;padding-bottom:177.78%;border-radius:16px;overflow:hidden;background:#161b22;border:1px solid #374151;cursor:pointer}
+.video-wrap iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:none}
+.video-thumb{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover}
+.video-play-btn{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:68px;height:68px;background:rgba(0,0,0,0.7);border-radius:50%;display:flex;align-items:center;justify-content:center;pointer-events:none}
+.video-play-btn::after{content:'';width:0;height:0;border-style:solid;border-width:15px 0 15px 26px;border-color:transparent transparent transparent #fff;margin-left:6px}
+.video-wrap:hover .video-play-btn{background:rgba(220,38,38,0.85)}
+.steps{display:flex;flex-direction:column;gap:8px;margin-top:1rem}
+.step-item{display:flex;gap:10px;align-items:center;background:#161b22;border:1px solid #374151;border-radius:10px;padding:10px 12px}
+.step-num{width:26px;height:26px;border-radius:50%;background:rgba(16,185,129,0.18);border:1px solid rgba(16,185,129,0.4);color:#34d399;font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.step-text{font-size:13px;color:#e2e8f0;line-height:1.4}
+.maps-btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;margin-top:1rem;background:rgba(37,99,235,0.15);border:1px solid rgba(37,99,235,0.4);color:#bfdbfe;font-size:13px;font-weight:700;padding:12px;border-radius:12px;cursor:pointer;text-decoration:none;transition:all 0.2s}
+.wifi-card{background:linear-gradient(135deg,#0f1f35 0%,#0a1628 100%);border:1px solid rgba(37,99,235,0.35);border-radius:16px;padding:1.1rem 1.3rem;display:flex;align-items:center;gap:14px;margin-bottom:10px}
+.wifi-icon{width:42px;height:42px;background:rgba(37,99,235,0.18);border-radius:11px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.wifi-icon svg{width:20px;height:20px;fill:none;stroke:#7dd3fc;stroke-width:2;stroke-linecap:round}
+.wifi-apt{font-size:10px;color:#7dd3fc;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:2px}
+.wifi-ssid{font-size:15px;font-weight:800;color:#fff}
+.wifi-pass{font-size:12px;color:#94a3b8;margin-top:2px}
+.wifi-pass span{color:#e2e8f0;font-weight:600}
+.rule-card{background:#161b22;border:1px solid #374151;border-radius:12px;padding:.9rem 1.1rem;display:flex;gap:12px;align-items:flex-start;margin-bottom:8px}
+.rule-icon{font-size:17px;line-height:1;flex-shrink:0;margin-top:1px}
+.rule-text{font-size:13.5px;color:#e2e8f0;line-height:1.55}
+[data-lang]{display:none}
+[data-lang].active{display:block}
+.ig-card{background:linear-gradient(135deg,#1a0a2e 0%,#2d0a3e 50%,#1a0a2e 100%);border:1px solid rgba(167,139,250,0.35);border-radius:20px;padding:1.5rem;margin:0 1.5rem 1.5rem;text-align:center;position:relative;overflow:hidden}
+.ig-card::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 30% 50%,rgba(236,72,153,0.12) 0%,transparent 60%),radial-gradient(ellipse at 70% 30%,rgba(167,139,250,0.1) 0%,transparent 50%)}
+.ig-icon{width:56px;height:56px;background:linear-gradient(135deg,#f59e0b,#ec4899,#8b5cf6);border-radius:16px;display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;position:relative}
+.ig-icon svg{width:28px;height:28px;fill:none;stroke:#fff;stroke-width:2;stroke-linecap:round}
+.ig-title{font-size:16px;font-weight:800;color:#fff;position:relative;margin-bottom:4px}
+.ig-handle{font-size:13px;color:#c4b5fd;font-weight:600;position:relative;margin-bottom:10px}
+.ig-desc{font-size:13px;color:#e2e8f0;line-height:1.5;position:relative;margin-bottom:1.2rem}
+.ig-tags{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;position:relative;margin-bottom:1.2rem}
+.ig-tag{background:rgba(167,139,250,0.15);border:1px solid rgba(167,139,250,0.3);color:#ddd6fe;font-size:11px;font-weight:600;padding:3px 10px;border-radius:20px}
+.ig-btn{display:inline-flex;align-items:center;gap:7px;background:linear-gradient(135deg,#ec4899,#8b5cf6);color:#fff;font-size:13px;font-weight:700;padding:11px 24px;border-radius:12px;text-decoration:none;position:relative;cursor:pointer;border:none}
+.wifi-qr-btn{display:flex;align-items:center;justify-content:center;gap:7px;width:100%;margin-top:10px;background:rgba(16,185,129,0.12);border:1px solid rgba(16,185,129,0.35);color:#6ee7b7;font-size:13px;font-weight:700;padding:10px;border-radius:10px;cursor:pointer;transition:all 0.2s}
+.wifi-qr-btn:hover{background:rgba(16,185,129,0.2)}
+.qr-panel{display:none;margin-top:10px;background:#0d1117;border:1px solid rgba(16,185,129,0.25);border-radius:14px;padding:1.2rem;text-align:center}
+.qr-panel.open{display:block}
+.qr-panel p{font-size:12px;color:#94a3b8;margin-top:10px;line-height:1.5}
+.qr-panel strong{color:#6ee7b7}
+/* WEATHER */
+.weather-card{background:linear-gradient(135deg,#0c1e35 0%,#0a1828 100%);border:1px solid rgba(37,99,235,0.3);border-radius:18px;padding:1.2rem 1.4rem;margin-bottom:10px}
+.weather-now{display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem}
+.weather-temp{font-size:3rem;font-weight:900;color:#fff;line-height:1}
+.weather-info{text-align:right}
+.weather-desc{font-size:13px;color:#bfdbfe;font-weight:600;margin-bottom:2px}
+.weather-wind{font-size:11px;color:#94a3b8}
+.weather-forecast{display:flex;gap:8px}
+.fc-day{flex:1;background:rgba(255,255,255,0.07);border-radius:10px;padding:8px 6px;text-align:center}
+.fc-label{font-size:10px;color:#94a3b8;font-weight:600;margin-bottom:4px}
+.fc-hi{font-size:13px;font-weight:700;color:#fff}
+.fc-lo{font-size:11px;color:#94a3b8}
+.fc-icon{font-size:16px;margin:3px 0}
+.weather-loading{color:#94a3b8;font-size:13px;text-align:center;padding:1rem 0}
+/* SERVICES */
+.service-card{background:#161b22;border:1px solid #374151;border-radius:14px;padding:1rem 1.2rem;margin-bottom:10px}
+.service-header{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.service-icon{width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.service-icon.green{background:rgba(16,185,129,0.15)}
+.service-icon.blue{background:rgba(37,99,235,0.15)}
+.service-icon.amber{background:rgba(245,158,11,0.15)}
+.service-title{font-size:14px;font-weight:700;color:#fff}
+.service-sub{font-size:11px;color:#94a3b8;margin-top:1px}
+.service-desc{font-size:13px;color:#e2e8f0;line-height:1.5;margin-bottom:10px}
+.service-btn{display:flex;align-items:center;justify-content:center;gap:7px;width:100%;padding:10px;border-radius:10px;font-size:13px;font-weight:700;text-decoration:none;border:none;cursor:pointer;transition:all 0.2s}
+.service-btn.wa{background:rgba(37,211,102,0.12);border:1px solid rgba(37,211,102,0.3);color:#4ade80}
+.service-btn.blue{background:rgba(37,99,235,0.12);border:1px solid rgba(37,99,235,0.3);color:#bfdbfe}
+.bus-row{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid #21262d}
+.bus-row:last-child{border-bottom:none}
+.bus-num{background:rgba(37,99,235,0.2);border:1px solid rgba(37,99,235,0.4);color:#bfdbfe;font-size:12px;font-weight:800;padding:3px 10px;border-radius:8px;min-width:40px;text-align:center;flex-shrink:0}
+.bus-dest{font-size:13px;color:#e2e8f0;line-height:1.3}
+.bus-dest span{font-size:11px;color:#94a3b8;display:block}
+.tip-item{display:flex;gap:10px;padding:9px 0;border-bottom:1px solid #21262d}
+.tip-item:last-child{border-bottom:none}
+.tip-emoji{font-size:16px;flex-shrink:0;margin-top:1px}
+.tip-text{font-size:13px;color:#e2e8f0;line-height:1.45}
+.tip-text strong{color:#fde68a}
+.season-row{display:flex;gap:10px;padding:9px 0;border-bottom:1px solid #21262d;align-items:flex-start}
+.season-row:last-child{border-bottom:none}
+.season-badge{font-size:11px;font-weight:700;padding:3px 10px;border-radius:8px;white-space:nowrap;flex-shrink:0}
+.season-badge.inv{background:rgba(147,197,253,0.15);color:#bfdbfe;border:1px solid rgba(147,197,253,0.3)}
+.season-badge.ver{background:rgba(16,185,129,0.15);color:#6ee7b7;border:1px solid rgba(16,185,129,0.3)}
+.season-badge.oto{background:rgba(245,158,11,0.15);color:#fde68a;border:1px solid rgba(245,158,11,0.3)}
+.season-badge.pri{background:rgba(244,114,182,0.15);color:#fbcfe8;border:1px solid rgba(244,114,182,0.3)}
+.season-text{font-size:13px;color:#e2e8f0;line-height:1.45}
+.extras-tabs{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;margin-bottom:1rem}
+.extras-tabs::-webkit-scrollbar{display:none}
+.ext-tab{background:#161b22;border:1px solid #374151;color:#cbd5e1;font-size:14px;font-weight:600;padding:10px 18px;border-radius:20px;cursor:pointer;white-space:nowrap;transition:all 0.2s;flex-shrink:0}
+.ext-tab.active,.ext-tab:hover{background:#2563eb;border-color:#2563eb;color:#fff}
+.ext-group{display:none}
+.ext-group.visible{display:block}
+.tabs-wrap{padding:0 1.5rem .5rem;overflow-x:auto;scrollbar-width:none}
+.tabs-wrap::-webkit-scrollbar{display:none}
+.tabs{display:flex;gap:8px;width:max-content}
+.tab{background:#161b22;border:1px solid #374151;color:#cbd5e1;font-size:14px;font-weight:600;padding:10px 18px;border-radius:20px;cursor:pointer;white-space:nowrap;transition:all 0.2s}
+.tab.active,.tab:hover{background:#2563eb;border-color:#2563eb;color:#fff}
+.places-wrap{padding:.5rem 1.5rem 1rem;display:flex;flex-direction:column;gap:10px}
+.place-card{background:#161b22;border:1px solid #374151;border-radius:14px;padding:.95rem 1.1rem;transition:all 0.2s}
+.place-card:hover{border-color:#2563eb;transform:translateY(-1px);box-shadow:0 4px 16px rgba(37,99,235,0.15)}
+.place-header{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
+.place-name{font-size:15px;font-weight:700;color:#fff;line-height:1.3}
+.place-badge{background:rgba(37,99,235,0.15);border:1px solid rgba(37,99,235,0.35);color:#bfdbfe;font-size:10px;font-weight:700;padding:3px 9px;border-radius:8px;white-space:nowrap;flex-shrink:0}
+.place-badge.new{background:rgba(16,185,129,0.15);border-color:rgba(16,185,129,0.35);color:#6ee7b7}
+.place-badge.gold{background:rgba(245,158,11,0.2);border:1.5px solid rgba(245,158,11,0.5);color:#fde68a;font-size:11px}
+.place-desc{font-size:13px;color:#e2e8f0;margin-top:5px;line-height:1.55}
+.place-tip{font-size:12px;color:#7dd3fc;margin-top:5px;font-style:italic}
+.cat-group{display:none}
+.cat-group.visible{display:block}
+.wa-float{position:fixed;bottom:20px;right:16px;z-index:999;display:flex;align-items:center;gap:10px;background:linear-gradient(135deg,#128c7e,#25d366);color:#fff;font-size:13px;font-weight:700;padding:12px 18px 12px 14px;border-radius:50px;box-shadow:0 4px 20px rgba(37,211,102,0.4);text-decoration:none}
+.wa-float svg{width:22px;height:22px;fill:#fff;flex-shrink:0}
+.wa-pulse{position:absolute;top:-3px;right:-3px;width:12px;height:12px;background:#25d366;border-radius:50%;border:2px solid #0a0f1a}
+.footer{text-align:center;padding:2rem 1.5rem;color:#64748b;font-size:12px;border-top:1px solid #161b22;margin-top:1rem}
+.footer-logo{font-size:1.2rem;font-weight:900;background:linear-gradient(135deg,#93c5fd,#6ee7b7);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:6px}
+</style>
+</head>
+<body>
+
+<a class="wa-float" href="https://wa.me/" target="_blank">
+  <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+  <span id="wa-float-text">Contactanos</span>
+  <div class="wa-pulse"></div>
+</a>
+
+<div class="hero">
+  <div class="hero-badge" id="hero-badge">🏔️ Patagonia · Bariloche</div>
+  <h1 id="hero-title">Bariloche<br>Experiencias</h1>
+  <p class="hero-sub"> · <span id="hero-sub">Tu guía completa</span></p>
+  <div class="lang-bar">
+    <button class="lang-btn active" onclick="setLang('es')">🇦🇷 ES</button>
+    <button class="lang-btn" onclick="setLang('en')">🇺🇸 EN</button>
+    <button class="lang-btn" onclick="setLang('pt')">🇧🇷 PT</button>
+  </div>
+</div>
+
+<div style="padding:1.2rem 1.5rem 0.5rem">
+  <div style="font-size:10px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:#6b7280;margin-bottom:8px;text-align:center" id="depto-label">¿Cuál es tu departamento?</div>
+  <div class="depto-tabs">
+    
+    <button class="depto-btn active" onclick="setDepto('d1')">🏠 Valen</button>
+    
+  </div>
+  <div id="welcome-msg" style="margin-top:12px;background:linear-gradient(135deg,rgba(16,185,129,0.12),rgba(37,99,235,0.10));border:1.5px solid rgba(16,185,129,0.45);border-radius:16px;padding:18px 16px;text-align:center;box-shadow:0 0 24px rgba(16,185,129,0.1)">
+    <div style="font-size:28px;margin-bottom:6px">🏔️</div>
+    <div style="font-size:17px;font-weight:900;color:#fff;margin-bottom:5px;letter-spacing:-0.3px" id="welcome-title">Bienvenidos al Valen</div>
+    <div style="font-size:13px;color:#a7f3d0;font-weight:500;font-style:italic" id="welcome-sub">En Bariloche</div>
+  </div>
+
+  <!-- COMO LLEGAR — LO MÁS URGENTE -->
+  
+  <div id="maps-top-d1">
+    <a href="https://maps.app.goo.gl/5tt1AtGttS1rzDPY6?g_st=ac" target="_blank"
+      style="display:flex;align-items:center;justify-content:center;gap:10px;margin-top:14px;background:linear-gradient(135deg,#1d4ed8,#2563eb);color:#fff;font-size:15px;font-weight:800;padding:16px;border-radius:14px;text-decoration:none;box-shadow:0 4px 16px rgba(37,99,235,0.3)">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+      <span class="t" data-es="📍 Cómo llegar · " data-en="📍 Get directions · " data-pt="📍 Como chegar · ">📍 Cómo llegar · </span>
+    </a>
+  </div>
+  
+</div>
+
+<div class="times-banner">
+  <div class="time-pill checkout">
+    <div class="time-label" id="tl-out">Check-out</div>
+    <div class="time-val">11:00</div>
+    <div class="time-sub" id="ts-out">Máximo</div>
+  </div>
+  <div class="time-pill checkin">
+    <div class="time-label" id="tl-in">Check-in</div>
+    <div class="time-val">15:00</div>
+    <div class="time-sub" id="ts-in">En adelante</div>
+  </div>
+</div>
+
+<div class="sec">
+  <div class="sec-title green">📹 Check-in · <span class="t" data-es="Cómo ingresar" data-en="How to check in" data-pt="Como entrar">Cómo ingresar</span></div>
+
+  
+  <div class="depto-group visible" id="dep-d1">
+    
+    <div class="video-block visible">
+      <div class="video-label"><strong>Valen</strong><span class="t" data-es="Estacionamiento, ubicación y llaves" data-en="Parking, location & keys" data-pt="Estacionamento, localização e chaves">Estacionamiento, ubicación y llaves</span></div>
+      <div class="video-wrap">
+        
+          <a href="https://photos.app.goo.gl/5rE7gGp7RuCJpedf6" target="_blank" rel="noopener" style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;text-align:center;background:linear-gradient(135deg,#0a3d2e 0%,#0d4a3a 50%,#093527 100%);text-decoration:none;cursor:pointer">
+            <div style="position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(52,211,153,0.25) 0%,transparent 60%);pointer-events:none"></div>
+            <div style="font-size:72px;margin-bottom:8px;filter:drop-shadow(0 6px 20px rgba(52,211,153,0.6));position:relative;animation:pulse 2s ease-in-out infinite">▶️</div>
+            <p style="color:#fff;font-size:17px;margin-bottom:6px;font-weight:800;position:relative">
+              <span class="t" data-es="Video de check-in" data-en="Check-in video" data-pt="Vídeo de check-in">Video de check-in</span>
+            </p>
+            <p style="color:#a7f3d0;font-size:12px;margin-bottom:18px;line-height:1.4;position:relative">
+              <span class="t" data-es="Tocá para reproducir" data-en="Tap to play" data-pt="Toque para reproduzir">Tocá para reproducir</span>
+            </p>
+            <div style="background:linear-gradient(135deg,#10b981,#059669);color:#fff;padding:16px 32px;border-radius:14px;font-weight:900;font-size:14px;text-transform:uppercase;letter-spacing:1px;box-shadow:0 6px 20px rgba(16,185,129,0.5);position:relative">
+              ▶️ <span class="t" data-es="Reproducir ahora" data-en="Play now" data-pt="Reproduzir agora">Reproducir ahora</span>
+            </div>
+            <p style="color:#6ee7b7;font-size:10px;margin-top:14px;font-style:italic;opacity:0.7;position:relative">
+              <span class="t" data-es="Se abre en una pestaña nueva" data-en="Opens in new tab" data-pt="Abre em nova aba">Se abre en una pestaña nueva</span>
+            </p>
+          </a>
+        
+      </div>
+      
+    </div>
+    <div class="steps">
+      <div class="step-item"><div class="step-num">1</div>
+        <div class="step-text active" data-lang="es">🚗 Estacioná en el lugar indicado en el video</div>
+        <div class="step-text" data-lang="en">🚗 Park in the spot shown in the video</div>
+        <div class="step-text" data-lang="pt">🚗 Estacione no local indicado no vídeo</div>
+      </div>
+      <div class="step-item"><div class="step-num">2</div>
+        <div class="step-text active" data-lang="es">🏠 Tu propiedad: <strong>Valen</strong> · </div>
+        <div class="step-text" data-lang="en">🏠 Your place: <strong>Valen</strong> · </div>
+        <div class="step-text" data-lang="pt">🏠 Sua propriedade: <strong>Valen</strong> · </div>
+      </div>
+      <div class="step-item"><div class="step-num">3</div>
+        <div class="step-text active" data-lang="es">🔑 Retirá las llaves como se muestra en el video</div>
+        <div class="step-text" data-lang="en">🔑 Pick up the keys as shown in the video</div>
+        <div class="step-text" data-lang="pt">🔑 Retire as chaves conforme mostrado no vídeo</div>
+      </div>
+    </div>
+  </div>
+  
+</div>
+
+<div class="divider"></div>
+
+<div class="divider"></div>
+
+<!-- JUANI RENT A CAR -->
+<div style="padding:1rem 1.5rem 0">
+  <div style="background:linear-gradient(135deg,#0a1628 0%,#0f2040 100%);border:1.5px solid rgba(37,99,235,0.4);border-radius:20px;padding:1.2rem 1.4rem;position:relative;overflow:hidden">
+    <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 80% 30%,rgba(37,99,235,0.1) 0%,transparent 60%)"></div>
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:10px;position:relative">
+      <div style="width:44px;height:44px;background:linear-gradient(135deg,#2563eb,#1d4ed8);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0">🚗</div>
+      <div>
+        <div style="font-size:15px;font-weight:800;color:#fff" id="juani-title">Moverse en Bariloche sin auto es difícil 🚗</div>
+        <div style="font-size:12px;color:#60a5fa;font-weight:600">Juani Rent A Car · Recomendado por el depto</div>
+      </div>
+    </div>
+    <div style="font-size:13px;color:#9ca3af;line-height:1.55;margin-bottom:12px;position:relative" id="juani-desc">Alquiler de confianza que usamos y recomendamos. Mencioná que venís de parte de <strong style="color:#e6edf3">Pedro Volpacchio</strong> — el mensaje ya está escrito, solo tocás enviar.</div>
+    <a id="juani-wa-btn" href="https://wa.me/5492944603914?text=Hola%20Juani!%20Te%20contacto%20de%20parte%20de%20Pedro%20Volpacchio%20del%20departamento%20Beautiful%20Lake%20View.%20Quisiera%20consultar%20por%20alquiler%20de%20auto%20para%20mi%20estadía%20en%20Bariloche." target="_blank" style="display:flex;align-items:center;justify-content:center;gap:8px;background:linear-gradient(135deg,#128c7e,#25d366);color:#fff;font-size:13px;font-weight:800;padding:12px;border-radius:12px;text-decoration:none;position:relative">
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="#fff"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      <span id="juani-btn">Contactar a Juani — de parte de Pedro</span>
+    </a>
+  </div>
+</div>
+
+<div style="height:1px;background:linear-gradient(90deg,transparent,#21262d,transparent);margin:1.5rem 1.5rem 0"></div>
+
+<div class="sec" style="padding-bottom:0.5rem">
+  <div class="sec-title blue">WiFi</div>
+  
+  <div id="wifi-d1">
+    <div class="wifi-card">
+      <div class="wifi-icon"><svg viewBox="0 0 24 24"><path d="M5 12.55a11 11 0 0114.08 0"/><path d="M1.42 9a16 16 0 0121.16 0"/><path d="M8.53 16.11a6 6 0 016.95 0"/><circle cx="12" cy="20" r="1" fill="#60a5fa" stroke="none"/></svg></div>
+      <div>
+        <div class="wifi-apt">Valen</div>
+        <div class="wifi-ssid">—</div>
+        <div class="wifi-pass">Password: <span>Valen2</span></div>
+      </div>
+    </div>
+    
+  </div>
+  
+</div>
+
+<div class="divider"></div>
+
+<div style="height:1px;background:linear-gradient(90deg,transparent,#21262d,transparent);margin:1.5rem 1.5rem 0"></div>
+
+<!-- INSTRUCCIONES DESTACADAS -->
+<div style="margin:1rem 1.5rem 0;background:linear-gradient(135deg,#0f1a0f 0%,#1a2d1a 100%);border:1.5px solid rgba(16,185,129,0.4);border-radius:20px;padding:1.3rem 1.4rem;box-shadow:0 0 24px rgba(16,185,129,0.08)">
+  <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px">
+    <span style="font-size:18px">🏠</span>
+    <div style="font-size:10px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:#34d399" id="rules-title">Instrucciones de la casa</div>
+  </div>
+  <div class="rule-card" style="background:rgba(0,0,0,0.2);border-color:rgba(16,185,129,0.2)"><div class="rule-icon">🌡️</div>
+    <div class="rule-text active" data-lang="es">Mantener la caldera entre <strong>21°C y 25°C</strong> máximo.</div>
+    <div class="rule-text" data-lang="en">Keep the boiler between <strong>21°C and 25°C</strong> maximum.</div>
+    <div class="rule-text" data-lang="pt">Manter a caldeira entre <strong>21°C e 25°C</strong> no máximo.</div>
+  </div>
+  <div class="rule-card" style="background:rgba(0,0,0,0.2);border-color:rgba(16,185,129,0.2)"><div class="rule-icon">💨</div>
+    <div class="rule-text active" data-lang="es">Colocar las <strong>piedras</strong> sobre las sillas de afuera cuando no se usen — el viento puede ser muy fuerte.</div>
+    <div class="rule-text" data-lang="en">Place <strong>stones</strong> on outdoor chairs when not in use — the wind can be very strong.</div>
+    <div class="rule-text" data-lang="pt">Colocar <strong>pedras</strong> nas cadeiras externas quando não usar — o vento pode ser muito forte.</div>
+  </div>
+  <div class="rule-card" style="background:rgba(0,0,0,0.2);border-color:rgba(16,185,129,0.2)"><div class="rule-icon">☃️</div>
+    <div class="rule-text active" data-lang="es">Cuidado con las escaleras los días de <strong>lluvia o nieve</strong> — pueden estar resbaladizas.</div>
+    <div class="rule-text" data-lang="en">Be careful on stairs on <strong>rainy or snowy</strong> days — they can be slippery.</div>
+    <div class="rule-text" data-lang="pt">Cuidado com as escadas em dias de <strong>chuva ou neve</strong> — podem escorregar.</div>
+  </div>
+  <div class="rule-card" style="background:rgba(0,0,0,0.2);border-color:rgba(16,185,129,0.2)"><div class="rule-icon">🔥</div>
+    <div class="rule-text active" data-lang="es"><strong>No apagar los radiadores.</strong> Si querés bajar la temperatura, usá la rosca del termostato de cada radiador.</div>
+    <div class="rule-text" data-lang="en"><strong>Do not turn off the radiators.</strong> To adjust the temperature, use the thermostat knob on each radiator.</div>
+    <div class="rule-text" data-lang="pt"><strong>Não desligue os radiadores.</strong> Para regular a temperatura, use o botão do termostato de cada radiador.</div>
+  </div>
+  <div class="rule-card" style="background:rgba(0,0,0,0.2);border-color:rgba(16,185,129,0.2);margin-bottom:0"><div class="rule-icon">💧</div>
+    <div class="rule-text active" data-lang="es"><strong>El agua de la canilla es potable</strong> — podés tomarla directamente. En el <strong>Depto 3 (Lake View 2)</strong> dejá correr el agua 20 segundos antes de tomar.</div>
+    <div class="rule-text" data-lang="en"><strong>Tap water is drinkable</strong> — drink directly. In <strong>Apt 3 (Lake View 2)</strong> let water run 20 seconds before drinking.</div>
+    <div class="rule-text" data-lang="pt"><strong>A água da torneira é potável</strong> — pode beber diretamente. No <strong>Apto 3 (Lake View 2)</strong> deixe correr 20 segundos antes de beber.</div>
+  </div>
+</div>
+
+<div style="height:1px;background:linear-gradient(90deg,transparent,#21262d,transparent);margin:1.5rem 1.5rem 0"></div>
+
+<!-- EXPERIENCIAS HIGHLIGHT -->
+<div style="padding:1rem 1.5rem 0">
+  <div style="background:linear-gradient(135deg,#0f0800 0%,#1e1000 40%,#0f0800 100%);border:1.5px solid rgba(251,191,36,0.4);border-radius:20px;overflow:hidden;position:relative">
+    <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 10% 50%,rgba(251,191,36,0.1) 0%,transparent 50%),radial-gradient(ellipse at 90% 20%,rgba(239,68,68,0.08) 0%,transparent 50%)"></div>
+    <div style="padding:1.4rem 1.4rem 1rem;position:relative">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px">
+        <span style="background:rgba(251,191,36,0.2);border:1px solid rgba(251,191,36,0.4);color:#fbbf24;font-size:10px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;padding:4px 10px;border-radius:20px">⭐ Airbnb Experience</span>
+        <span style="background:rgba(16,185,129,0.15);border:1px solid rgba(16,185,129,0.3);color:#6ee7b7;font-size:10px;font-weight:800;padding:4px 10px;border-radius:20px">✅ Verificado</span>
+      </div>
+      <div style="font-size:1.25rem;font-weight:900;color:#fff;line-height:1.2;margin-bottom:6px" id="exp-h-title">Gemas ocultas de la Patagonia</div>
+      <div style="font-size:13px;color:#d97706;font-weight:600;margin-bottom:10px">con Pedro Volpacchio · Bariloche</div>
+      <div style="font-size:13px;color:#9ca3af;line-height:1.6;margin-bottom:14px" id="exp-h-desc">Te llevamos a lugares únicos e inolvidables que solo los locales conocen — cascadas secretas, miradores sin turistas, rincones mágicos de la Patagonia que no vas a encontrar en ningún tour convencional.</div>
+      <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px">
+        <span style="background:rgba(255,255,255,0.06);color:#d1d5db;font-size:12px;padding:4px 10px;border-radius:8px;border:1px solid rgba(255,255,255,0.1)">🏔️ Naturaleza única</span>
+        <span style="background:rgba(255,255,255,0.06);color:#d1d5db;font-size:12px;padding:4px 10px;border-radius:8px;border:1px solid rgba(255,255,255,0.1)">📍 Lugares secretos</span>
+        <span style="background:rgba(255,255,255,0.06);color:#d1d5db;font-size:12px;padding:4px 10px;border-radius:8px;border:1px solid rgba(255,255,255,0.1)">🌿 Guía local</span>
+        <span style="background:rgba(255,255,255,0.06);color:#d1d5db;font-size:12px;padding:4px 10px;border-radius:8px;border:1px solid rgba(255,255,255,0.1)">✨ Experiencia única</span>
+      </div>
+      <div style="display:flex;gap:8px">
+        <a href="https://www.airbnb.com/experiences/6936309?viralityEntryPoint=2&s=76" target="_blank" style="flex:1;display:flex;align-items:center;justify-content:center;gap:6px;background:linear-gradient(135deg,#f59e0b,#ef4444);color:#fff;font-size:13px;font-weight:800;padding:12px;border-radius:12px;text-decoration:none">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          <span id="exp-btn-book">Reservar en Airbnb</span>
+        </a>
+        <a href="https://www.instagram.com/bariloche.experiences?igsh=eGdiZXQ2OXBlcWFr" target="_blank" style="display:flex;align-items:center;justify-content:center;gap:6px;background:linear-gradient(135deg,#7c3aed,#ec4899);color:#fff;font-size:13px;font-weight:800;padding:12px 14px;border-radius:12px;text-decoration:none;white-space:nowrap">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+          <span id="exp-btn-ig">Ver fotos</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div style="height:1px;background:linear-gradient(90deg,transparent,#21262d,transparent);margin:1.5rem 1.5rem 0"></div>
+
+
+
+<!-- CLIMA SIEMPRE VISIBLE -->
+<div style="padding:0 1.5rem 1rem">
+  <div style="font-size:10px;font-weight:800;letter-spacing:2.5px;text-transform:uppercase;color:#7dd3fc;margin-bottom:8px;padding-left:2px">🌤️ Bariloche ahora</div>
+  <div class="weather-card" style="margin-bottom:6px">
+    <div id="weather-content"><div class="weather-loading">Cargando clima de Bariloche...</div></div>
+  </div>
+  <div style="background:#161b22;border:1px solid #374151;border-radius:12px;padding:10px 12px;font-size:12px;color:#94a3b8;line-height:1.5">
+    💡 <strong style="color:#e2e8f0">Tip:</strong> En Bariloche el clima cambia rápido. Siempre llevá una campera impermeable, incluso en verano.
+  </div>
+</div>
+
+<div style="height:1px;background:linear-gradient(90deg,transparent,#21262d,transparent);margin:0 1.5rem 1rem"></div>
+
+<!-- EXTRAS SECTION -->
+<div class="sec">
+  <div class="sec-title green">🛠️ Info útil · Useful info</div>
+  <div class="extras-tabs">
+    <button class="ext-tab" onclick="setExt('autos')">🚗 Autos</button>
+    <button class="ext-tab" onclick="setExt('colectivos')">🚌 Colectivos</button>
+    <button class="ext-tab" onclick="setExt('temporadas')">🍂 Temporadas</button>
+    <button class="ext-tab" onclick="setExt('tips')">🧠 Tips locales</button>
+    <button class="ext-tab" onclick="setExt('basicos')">🛒 Básicos</button>
+    <button class="ext-tab" onclick="setExt('ski')">⛷️ Ski & Snow</button>
+  </div>
+
+  <!-- AUTOS -->
+  <div class="ext-group" id="ext-autos">
+    <div class="service-card">
+      <div class="service-header">
+        <div class="service-icon green">🚗</div>
+        <div><div class="service-title">Juani Rent A Car</div><div class="service-sub">Recomendado por el depto · +54 9 294 460-3914</div></div>
+      </div>
+      <div class="service-desc active" data-lang="es">El alquiler de autos de confianza que recomendamos. Mencioná que venís de parte de <strong style="color:#e6edf3">Pedro Volpacchio</strong> para una atención preferencial.</div>
+      <div class="service-desc" data-lang="en">Our trusted car rental recommendation. Mention you come from <strong style="color:#e6edf3">Pedro Volpacchio</strong> for priority attention.</div>
+      <div class="service-desc" data-lang="pt">Nossa indicação de confiança para aluguel de carros. Mencione que vem de <strong style="color:#e6edf3">Pedro Volpacchio</strong> para atendimento preferencial.</div>
+      <a class="service-btn wa" href="https://wa.me/5492944603914?text=Hola%20Juani!%20Te%20contacto%20de%20parte%20de%20Pedro%20Volpacchio%20del%20departamento%20Beautiful%20Lake%20View.%20Quisiera%20consultar%20por%20alquiler%20de%20auto%20para%20mi%20estadía%20en%20Bariloche." target="_blank">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="#4ade80"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        Escribir a Juani — de parte de Pedro
+      </a>
+    </div>
+    <div class="service-card">
+      <div class="service-header">
+        <div class="service-icon blue">🚕</div>
+        <div><div class="service-title">Remises y taxis</div><div class="service-sub">Para traslados puntuales</div></div>
+      </div>
+      <div class="service-desc">La mejor app para pedir remis en Bariloche es <strong style="color:#e6edf3">inDriver</strong> o <strong style="color:#e6edf3">Cabify</strong>. También podés pedir por WhatsApp a cualquier remisería del centro.</div>
+      <a class="service-btn blue" href="https://www.google.com/maps/search/remiserias+bariloche" target="_blank">Ver remiserías en Maps</a>
+    </div>
+  </div>
+
+  <!-- COLECTIVOS -->
+  <div class="ext-group" id="ext-colectivos">
+    <div class="service-card">
+      <div class="service-desc" style="margin-bottom:12px">Se paga con <strong style="color:#e6edf3">tarjeta SUBE</strong>. Se consigue en kioscos y farmacias del centro. Sin SUBE no podés subir.</div>
+      <div class="bus-row"><div class="bus-num">20</div><div class="bus-dest">Circuito Chico · Llao Llao<span>Av. Bustillo bordeando el lago · cada 20 min</span></div></div>
+      <div class="bus-row"><div class="bus-num">10</div><div class="bus-dest">Colonia Suiza · Punto Panorámico · Bahía López<span>Solo 7 servicios por día · revisar horarios</span></div></div>
+      <div class="bus-row"><div class="bus-num">13</div><div class="bus-dest">Circuito Chico rondin (combinación con el 20)<span>Bajarse en km 18 del 20 y combinar · cada 1 hora</span></div></div>
+      <div class="bus-row"><div class="bus-num">55</div><div class="bus-dest">Cerro Catedral<span>Sale detrás del Centro Cívico · cada 2 horas · 35 min</span></div></div>
+      <div class="bus-row"><div class="bus-num">72</div><div class="bus-dest">Aeropuerto ↔ Terminal<span>Traslado desde/hacia el aeropuerto</span></div></div>
+    </div>
+    <a class="service-btn blue" style="display:flex;align-items:center;justify-content:center;gap:7px;padding:11px;border-radius:10px;font-size:13px;font-weight:700;text-decoration:none;background:rgba(37,99,235,0.12);border:1px solid rgba(37,99,235,0.3);color:#93c5fd;margin-top:0" href="https://bariloche.org/transporte-publico/" target="_blank">Ver horarios completos · bariloche.org</a>
+  </div>
+
+  <!-- TEMPORADAS -->
+  <div class="ext-group" id="ext-temporadas">
+    <div class="service-card">
+      <div class="season-row"><div class="season-badge inv">❄️ Invierno<br>Jun–Sep</div><div class="season-text">La temporada estrella. Nieve en los cerros, ski y snowboard en Catedral. Ambiente vibrante. Reservar todo con anticipación. Temperatura: -5°C a 10°C.</div></div>
+      <div class="season-row"><div class="season-badge ver">☀️ Verano<br>Dic–Mar</div><div class="season-text">Playas del lago, trekking, kayak y piletas naturales. Días largos, 20–30°C. La mejor época para el Circuito Chico, Tronador y excursiones lacustres.</div></div>
+      <div class="season-row"><div class="season-badge oto">🍂 Otoño<br>Mar–May</div><div class="season-text">Los bosques se tiñen de rojo y naranja — uno de los paisajes más fotografiados de la Patagonia. Poca gente, precios más bajos y clima templado.</div></div>
+      <div class="season-row"><div class="season-badge pri">🌸 Primavera<br>Sep–Nov</div><div class="season-text">El lago en su máximo esplendor, flores silvestres y clima agradable. Temporada baja: más tranquilo, más barato e igualmente hermoso.</div></div>
+    </div>
+  </div>
+
+  <!-- TIPS LOCALES -->
+  <div class="ext-group" id="ext-tips">
+    <div class="service-card">
+      <div class="tip-item"><div class="tip-emoji">⏰</div><div class="tip-text"><strong>Cerro Campanario antes de las 9am</strong> — Sin cola, la luz es perfecta para fotos y hay menos gente. Después de las 11 se llena.</div></div>
+      <div class="tip-item"><div class="tip-emoji">🚗</div><div class="tip-text"><strong>Circuito Chico entre semana</strong> — Los fines de semana hay tráfico en Bustillo. Si podés, hacelo lunes o martes.</div></div>
+      <div class="tip-item"><div class="tip-emoji">🅿️</div><div class="tip-text"><strong>Estacionamiento gratis en el centro</strong> — Las calles paralelas a Mitre (Moreno, Pagano) tienen estacionamiento gratuito a pocas cuadras del centro.</div></div>
+      <div class="tip-item"><div class="tip-emoji">🏔️</div><div class="tip-text"><strong>Estado de pistas Catedral</strong> — Antes de ir en invierno, revisá siempre el estado de pistas y si hay nieve fresca.</div></div>
+      <div class="tip-item"><div class="tip-emoji">🍺</div><div class="tip-text"><strong>Cervecería Patagonia sin reserva</strong> — El patio exterior no requiere reserva. Llegá antes de las 13hs o después de las 16hs para tener lugar fácil.</div></div>
+      <div class="tip-item"><div class="tip-emoji">🏖️</div><div class="tip-text"><strong>Playa sin Viento (Circuito Chico)</strong> — La mejor playa del lago. Llegar temprano en verano, se llena. Alquiler de kayak en el lugar.</div></div>
+      <div class="tip-item"><div class="tip-emoji">🌅</div><div class="tip-text"><strong>Atardecer desde Cerro Otto</strong> — Entre las 19 y 20hs en verano. Una de las mejores vistas de la Patagonia, sin la multitud del Campanario.</div></div>
+      <div class="tip-item"><div class="tip-emoji">💳</div><div class="tip-text"><strong>Propina: 10-15%</strong> — Es costumbre en restaurantes y bares. Podés agregarla al ticket con tarjeta o dejarla en efectivo.</div></div>
+      <div class="tip-item"><div class="tip-emoji">🏧</div><div class="tip-text"><strong>Cajeros</strong> — Banco Nación y BBVA tienen mejores límites de extracción. Llevá siempre algo de efectivo para mercados y lugares chicos.</div></div>
+      <div class="tip-item" style="border:none"><div class="tip-emoji">📱</div><div class="tip-text"><strong>Mercado Pago</strong> — Aceptado en casi todos los comercios. Si tenés cuenta argentina podés escanear el QR y pagar sin efectivo ni comisiones.</div></div>
+    </div>
+    <a class="service-btn blue" style="display:flex;align-items:center;justify-content:center;gap:7px;padding:11px;border-radius:10px;font-size:13px;font-weight:700;text-decoration:none;background:rgba(37,99,235,0.12);border:1px solid rgba(37,99,235,0.3);color:#93c5fd" href="https://www.google.com/maps/search/cajero+automatico+Bariloche" target="_blank">🏧 Cajeros cerca ↗</a>
+    <a class="service-btn blue" style="display:flex;align-items:center;justify-content:center;gap:7px;padding:11px;border-radius:10px;font-size:13px;font-weight:700;text-decoration:none;background:rgba(37,99,235,0.12);border:1px solid rgba(37,99,235,0.3);color:#93c5fd;margin-top:8px" href="https://www.catedral.com.ar/partes-de-nieve" target="_blank">Estado de pistas Cerro Catedral ↗</a>
+  </div>
+
+  <div class="ext-group" id="ext-basicos">
+    <div class="service-card">
+      <div class="service-header"><div class="service-icon" style="background:rgba(16,185,129,0.15);border:1px solid rgba(16,185,129,0.3)">🛒</div><div><strong>Supermercados</strong></div></div>
+      <div class="tip-item"><div class="tip-emoji">🏪</div><div class="tip-text"><strong>La Anónima</strong> — Clásico patagónico. Varios locales en la ciudad. Abierto hasta las 22hs.</div></div>
+      <div class="tip-item"><div class="tip-emoji">🏪</div><div class="tip-text"><strong>Carrefour</strong> — Buen surtido y precios. Centro de Bariloche.</div></div>
+      <div class="tip-item" style="border:none"><div class="tip-emoji">🏪</div><div class="tip-text"><strong>Puelche</strong> — Supermercado local muy completo. Popular entre los barilochenses.</div></div>
+      <a href="https://www.google.com/maps/search/supermercado+Bariloche" target="_blank" class="service-btn blue" style="display:flex;align-items:center;justify-content:center;gap:7px;padding:10px;border-radius:10px;font-size:13px;font-weight:700;text-decoration:none;background:rgba(37,99,235,0.12);border:1px solid rgba(37,99,235,0.3);color:#93c5fd;margin-top:10px">📍 Ver supermercados en Maps</a>
+    </div>
+
+    <div class="service-card" style="margin-top:10px">
+      <div class="service-header"><div class="service-icon" style="background:rgba(245,158,11,0.15);border:1px solid rgba(245,158,11,0.3)">🥐</div><div><strong>Panaderías y desayunos</strong></div></div>
+      <div class="tip-item"><div class="tip-emoji">🥐</div><div class="tip-text"><strong>Familia Weiss</strong> — Chocolates, facturas y desayunos. Un clásico de Bariloche. Mitre 360.</div></div>
+      <div class="tip-item"><div class="tip-emoji">🥐</div><div class="tip-text"><strong>Rapa Nui</strong> — La chocolatería más famosa de la ciudad. También tienen medialunas y café. Mitre 202.</div></div>
+      <div class="tip-item" style="border:none"><div class="tip-emoji">🫖</div><div class="tip-text"><strong>Casas de Té</strong> — Meiling, Bellevue y Origen Enya son las mejores opciones para una tarde con torta y vistas al lago.</div></div>
+    </div>
+
+    <div class="service-card" style="margin-top:10px">
+      <div class="service-header"><div class="service-icon" style="background:rgba(99,102,241,0.15);border:1px solid rgba(99,102,241,0.3)">💊</div><div><strong>Farmacias</strong></div></div>
+      <div class="tip-item"><div class="tip-emoji">💊</div><div class="tip-text"><strong>Farmacity</strong> — Mitre 160. Abierta hasta las 22hs. También venden artículos de perfumería y primeros auxilios.</div></div>
+      <div class="tip-item" style="border:none"><div class="tip-emoji">🌙</div><div class="tip-text"><strong>Farmacia de turno</strong> — Para horarios fuera de lo normal, buscá "farmacia de turno Bariloche" en Google para ver cuál está abierta.</div></div>
+      <a href="https://www.google.com/maps/search/farmacia+Bariloche" target="_blank" class="service-btn blue" style="display:flex;align-items:center;justify-content:center;gap:7px;padding:10px;border-radius:10px;font-size:13px;font-weight:700;text-decoration:none;background:rgba(37,99,235,0.12);border:1px solid rgba(37,99,235,0.3);color:#93c5fd;margin-top:10px">📍 Farmacias cerca</a>
+    </div>
+  </div>
+
+  <!-- SKI & SNOW RENTALS -->
+  <div class="ext-group" id="ext-ski">
+    <div style="font-size:12px;color:#7dd3fc;font-weight:600;margin-bottom:10px;padding:0 2px">
+      ⛷️ Alquiler de equipo completo: tablas, esquís, bastones, botas, casco
+    </div>
+    
+    <div class="service-card">
+      <div style="font-size:13px;color:#9ca3af;line-height:1.6">
+        Para alquilar equipo de ski o snowboard buscá en Google Maps "alquiler ski Bariloche" — hay varias opciones en el centro y en la base del Catedral.
+      </div>
+      <a href="https://www.google.com/maps/search/alquiler+ski+snowboard+Bariloche" target="_blank" class="service-btn blue" style="display:flex;align-items:center;justify-content:center;gap:7px;padding:10px;border-radius:10px;font-size:13px;font-weight:700;text-decoration:none;background:rgba(37,99,235,0.12);border:1px solid rgba(37,99,235,0.3);color:#93c5fd;margin-top:10px">
+        📍 Buscar en Maps
+      </a>
+    </div>
+    
+    <div style="font-size:11px;color:#4b5563;text-align:center;margin-top:10px;padding:0 4px">
+      Resultados según calificación en Google · Actualizados automáticamente
+    </div>
+  </div>
+
+  <!-- QUÉ LLEVAR -->
+
+</div>
+
+<div class="divider"></div>
+
+<div class="tabs-wrap">
+  <div class="tabs">
+    <button class="tab" onclick="setTab('atracciones')">⛰️ <span class="t" data-es="Atracciones" data-en="Attractions" data-pt="Atrações">Atracciones</span></button>
+    <button class="tab" onclick="setTab('restaurantes')">🍽️ <span class="t" data-es="Restaurantes" data-en="Restaurants" data-pt="Restaurantes">Restaurantes</span></button>
+    <button class="tab" onclick="setTab('cervecerias')">🍺 <span class="t" data-es="Cervezas" data-en="Breweries" data-pt="Cervejas">Cervezas</span></button>
+    <button class="tab" onclick="setTab('salir')">🎶 <span class="t" data-es="Salir" data-en="Nightlife" data-pt="Sair">Salir</span></button>
+  </div>
+</div>
+
+<div class="places-wrap">
+  <div class="cat-group" id="cat-atracciones">
+    <div class="place-card"><div class="place-header"><div class="place-name">Cerro Otto</div><div class="place-badge">⭐ Clásico</div></div><div class="place-desc active" data-lang="es">Atardecer increíble. Invierno: culopatin y aventura. Verano: bicicletas para bajar. Confitería giratoria en la cima.</div><div class="place-desc" data-lang="en">Incredible sunset. Winter: sleds & adventure. Summer: bikes to descend. Rotating café at the summit.</div><div class="place-desc" data-lang="pt">Pôr do sol incrível. Inverno: trenós e aventura. Verão: bicicletas para descer. Confeitaria giratória no cume.</div>
+    <div style="display:flex;gap:6px;margin-top:8px;flex-wrap:wrap">
+      <a href="https://www.google.com/maps/search/Cerro+Otto+Bariloche" target="_blank" style="display:inline-flex;align-items:center;gap:5px;background:rgba(37,99,235,0.12);border:1px solid rgba(37,99,235,0.3);color:#bfdbfe;font-size:11px;font-weight:700;padding:5px 10px;border-radius:8px;text-decoration:none">📍 Maps</a>
+      <a href="https://www.cerrootto.com.ar" target="_blank" style="display:inline-flex;align-items:center;gap:5px;background:rgba(16,185,129,0.1);border:1px solid rgba(16,185,129,0.3);color:#6ee7b7;font-size:11px;font-weight:700;padding:5px 10px;border-radius:8px;text-decoration:none">🌐 Tarifas y horarios</a>
+    </div></div>
+
+    <div class="place-card"><div class="place-header"><div class="place-name">Cerro Campanario</div><div class="place-badge">📸 Foto icónica</div></div><div class="place-desc active" data-lang="es">Vista 360° espectacular. 30 min a pie o en aerosilla. Una de las mejores vistas de la Patagonia.</div><div class="place-desc" data-lang="en">Spectacular 360° view. 30-min hike or chairlift. One of Patagonia's best views.</div><div class="place-desc" data-lang="pt">Vista 360° espetacular. 30 min a pé ou de teleférico. Uma das melhores vistas da Patagônia.</div>
+    <div style="display:flex;gap:6px;margin-top:8px;flex-wrap:wrap">
+      <a href="https://www.google.com/maps/search/Cerro+Campanario+Bariloche" target="_blank" style="display:inline-flex;align-items:center;gap:5px;background:rgba(37,99,235,0.12);border:1px solid rgba(37,99,235,0.3);color:#bfdbfe;font-size:11px;font-weight:700;padding:5px 10px;border-radius:8px;text-decoration:none">📍 Maps</a>
+      <a href="https://www.aerosillacampanario.com.ar" target="_blank" style="display:inline-flex;align-items:center;gap:5px;background:rgba(16,185,129,0.1);border:1px solid rgba(16,185,129,0.3);color:#6ee7b7;font-size:11px;font-weight:700;padding:5px 10px;border-radius:8px;text-decoration:none">🌐 Tarifas y horarios</a>
+    </div></div>
+
+    <div class="place-card"><div class="place-header"><div class="place-name">Cerro Catedral</div><div class="place-badge">⛷️ Ski & Snow</div></div><div class="place-desc active" data-lang="es">Centro de ski y snowboard con aerosilla espectacular. Restaurantes y cervecerías en la base. Alquiler en local Vertical.</div><div class="place-desc" data-lang="en">Ski & snowboard center with spectacular chairlift. Restaurants and breweries at the base. Rental at Vertical shop.</div><div class="place-desc" data-lang="pt">Centro de esqui e snowboard com teleférico espetacular. Restaurantes na base. Aluguel na loja Vertical.</div>
+    <div style="display:flex;gap:6px;margin-top:8px;flex-wrap:wrap">
+      <a href="https://www.google.com/maps/search/Cerro+Catedral+Bariloche" target="_blank" style="display:inline-flex;align-items:center;gap:5px;background:rgba(37,99,235,0.12);border:1px solid rgba(37,99,235,0.3);color:#bfdbfe;font-size:11px;font-weight:700;padding:5px 10px;border-radius:8px;text-decoration:none">📍 Maps</a>
+      <a href="https://www.catedralaltapatagonia.com/precios/" target="_blank" style="display:inline-flex;align-items:center;gap:5px;background:rgba(147,197,253,0.12);border:1px solid rgba(147,197,253,0.3);color:#bfdbfe;font-size:11px;font-weight:700;padding:5px 10px;border-radius:8px;text-decoration:none">🎿 Precios pases</a>
+      <a href="https://www.catedralaltapatagonia.com/invierno/partes-de-nieve/" target="_blank" style="display:inline-flex;align-items:center;gap:5px;background:rgba(16,185,129,0.1);border:1px solid rgba(16,185,129,0.3);color:#6ee7b7;font-size:11px;font-weight:700;padding:5px 10px;border-radius:8px;text-decoration:none">🌨️ Estado nieve</a>
+    </div></div>
+
+    <div class="place-card"><div class="place-header"><div class="place-name">Circuito Chico</div><div class="place-badge">🚗 Imperdible</div></div><div class="place-desc active" data-lang="es">Punto Panorámico · Puente Arroyo La Angostura · Colonia Suiza para comer · Playa sin Viento con kayak · Villa Tacul con playas paradisíacas.</div><div class="place-desc" data-lang="en">Panoramic viewpoint · Angostura Bridge · Colonia Suiza to eat · Playa sin Viento with kayak · Villa Tacul paradise beaches.</div><div class="place-desc" data-lang="pt">Ponto Panorâmico · Ponte Angostura · Colonia Suiza para comer · Praia sem Vento com caiaque · Villa Tacul.</div>
+    <div style="display:flex;gap:6px;margin-top:8px;flex-wrap:wrap">
+      <a href="https://www.google.com/maps/search/Circuito+Chico+Bariloche" target="_blank" style="display:inline-flex;align-items:center;gap:5px;background:rgba(37,99,235,0.12);border:1px solid rgba(37,99,235,0.3);color:#bfdbfe;font-size:11px;font-weight:700;padding:5px 10px;border-radius:8px;text-decoration:none">📍 Ver ruta en Maps</a>
+    </div></div>
+
+    <div class="place-card"><div class="place-header"><div class="place-name">Cerro Frey / Refugio Frey</div><div class="place-badge">🥾 Trekking</div></div><div class="place-desc active" data-lang="es">3 horas de caminata hasta una laguna espectacular. Ideal para los amantes del trekking.</div><div class="place-desc" data-lang="en">3-hour hike to a spectacular lagoon. Ideal for trekking lovers.</div><div class="place-desc" data-lang="pt">3 horas de caminhada até uma lagoa espetacular. Ideal para amantes do trekking.</div>
+    <div style="display:flex;gap:6px;margin-top:8px;flex-wrap:wrap">
+      <a href="https://www.google.com/maps/search/Refugio+Frey+Bariloche" target="_blank" style="display:inline-flex;align-items:center;gap:5px;background:rgba(37,99,235,0.12);border:1px solid rgba(37,99,235,0.3);color:#bfdbfe;font-size:11px;font-weight:700;padding:5px 10px;border-radius:8px;text-decoration:none">📍 Maps</a>
+      <a href="https://www.clubandino.org.ar/refugio-frey" target="_blank" style="display:inline-flex;align-items:center;gap:5px;background:rgba(16,185,129,0.1);border:1px solid rgba(16,185,129,0.3);color:#6ee7b7;font-size:11px;font-weight:700;padding:5px 10px;border-radius:8px;text-decoration:none">🌐 Info y horarios</a>
+      <a href="https://www.google.com/search?q=horarios+ascenso+cerro+frey+bariloche" target="_blank" style="display:inline-flex;align-items:center;gap:5px;background:rgba(245,158,11,0.1);border:1px solid rgba(245,158,11,0.3);color:#fde68a;font-size:11px;font-weight:700;padding:5px 10px;border-radius:8px;text-decoration:none">🕐 Horarios acceso</a>
+    </div></div>
+
+    <div class="place-card"><div class="place-header"><div class="place-name">Cerro López / Refugio López</div><div class="place-badge">🥾 Trekking</div></div><div class="place-desc active" data-lang="es">Caminata de 3-4 horas con vistas espectaculares al lago y la cordillera. Refugio en la cima con comida y alojamiento. Salida desde km 17 de Bustillo.</div><div class="place-desc" data-lang="en">3-4 hour hike with spectacular views of the lake and mountains. Refuge at the top with food and lodging. Trailhead at km 17 of Bustillo.</div><div class="place-desc" data-lang="pt">Caminhada de 3-4 horas com vistas espetaculares do lago e da cordilheira. Refúgio no topo com comida e hospedagem. Saída no km 17 de Bustillo.</div>
+    <div style="display:flex;gap:6px;margin-top:8px;flex-wrap:wrap">
+      <a href="https://www.google.com/maps/search/Cerro+Lopez+Bariloche" target="_blank" style="display:inline-flex;align-items:center;gap:5px;background:rgba(37,99,235,0.12);border:1px solid rgba(37,99,235,0.3);color:#bfdbfe;font-size:11px;font-weight:700;padding:5px 10px;border-radius:8px;text-decoration:none">📍 Maps</a>
+      <a href="https://www.clubandino.org.ar/refugio-lopez" target="_blank" style="display:inline-flex;align-items:center;gap:5px;background:rgba(16,185,129,0.1);border:1px solid rgba(16,185,129,0.3);color:#6ee7b7;font-size:11px;font-weight:700;padding:5px 10px;border-radius:8px;text-decoration:none">🌐 Refugio López</a>
+      <a href="https://www.google.com/search?q=horarios+ascenso+descenso+cerro+lopez+bariloche" target="_blank" style="display:inline-flex;align-items:center;gap:5px;background:rgba(245,158,11,0.1);border:1px solid rgba(245,158,11,0.3);color:#fde68a;font-size:11px;font-weight:700;padding:5px 10px;border-radius:8px;text-decoration:none">🕐 Horarios</a>
+    </div></div>
+
+    <div class="place-card"><div class="place-header"><div class="place-name">Cerro Ventana</div><div class="place-badge">🪟 Vista única</div></div><div class="place-desc active" data-lang="es">Caminata de 2-3 horas hasta una ventana natural en la roca con vistas increíbles al lago Nahuel Huapi. Menos conocido que otros cerros — poca gente y muy fotogénico.</div><div class="place-desc" data-lang="en">2-3 hour hike to a natural rock window with incredible views of Lake Nahuel Huapi. Less known than other peaks — few people and very photogenic.</div><div class="place-desc" data-lang="pt">Caminhada de 2-3 horas até uma janela natural na rocha com vistas incríveis do lago Nahuel Huapi. Menos conhecido que outros picos — poucas pessoas e muito fotogênico.</div>
+    <div style="display:flex;gap:6px;margin-top:8px;flex-wrap:wrap">
+      <a href="https://www.google.com/maps/search/Cerro+Ventana+Bariloche" target="_blank" style="display:inline-flex;align-items:center;gap:5px;background:rgba(37,99,235,0.12);border:1px solid rgba(37,99,235,0.3);color:#bfdbfe;font-size:11px;font-weight:700;padding:5px 10px;border-radius:8px;text-decoration:none">📍 Maps</a>
+      <a href="https://www.google.com/search?q=horarios+ascenso+cerro+ventana+bariloche+acceso" target="_blank" style="display:inline-flex;align-items:center;gap:5px;background:rgba(245,158,11,0.1);border:1px solid rgba(245,158,11,0.3);color:#fde68a;font-size:11px;font-weight:700;padding:5px 10px;border-radius:8px;text-decoration:none">🕐 Horarios y acceso</a>
+    </div></div>
+
+    <div class="place-card"><div class="place-header"><div class="place-name">Islas del Nahuel Huapi</div><div class="place-badge">⛵ Tour en bote</div></div><div class="place-desc active" data-lang="es">Tour en bote desde el centro. Isla Victoria, Brazo Tristeza y Brazo Blest. También: Aloha Patagonia Tour privado (máx. 9 personas).</div><div class="place-desc" data-lang="en">Boat tour from downtown. Victoria Island, Tristeza & Blest Arms. Also: Aloha Patagonia private tour (max 9 people).</div><div class="place-desc" data-lang="pt">Passeio de barco do centro. Ilha Victoria, Braço Tristeza e Braço Blest. Também: Aloha Patagonia privado (máx. 9).</div>
+    <div style="display:flex;gap:6px;margin-top:8px;flex-wrap:wrap">
+      <a href="https://www.bosciket.com.ar" target="_blank" style="display:inline-flex;align-items:center;gap:5px;background:rgba(16,185,129,0.1);border:1px solid rgba(16,185,129,0.3);color:#6ee7b7;font-size:11px;font-weight:700;padding:5px 10px;border-radius:8px;text-decoration:none">🌐 Reservar tour</a>
+      <a href="https://www.instagram.com/aloha.patagonia" target="_blank" style="display:inline-flex;align-items:center;gap:5px;background:rgba(167,139,250,0.12);border:1px solid rgba(167,139,250,0.3);color:#c4b5fd;font-size:11px;font-weight:700;padding:5px 10px;border-radius:8px;text-decoration:none">📸 Aloha Patagonia</a>
+    </div></div>
+
+    <div class="place-card"><div class="place-header"><div class="place-name">Cerro Tronador + Pampa Linda</div><div class="place-badge">🏔️ Aventura</div></div><div class="place-desc active" data-lang="es">Valle principal a los pies del Tronador con vistas impresionantes. Refugio Otto Meiling para los más aventureros.</div><div class="place-desc" data-lang="en">Main valley at the foot of Tronador. Stunning views. Otto Meiling Refuge for adventurers.</div><div class="place-desc" data-lang="pt">Vale principal aos pés do Tronador. Vistas impressionantes. Refúgio Otto Meiling para aventureiros.</div>
+    <div style="display:flex;gap:6px;margin-top:8px;flex-wrap:wrap">
+      <a href="https://www.google.com/maps/search/Pampa+Linda+Bariloche" target="_blank" style="display:inline-flex;align-items:center;gap:5px;background:rgba(37,99,235,0.12);border:1px solid rgba(37,99,235,0.3);color:#bfdbfe;font-size:11px;font-weight:700;padding:5px 10px;border-radius:8px;text-decoration:none">📍 Maps</a>
+      <a href="https://www.google.com/search?q=horario+acceso+pampa+linda+tronador+bariloche" target="_blank" style="display:inline-flex;align-items:center;gap:5px;background:rgba(245,158,11,0.1);border:1px solid rgba(245,158,11,0.3);color:#fde68a;font-size:11px;font-weight:700;padding:5px 10px;border-radius:8px;text-decoration:none">🕐 Horarios acceso</a>
+      <a href="https://www.clubandino.org.ar/refugio-otto-meiling" target="_blank" style="display:inline-flex;align-items:center;gap:5px;background:rgba(16,185,129,0.1);border:1px solid rgba(16,185,129,0.3);color:#6ee7b7;font-size:11px;font-weight:700;padding:5px 10px;border-radius:8px;text-decoration:none">🏔️ Refugio Meiling</a>
+    </div></div>
+
+    <div class="place-card"><div class="place-header"><div class="place-name">Piletas del Río Manso</div><div class="place-badge">💧 Verano</div></div><div class="place-desc active" data-lang="es">Piletas naturales. Playa paradisíaca a 2 hs en auto. Camping con pasarela e increíbles playas.</div><div class="place-desc" data-lang="en">Natural swimming pools. Paradise beach, 2 hrs by car. Camping with walkway and incredible beaches.</div><div class="place-desc" data-lang="pt">Piscinas naturais. Praia paradisíaca a 2h de carro. Camping com passarela e praias incríveis.</div>
+    <div style="display:flex;gap:6px;margin-top:8px;flex-wrap:wrap">
+      <a href="https://www.google.com/maps/search/Piletas+Rio+Manso+Bariloche" target="_blank" style="display:inline-flex;align-items:center;gap:5px;background:rgba(37,99,235,0.12);border:1px solid rgba(37,99,235,0.3);color:#bfdbfe;font-size:11px;font-weight:700;padding:5px 10px;border-radius:8px;text-decoration:none">📍 Maps</a>
+    </div></div>
+
+    <div class="place-card"><div class="place-header"><div class="place-name">Puente Río Nirihuau</div><div class="place-badge gold">💎 Secreto local</div></div><div class="place-desc active" data-lang="es">Lugar hermoso que los turistas no suelen visitar. Buscalo en Google Maps: "Puente Río Nirihuau".</div><div class="place-desc" data-lang="en">Beautiful hidden spot tourists rarely visit. Search Google Maps: "Puente Río Nirihuau".</div><div class="place-desc" data-lang="pt">Lugar lindo que turistas raramente visitam. Pesquise no Google Maps: "Puente Río Nirihuau".</div>
+    <div style="display:flex;gap:6px;margin-top:8px;flex-wrap:wrap">
+      <a href="https://www.google.com/maps/search/Puente+Rio+Nirihuau+Bariloche" target="_blank" style="display:inline-flex;align-items:center;gap:5px;background:rgba(37,99,235,0.12);border:1px solid rgba(37,99,235,0.3);color:#bfdbfe;font-size:11px;font-weight:700;padding:5px 10px;border-radius:8px;text-decoration:none">📍 Maps</a>
+    </div></div>
+
+    <div class="place-card"><div class="place-header"><div class="place-name">Paraíso Azul / Cajón del Azul</div><div class="place-badge">🚗 2hs · El Bolsón</div></div><div class="place-desc active" data-lang="es">Lugar paradisíaco sobre el Río Azul en El Bolsón. Vale muchísimo la pena.</div><div class="place-desc" data-lang="en">Paradisiacal spot on the Blue River in El Bolsón. Absolutely worth the drive.</div><div class="place-desc" data-lang="pt">Local paradisíaco no Rio Azul em El Bolsón. Vale muito a pena.</div>
+    <div style="display:flex;gap:6px;margin-top:8px;flex-wrap:wrap">
+      <a href="https://www.google.com/maps/search/Cajon+del+Azul+El+Bolson" target="_blank" style="display:inline-flex;align-items:center;gap:5px;background:rgba(37,99,235,0.12);border:1px solid rgba(37,99,235,0.3);color:#bfdbfe;font-size:11px;font-weight:700;padding:5px 10px;border-radius:8px;text-decoration:none">📍 Maps</a>
+    </div></div>
+
+    <div class="place-card"><div class="place-header"><div class="place-name">Villa La Angostura</div><div class="place-badge">🚗 1hs</div></div><div class="place-desc active" data-lang="es">Encantador pueblo a 1 hora. Ideal para pasar el día, caminar y comer algo rico.</div><div class="place-desc" data-lang="en">Charming town 1 hour away. Great for a day trip, walking, and eating well.</div><div class="place-desc" data-lang="pt">Charmosa cidade a 1 hora. Ótima para um passeio de dia.</div>
+    <div style="display:flex;gap:6px;margin-top:8px;flex-wrap:wrap">
+      <a href="https://www.google.com/maps/search/Villa+La+Angostura" target="_blank" style="display:inline-flex;align-items:center;gap:5px;background:rgba(37,99,235,0.12);border:1px solid rgba(37,99,235,0.3);color:#bfdbfe;font-size:11px;font-weight:700;padding:5px 10px;border-radius:8px;text-decoration:none">📍 Maps</a>
+    </div></div>
+
+    <div class="place-card"><div class="place-header"><div class="place-name">Valle Encantado</div><div class="place-badge">📸 Vista</div></div><div class="place-desc active" data-lang="es">Formaciones rocosas espectaculares del lado de Neuquén. De paso: Villa Llanquín, pueblito pintoresco cruzando el río Limay.</div><div class="place-desc" data-lang="en">Spectacular rock formations on the Neuquén side. On the way: Villa Llanquín, a picturesque village across the Limay River.</div><div class="place-desc" data-lang="pt">Formações rochosas espetaculares do lado de Neuquén. No caminho: Villa Llanquín, vila pitoresca.</div>
+    <div style="display:flex;gap:6px;margin-top:8px;flex-wrap:wrap">
+      <a href="https://www.google.com/maps/search/Valle+Encantado+Neuquen" target="_blank" style="display:inline-flex;align-items:center;gap:5px;background:rgba(37,99,235,0.12);border:1px solid rgba(37,99,235,0.3);color:#bfdbfe;font-size:11px;font-weight:700;padding:5px 10px;border-radius:8px;text-decoration:none">📍 Maps</a>
+    </div></div>
+
+    <div class="place-card"><div class="place-header"><div class="place-name">San Martín de los Andes</div><div class="place-badge">🚗 3hs · 1-2 días</div></div><div class="place-desc active" data-lang="es">Ciudad preciosa con lago y montañas. Ideal para 1 o 2 días con excelente gastronomía.</div><div class="place-desc" data-lang="en">Beautiful city with a lake and mountains. Perfect for 1-2 days with excellent food.</div><div class="place-desc" data-lang="pt">Cidade linda com lago e montanhas. Perfeita para 1-2 dias com excelente gastronomia.</div>
+    <div style="display:flex;gap:6px;margin-top:8px;flex-wrap:wrap">
+      <a href="https://www.google.com/maps/search/San+Martin+de+los+Andes" target="_blank" style="display:inline-flex;align-items:center;gap:5px;background:rgba(37,99,235,0.12);border:1px solid rgba(37,99,235,0.3);color:#bfdbfe;font-size:11px;font-weight:700;padding:5px 10px;border-radius:8px;text-decoration:none">📍 Maps</a>
+    </div></div>
+  </div>
+
+  <div class="cat-group" id="cat-restaurantes">
+    <div class="place-card"><div class="place-header"><div class="place-name">Quiven Patagonia Kitchen House</div><div class="place-badge new">⭐ #1 TripAdvisor</div></div><div class="place-desc active" data-lang="es">Alta gastronomía a orillas del lago. Menú de 4 o 7 pasos. Reserva obligatoria. Av. Bustillo km 19.</div><div class="place-desc" data-lang="en">Fine dining on the lake shore. 4 or 7-course tasting menu. Reservation required. Av. Bustillo km 19.</div><div class="place-desc" data-lang="pt">Alta gastronomia à beira do lago. Cardápio de 4 ou 7 etapas. Reserva necessária. Av. Bustillo km 19.</div><div class="place-tip">💡 Reservar con anticipación — mesas muy limitadas</div>
+    <div style="display:flex;gap:6px;margin-top:8px;flex-wrap:wrap">
+      <a href="https://www.google.com/maps/search/Quiven+Patagonia+Bariloche" target="_blank" style="display:inline-flex;align-items:center;gap:5px;background:rgba(37,99,235,0.12);border:1px solid rgba(37,99,235,0.3);color:#bfdbfe;font-size:11px;font-weight:700;padding:5px 10px;border-radius:8px;text-decoration:none">📍 Maps</a>
+      <a href="https://www.instagram.com/quiven.patagonia" target="_blank" style="display:inline-flex;align-items:center;gap:5px;background:rgba(167,139,250,0.12);border:1px solid rgba(167,139,250,0.3);color:#c4b5fd;font-size:11px;font-weight:700;padding:5px 10px;border-radius:8px;text-decoration:none">📸 Ver menú</a>
+    </div></div>
+
+    <div class="place-card"><div class="place-header"><div class="place-name">Alto el Fuego</div><div class="place-badge">🥩 Parrilla top</div></div><div class="place-desc active" data-lang="es">Parrilla en edificio de madera de 1941. Carnes perfectas y la mejor provoleta de Argentina según viajeros.</div><div class="place-desc" data-lang="en">Grill in a 1941 wooden building. Perfect meats and reportedly Argentina's best provoleta.</div><div class="place-desc" data-lang="pt">Churrascaria em prédio de madeira de 1941. Carnes perfeitas e a melhor provoleta da Argentina.</div>
+    <div style="display:flex;gap:6px;margin-top:8px;flex-wrap:wrap">
+      <a href="https://www.google.com/maps/search/Alto+el+Fuego+Bariloche" target="_blank" style="display:inline-flex;align-items:center;gap:5px;background:rgba(37,99,235,0.12);border:1px solid rgba(37,99,235,0.3);color:#bfdbfe;font-size:11px;font-weight:700;padding:5px 10px;border-radius:8px;text-decoration:none">📍 Maps</a>
+      <a href="https://www.instagram.com/altoelfuego.brc" target="_blank" style="display:inline-flex;align-items:center;gap:5px;background:rgba(167,139,250,0.12);border:1px solid rgba(167,139,250,0.3);color:#c4b5fd;font-size:11px;font-weight:700;padding:5px 10px;border-radius:8px;text-decoration:none">📸 Ver carta</a>
+    </div></div>
+
+    <div class="place-card"><div class="place-header"><div class="place-name">El Boliche de Alberto</div><div class="place-badge">🏆 Desde 1990</div></div><div class="place-desc active" data-lang="es">El clásico de Bariloche. Cortes argentinos y papas fritas legendarias. También local de pastas. Villegas 347.</div><div class="place-desc" data-lang="en">Bariloche's classic. Argentine cuts and legendary fries. Also a pasta restaurant. Villegas 347.</div><div class="place-desc" data-lang="pt">O clássico de Bariloche. Cortes argentinos e batatas fritas lendárias. Também restaurante de massas.</div>
+    <div style="display:flex;gap:6px;margin-top:8px;flex-wrap:wrap">
+      <a href="https://www.google.com/maps/search/El+Boliche+de+Alberto+Bariloche" target="_blank" style="display:inline-flex;align-items:center;gap:5px;background:rgba(37,99,235,0.12);border:1px solid rgba(37,99,235,0.3);color:#bfdbfe;font-size:11px;font-weight:700;padding:5px 10px;border-radius:8px;text-decoration:none">📍 Maps</a>
+    </div></div>
+
+    <div class="place-card"><div class="place-header"><div class="place-name">La Fonda del Tío</div><div class="place-badge gold">🌍 Mejor milanesa del mundo</div></div><div class="place-desc active" data-lang="es">Elegida mejor milanesa del mundo por TasteAtlas. Pastas caseras, abundante y a buen precio.</div><div class="place-desc" data-lang="en">Voted world's best milanesa by TasteAtlas. Homemade pasta, generous portions at good prices.</div><div class="place-desc" data-lang="pt">Eleita a melhor milanesa do mundo pelo TasteAtlas. Massas caseiras, porções generosas.</div>
+    <div style="display:flex;gap:6px;margin-top:8px;flex-wrap:wrap">
+      <a href="https://www.google.com/maps/search/La+Fonda+del+Tio+Bariloche" target="_blank" style="display:inline-flex;align-items:center;gap:5px;background:rgba(37,99,235,0.12);border:1px solid rgba(37,99,235,0.3);color:#bfdbfe;font-size:11px;font-weight:700;padding:5px 10px;border-radius:8px;text-decoration:none">📍 Maps</a>
+    </div></div>
+
+    <div class="place-card"><div class="place-header"><div class="place-name">Ánima</div><div class="place-badge new">✨ Nuevo top</div></div><div class="place-desc active" data-lang="es">Solo 20 personas. Cocina a las brasas con influencia catalana. Circuito Chico. Reserva obligatoria.</div><div class="place-desc" data-lang="en">Only 20 seats. Catalan-influenced wood-fired cuisine. Circuito Chico. Reservation required.</div><div class="place-desc" data-lang="pt">Apenas 20 lugares. Cozinha a brasa com influência catalã. Circuito Chico. Reserva obrigatória.</div>
+    <div style="display:flex;gap:6px;margin-top:8px;flex-wrap:wrap">
+      <a href="https://www.google.com/maps/search/Anima+restaurante+Bariloche" target="_blank" style="display:inline-flex;align-items:center;gap:5px;background:rgba(37,99,235,0.12);border:1px solid rgba(37,99,235,0.3);color:#bfdbfe;font-size:11px;font-weight:700;padding:5px 10px;border-radius:8px;text-decoration:none">📍 Maps</a>
+      <a href="https://www.instagram.com/anima.bariloche" target="_blank" style="display:inline-flex;align-items:center;gap:5px;background:rgba(167,139,250,0.12);border:1px solid rgba(167,139,250,0.3);color:#c4b5fd;font-size:11px;font-weight:700;padding:5px 10px;border-radius:8px;text-decoration:none">📸 Reservar</a>
+    </div></div>
+
+    <div class="place-card"><div class="place-header"><div class="place-name">El Bodegón del Náutico</div><div class="place-badge new">🌊 Sobre el lago</div></div><div class="place-desc active" data-lang="es">El restaurante con mejor vista de Bariloche — literalmente sobre el lago. Especialidad en pescados y mariscos. Av. Bustillo km 3.5.</div><div class="place-desc" data-lang="en">Bariloche's best view restaurant — literally on the lake. Fish and seafood specialty. Av. Bustillo km 3.5.</div><div class="place-desc" data-lang="pt">O restaurante com a melhor vista de Bariloche — sobre o lago. Especialidade em peixes e frutos do mar.</div>
+    <div style="display:flex;gap:6px;margin-top:8px;flex-wrap:wrap">
+      <a href="https://www.google.com/maps/search/El+Bodejon+del+Nautico+Bariloche" target="_blank" style="display:inline-flex;align-items:center;gap:5px;background:rgba(37,99,235,0.12);border:1px solid rgba(37,99,235,0.3);color:#bfdbfe;font-size:11px;font-weight:700;padding:5px 10px;border-radius:8px;text-decoration:none">📍 Maps</a>
+    </div></div>
+
+    <div class="place-card"><div class="place-header"><div class="place-name">Cassis</div><div class="place-badge">🌿 Huerta propia</div></div><div class="place-desc active" data-lang="es">Restaurante familiar gourmet con productos de huerta propia. Cocina de autor con vistas al lago. Desde 1995.</div><div class="place-desc" data-lang="en">Family gourmet restaurant with produce from their own garden. Lake views. Since 1995.</div><div class="place-desc" data-lang="pt">Restaurante familiar gourmet com produtos da própria horta. Vista para o lago. Desde 1995.</div>
+    <div style="display:flex;gap:6px;margin-top:8px;flex-wrap:wrap">
+      <a href="https://www.google.com/maps/search/Cassis+restaurante+Bariloche" target="_blank" style="display:inline-flex;align-items:center;gap:5px;background:rgba(37,99,235,0.12);border:1px solid rgba(37,99,235,0.3);color:#bfdbfe;font-size:11px;font-weight:700;padding:5px 10px;border-radius:8px;text-decoration:none">📍 Maps</a>
+    </div></div>
+
+    <div class="place-card"><div class="place-header"><div class="place-name">El Patacón</div><div class="place-badge">🦌 Regional</div></div><div class="place-desc active" data-lang="es">Ambiente rústico y elegante. Cordero patagónico, trucha y ahumados. Av. Bustillo km 7.</div><div class="place-desc" data-lang="en">Rustic and elegant. Patagonian lamb, trout, and smoked meats. Av. Bustillo km 7.</div><div class="place-desc" data-lang="pt">Ambiente rústico e elegante. Cordeiro patagônico, truta e defumados. Av. Bustillo km 7.</div>
+    <div style="display:flex;gap:6px;margin-top:8px;flex-wrap:wrap">
+      <a href="https://www.google.com/maps/search/El+Patakon+Bariloche" target="_blank" style="display:inline-flex;align-items:center;gap:5px;background:rgba(37,99,235,0.12);border:1px solid rgba(37,99,235,0.3);color:#bfdbfe;font-size:11px;font-weight:700;padding:5px 10px;border-radius:8px;text-decoration:none">📍 Maps</a>
+    </div></div>
+
+    <div class="place-card"><div class="place-header"><div class="place-name">Hotel Llao Llao · Buffet 18hs</div><div class="place-badge">🌟 Experiencia única</div></div><div class="place-desc active" data-lang="es">Buffet con reserva en uno de los hoteles más icónicos del mundo. Comida abundante. Vale la experiencia.</div><div class="place-desc" data-lang="en">Buffet by reservation at one of the world's most iconic hotels. Abundant food. Worth the experience.</div><div class="place-desc" data-lang="pt">Buffet com reserva em um dos hotéis mais icônicos do mundo. Comida farta. Vale a experiência.</div>
+    <div style="display:flex;gap:6px;margin-top:8px;flex-wrap:wrap">
+      <a href="https://www.google.com/maps/search/Hotel+Llao+Llao+Bariloche" target="_blank" style="display:inline-flex;align-items:center;gap:5px;background:rgba(37,99,235,0.12);border:1px solid rgba(37,99,235,0.3);color:#bfdbfe;font-size:11px;font-weight:700;padding:5px 10px;border-radius:8px;text-decoration:none">📍 Maps</a>
+      <a href="https://www.llaollao.com" target="_blank" style="display:inline-flex;align-items:center;gap:5px;background:rgba(16,185,129,0.1);border:1px solid rgba(16,185,129,0.3);color:#6ee7b7;font-size:11px;font-weight:700;padding:5px 10px;border-radius:8px;text-decoration:none">🌐 Reservar</a>
+    </div></div>
+
+    <div class="place-card"><div class="place-header"><div class="place-name">Casas de Té</div><div class="place-badge">☕ Merienda</div></div><div class="place-desc active" data-lang="es"><strong>Meiling</strong> — vistas espectaculares y pasteles artesanales · <strong>Bellevue</strong> — panorámica al Nahuel Huapi · <strong>Origen Enya</strong> — orgánico y vistas naturales.</div><div class="place-desc" data-lang="en"><strong>Meiling</strong> — spectacular views & artisan pastries · <strong>Bellevue</strong> — panoramic lake view · <strong>Origen Enya</strong> — organic & natural views.</div><div class="place-desc" data-lang="pt"><strong>Meiling</strong> — vistas espetaculares e bolos · <strong>Bellevue</strong> — vista panorâmica do lago · <strong>Origen Enya</strong> — orgânico e natural.</div>
+    <div style="display:flex;gap:6px;margin-top:8px;flex-wrap:wrap">
+      <a href="https://www.google.com/maps/search/Casa+de+te+Meiling+Bariloche" target="_blank" style="display:inline-flex;align-items:center;gap:5px;background:rgba(37,99,235,0.12);border:1px solid rgba(37,99,235,0.3);color:#bfdbfe;font-size:11px;font-weight:700;padding:5px 10px;border-radius:8px;text-decoration:none">📍 Meiling</a>
+      <a href="https://www.google.com/maps/search/Casa+de+te+Bellevue+Bariloche" target="_blank" style="display:inline-flex;align-items:center;gap:5px;background:rgba(37,99,235,0.12);border:1px solid rgba(37,99,235,0.3);color:#bfdbfe;font-size:11px;font-weight:700;padding:5px 10px;border-radius:8px;text-decoration:none">📍 Bellevue</a>
+    </div></div>
+
+    <div style="background:linear-gradient(135deg,#0f1729,#0a1020);border:1px solid rgba(99,102,241,0.3);border-radius:14px;padding:1rem 1.1rem;margin-top:4px">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
+        <div style="width:38px;height:38px;border-radius:10px;background:rgba(99,102,241,0.18);border:1px solid rgba(99,102,241,0.3);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0">🛵</div>
+        <div><div style="font-weight:700;color:#e2e8f0;font-size:14px" class="t" data-es="Delivery a domicilio" data-en="Food delivery" data-pt="Delivery em casa">Delivery a domicilio</div><div style="font-size:12px;color:#94a3b8" class="t" data-es="Pedí sin salir del depto" data-en="Order without leaving" data-pt="Peça sem sair">Pedí sin salir del depto</div></div>
+      </div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <a href="https://www.pedidosya.com.ar" target="_blank" style="display:inline-flex;align-items:center;gap:6px;background:rgba(234,88,12,0.15);border:1px solid rgba(234,88,12,0.35);color:#fb923c;font-size:12px;font-weight:700;padding:8px 14px;border-radius:10px;text-decoration:none">🛵 PedidosYa</a>
+        <a href="https://www.rappi.com.ar" target="_blank" style="display:inline-flex;align-items:center;gap:6px;background:rgba(234,88,12,0.15);border:1px solid rgba(234,88,12,0.35);color:#fb923c;font-size:12px;font-weight:700;padding:8px 14px;border-radius:10px;text-decoration:none">🛵 Rappi</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="cat-group" id="cat-cervecerias">
+    <div class="place-card"><div class="place-header"><div class="place-name">Cervecería Patagonia 24.7</div><div class="place-badge new">🌄 Vista top</div></div><div class="place-desc active" data-lang="es">Una de las mejores del país. Vista increíble al lago desde Circuito Chico km 24.7. Patio sin reserva.</div><div class="place-desc" data-lang="en">One of the country's best. Incredible lake view at Circuito Chico km 24.7. Beer patio walk-in.</div><div class="place-desc" data-lang="pt">Uma das melhores do país. Vista incrível para o lago. Circuito Chico km 24.7. Pátio sem reserva.</div>
+    <div style="display:flex;gap:6px;margin-top:8px;flex-wrap:wrap">
+      <a href="https://www.google.com/maps/search/Cerveceria+Patagonia+Bariloche" target="_blank" style="display:inline-flex;align-items:center;gap:5px;background:rgba(37,99,235,0.12);border:1px solid rgba(37,99,235,0.3);color:#bfdbfe;font-size:11px;font-weight:700;padding:5px 10px;border-radius:8px;text-decoration:none">📍 Maps</a>
+    </div></div>
+
+    <div class="place-card"><div class="place-header"><div class="place-name">Berlina</div><div class="place-badge">🍺 Colonia Suiza</div></div><div class="place-desc active" data-lang="es">Cervecería artesanal muy popular en Colonia Suiza. Ambiente pintoresco y amplia variedad. Ideal en el Circuito Chico.</div><div class="place-desc" data-lang="en">Very popular craft brewery in Colonia Suiza. Picturesque setting and wide variety. Perfect on Circuito Chico.</div><div class="place-desc" data-lang="pt">Cervejaria artesanal muito popular em Colonia Suiza. Ambiente pitoresco e ampla variedade.</div>
+    <div style="display:flex;gap:6px;margin-top:8px;flex-wrap:wrap">
+      <a href="https://www.google.com/maps/search/Cerveceria+Berlina+Bariloche" target="_blank" style="display:inline-flex;align-items:center;gap:5px;background:rgba(37,99,235,0.12);border:1px solid rgba(37,99,235,0.3);color:#bfdbfe;font-size:11px;font-weight:700;padding:5px 10px;border-radius:8px;text-decoration:none">📍 Maps</a>
+    </div></div>
+
+    <div class="place-card"><div class="place-header"><div class="place-name">Blest Cervecería</div><div class="place-badge">🏛️ Histórica</div></div><div class="place-desc active" data-lang="es">Una de las más antiguas de Bariloche. Goulash y trucha patagónica. Av. Bustillo km 4.</div><div class="place-desc" data-lang="en">One of Bariloche's oldest breweries. Goulash and Patagonian trout. Av. Bustillo km 4.</div><div class="place-desc" data-lang="pt">Uma das mais antigas de Bariloche. Goulash e truta patagônica. Av. Bustillo km 4.</div>
+    <div style="display:flex;gap:6px;margin-top:8px;flex-wrap:wrap">
+      <a href="https://www.google.com/maps/search/Blest+cerveceria+Bariloche" target="_blank" style="display:inline-flex;align-items:center;gap:5px;background:rgba(37,99,235,0.12);border:1px solid rgba(37,99,235,0.3);color:#bfdbfe;font-size:11px;font-weight:700;padding:5px 10px;border-radius:8px;text-decoration:none">📍 Maps</a>
+    </div></div>
+
+    <div class="place-card"><div class="place-header"><div class="place-name">Manush</div><div class="place-badge">🍔 Gourmet</div></div><div class="place-desc active" data-lang="es">Primera cervecería artesanal de Bariloche. Hamburguesas de cordero y tablas de ahumados. Centro y km 4.</div><div class="place-desc" data-lang="en">Bariloche's first craft brewery. Lamb burgers and smoked boards. Downtown and km 4.</div><div class="place-desc" data-lang="pt">Primeira cervejaria artesanal de Bariloche. Hambúrgueres de cordeiro. Centro e km 4.</div>
+    <div style="display:flex;gap:6px;margin-top:8px;flex-wrap:wrap">
+      <a href="https://www.google.com/maps/search/Manush+cerveceria+Bariloche" target="_blank" style="display:inline-flex;align-items:center;gap:5px;background:rgba(37,99,235,0.12);border:1px solid rgba(37,99,235,0.3);color:#bfdbfe;font-size:11px;font-weight:700;padding:5px 10px;border-radius:8px;text-decoration:none">📍 Maps</a>
+    </div></div>
+
+    <div class="place-card"><div class="place-header"><div class="place-name">Cervecería La Cruz</div><div class="place-badge">👍 Local fav</div></div><div class="place-desc active" data-lang="es">Cervezas de alta calidad y ambiente amigable. Popular entre locales y turistas.</div><div class="place-desc" data-lang="en">High-quality beers and a friendly atmosphere. Popular with locals and tourists.</div><div class="place-desc" data-lang="pt">Cervejas de alta qualidade e ambiente amigável. Popular entre locais e turistas.</div>
+    <div style="display:flex;gap:6px;margin-top:8px;flex-wrap:wrap">
+      <a href="https://www.google.com/maps/search/Cerveceria+La+Cruz+Bariloche" target="_blank" style="display:inline-flex;align-items:center;gap:5px;background:rgba(37,99,235,0.12);border:1px solid rgba(37,99,235,0.3);color:#bfdbfe;font-size:11px;font-weight:700;padding:5px 10px;border-radius:8px;text-decoration:none">📍 Maps</a>
+    </div></div>
+
+    <div class="place-card"><div class="place-header"><div class="place-name">Bar Berkana</div><div class="place-badge">🎵 Vista + música</div></div><div class="place-desc active" data-lang="es">Perfecta para una cerveza con buena vista y música. Ambiente relajado y acogedor.</div><div class="place-desc" data-lang="en">Perfect for a beer with a great view and music. Relaxed and cozy.</div><div class="place-desc" data-lang="pt">Perfeita para uma cerveja com boa vista e música. Ambiente relaxado e acolhedor.</div>
+    <div style="display:flex;gap:6px;margin-top:8px;flex-wrap:wrap">
+      <a href="https://www.google.com/maps/search/Bar+Berkana+Bariloche" target="_blank" style="display:inline-flex;align-items:center;gap:5px;background:rgba(37,99,235,0.12);border:1px solid rgba(37,99,235,0.3);color:#bfdbfe;font-size:11px;font-weight:700;padding:5px 10px;border-radius:8px;text-decoration:none">📍 Maps</a>
+    </div></div>
+  </div>
+
+  <div class="cat-group" id="cat-salir">
+    <div class="place-card"><div class="place-header"><div class="place-name">La Luna</div><div class="place-badge">🎵 Bar clásico</div></div><div class="place-desc active" data-lang="es">Bar clásico en el centro. Rock y música latina. Cócteles, cervezas, vinos. Tapas y platos ligeros.</div><div class="place-desc" data-lang="en">Classic downtown bar. Rock and Latin music. Cocktails, beers, wines. Tapas and light dishes.</div><div class="place-desc" data-lang="pt">Bar clássico no centro. Rock e música latina. Coquetéis, cervejas, vinhos. Tapas e pratos leves.</div>
+    <div style="display:flex;gap:6px;margin-top:8px;flex-wrap:wrap">
+      <a href="https://www.google.com/maps/search/La+Luna+bar+Bariloche" target="_blank" style="display:inline-flex;align-items:center;gap:5px;background:rgba(37,99,235,0.12);border:1px solid rgba(37,99,235,0.3);color:#bfdbfe;font-size:11px;font-weight:700;padding:5px 10px;border-radius:8px;text-decoration:none">📍 Maps</a>
+    </div></div>
+
+    <div class="place-card"><div class="place-header"><div class="place-name">La Juana</div><div class="place-badge">💃 Baile</div></div><div class="place-desc active" data-lang="es">Ambiente vibrante y festivo. Música latina y reggaetón. Noches temáticas. Centro de Bariloche.</div><div class="place-desc" data-lang="en">Vibrant and festive atmosphere. Latin music and reggaeton. Themed nights. Downtown Bariloche.</div><div class="place-desc" data-lang="pt">Ambiente vibrante e festivo. Música latina e reggaetón. Noites temáticas. Centro de Bariloche.</div>
+    <div style="display:flex;gap:6px;margin-top:8px;flex-wrap:wrap">
+      <a href="https://www.google.com/maps/search/La+Juana+Bariloche" target="_blank" style="display:inline-flex;align-items:center;gap:5px;background:rgba(37,99,235,0.12);border:1px solid rgba(37,99,235,0.3);color:#bfdbfe;font-size:11px;font-weight:700;padding:5px 10px;border-radius:8px;text-decoration:none">📍 Maps</a>
+    </div></div>
+  </div>
+
+  </div>
+</div>
+
+<div style="height:1px;background:linear-gradient(90deg,transparent,#21262d,transparent);margin:0 1.5rem 1.5rem"></div>
+
+<!-- ROPA Y CLIMA -->
+<div style="padding:0 1.5rem 1.5rem">
+  <div style="font-size:10px;font-weight:800;letter-spacing:2.5px;text-transform:uppercase;color:#10b981;margin-bottom:1rem" id="outfit-title">👗 ¿Qué ropa llevar hoy?</div>
+
+  <!-- CLIMA ACTUAL BADGE -->
+  <div id="outfit-weather-badge" style="background:#161b22;border:1px solid #30363d;border-radius:12px;padding:10px 14px;display:flex;align-items:center;gap:10px;margin-bottom:12px">
+    <div style="font-size:24px" id="outfit-weather-icon">⏳</div>
+    <div>
+      <div style="font-size:13px;font-weight:700;color:#e6edf3" id="outfit-weather-text">Cargando clima...</div>
+      <div style="font-size:11px;color:#6b7280" id="outfit-weather-sub"></div>
+    </div>
+  </div>
+
+  <!-- ACTIVIDAD SELECTOR -->
+  <div style="font-size:11px;color:#6b7280;font-weight:600;margin-bottom:8px" id="outfit-act-label">¿A dónde vas hoy?</div>
+  <div style="display:flex;gap:7px;flex-wrap:wrap;margin-bottom:14px" id="outfit-act-btns">
+    <button onclick="setOutfit('ciudad')" class="out-btn active" style="background:rgba(37,99,235,0.15);border:1px solid rgba(37,99,235,0.35);color:#93c5fd;font-size:12px;font-weight:700;padding:7px 13px;border-radius:20px;cursor:pointer">🏙️ <span class="t" data-es="Ciudad" data-en="City" data-pt="Cidade">Ciudad</span></button>
+    <button onclick="setOutfit('montana')" class="out-btn" style="background:#161b22;border:1px solid #30363d;color:#6b7280;font-size:12px;font-weight:700;padding:7px 13px;border-radius:20px;cursor:pointer">⛰️ <span class="t" data-es="Montaña" data-en="Mountain" data-pt="Montanha">Montaña</span></button>
+    <button onclick="setOutfit('lago')" class="out-btn" style="background:#161b22;border:1px solid #30363d;color:#6b7280;font-size:12px;font-weight:700;padding:7px 13px;border-radius:20px;cursor:pointer">🌊 <span class="t" data-es="Lago / Playa" data-en="Lake / Beach" data-pt="Lago / Praia">Lago / Playa</span></button>
+    <button onclick="setOutfit('rio')" class="out-btn" style="background:#161b22;border:1px solid #30363d;color:#6b7280;font-size:12px;font-weight:700;padding:7px 13px;border-radius:20px;cursor:pointer">🏞️ <span class="t" data-es="Río / Cascada" data-en="River / Waterfall" data-pt="Rio / Cachoeira">Río / Cascada</span></button>
+    <button onclick="setOutfit('ski')" class="out-btn" style="background:#161b22;border:1px solid #30363d;color:#6b7280;font-size:12px;font-weight:700;padding:7px 13px;border-radius:20px;cursor:pointer">⛷️ <span class="t" data-es="Ski / Nieve" data-en="Ski / Snow" data-pt="Esqui / Neve">Ski / Nieve</span></button>
+    <button onclick="setOutfit('trekking')" class="out-btn" style="background:#161b22;border:1px solid #30363d;color:#6b7280;font-size:12px;font-weight:700;padding:7px 13px;border-radius:20px;cursor:pointer">🥾 <span class="t" data-es="Trekking" data-en="Trekking" data-pt="Trekking">Trekking</span></button>
+  </div>
+
+  <!-- OUTFIT RESULT -->
+  <div id="outfit-result" style="background:#161b22;border:1px solid #30363d;border-radius:14px;padding:1.1rem 1.2rem">
+    <div id="outfit-alert" style="display:none;padding:8px 12px;border-radius:8px;font-size:12px;font-weight:700;margin-bottom:10px"></div>
+    <div id="outfit-items" style="display:flex;flex-direction:column;gap:7px"></div>
+    <div id="outfit-tip" style="font-size:12px;color:#60a5fa;margin-top:10px;font-style:italic;border-top:1px solid #21262d;padding-top:8px"></div>
+  </div>
+</div>
+
+<div style="padding:0 1.5rem 1.5rem">
+  <div style="background:linear-gradient(135deg,#0a1628 0%,#0d2040 100%);border:1.5px solid rgba(147,197,253,0.4);border-radius:20px;padding:1.4rem;position:relative;overflow:hidden">
+    <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 20% 50%,rgba(147,197,253,0.08) 0%,transparent 60%)"></div>
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;position:relative">
+      <div style="font-size:28px">⛷️</div>
+      <div>
+        <div style="font-size:15px;font-weight:900;color:#fff" id="catedral-title">Cerro Catedral — Estado en tiempo real</div>
+        <div style="font-size:11px;color:#93c5fd;font-weight:600" id="catedral-sub">Nieve · Pistas · Condiciones del día</div>
+      </div>
+    </div>
+    <div style="font-size:13px;color:#e2e8f0;line-height:1.6;margin-bottom:14px;position:relative" id="catedral-desc">Antes de ir al cerro, revisá el parte de nieve oficial — cuántas pistas están abiertas, centímetros de nieve fresca y estado de las remontes.</div>
+    <div style="display:flex;flex-direction:column;gap:8px;position:relative">
+      <a href="https://www.catedralaltapatagonia.com/invierno/partes-de-nieve/" target="_blank" style="display:flex;align-items:center;justify-content:center;gap:8px;background:linear-gradient(135deg,#1d4ed8,#2563eb);color:#fff;font-size:13px;font-weight:800;padding:13px;border-radius:12px;text-decoration:none">
+        🌨️ <span id="catedral-btn1">Ver parte de nieve oficial</span>
+      </a>
+      <a href="https://www.catedralaltapatagonia.com/invierno/estado-de-pistas/" target="_blank" style="display:flex;align-items:center;justify-content:center;gap:8px;background:rgba(37,99,235,0.15);border:1px solid rgba(37,99,235,0.4);color:#bfdbfe;font-size:13px;font-weight:700;padding:12px;border-radius:12px;text-decoration:none">
+        🗺️ <span id="catedral-btn2">Estado de pistas del día</span>
+      </a>
+      <a href="https://www.catedralaltapatagonia.com/webcam/" target="_blank" style="display:flex;align-items:center;justify-content:center;gap:8px;background:rgba(16,185,129,0.12);border:1px solid rgba(16,185,129,0.35);color:#6ee7b7;font-size:13px;font-weight:700;padding:12px;border-radius:12px;text-decoration:none">
+        📷 <span id="catedral-btn3">Webcam en vivo del cerro</span>
+      </a>
+    </div>
+  </div>
+</div>
+
+<div style="height:1px;background:linear-gradient(90deg,transparent,#21262d,transparent);margin:0 1.5rem 1.5rem"></div>
+
+<div class="footer">
+  <div class="footer-logo">Bariloche Experiencias</div>
+  <strong style="color:#6b7280;display:block;font-size:13px;margin-bottom:6px"></strong>
+  Valen<br><br>
+  
+  <a href="https://www.instagram.com/https://www.instagram.com/pedrovolpacchio?igsh=bnM4Njhwd2JvZ2dv" target="_blank" style="color:#a78bfa;text-decoration:none;font-weight:600">@https://www.instagram.com/pedrovolpacchio?igsh=bnM4Njhwd2JvZ2dv</a>
+  
+  <div style="margin-top:12px;font-size:12px;color:#4b5563" id="footer-wa-msg">Contactanos por cualquier duda — respondemos rápido 🙌</div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script>
+// Datos del anfitrión inyectados desde Python
+window.PROPS = [{"idx": 1, "nombre": "Valen", "direccion": "", "lat": null, "lng": null, "barrio": "", "ciudad": "", "region": "", "country": "", "formatted": "", "maps_link": "https://maps.app.goo.gl/5tt1AtGttS1rzDPY6?g_st=ac", "instagram": "https://www.instagram.com/pedrovolpacchio?igsh=bnM4Njhwd2JvZ2dv", "video_es": {"kind": "photos", "embed_url": "", "raw_url": "https://photos.app.goo.gl/5rE7gGp7RuCJpedf6", "message": "Google Photos no permite embed; el video se abre en pestaña aparte. Para mejor experiencia, subir a YouTube como 'No listado'."}, "video_en": {"kind": "none", "embed_url": "", "raw_url": "", "message": ""}, "wifi_ssid": "", "wifi_pass": "Valen2", "welcome": {"es": {"title": "Bienvenidos al Valen", "sub": "En Bariloche"}, "en": {"title": "Welcome to Valen", "sub": "In Bariloche"}, "pt": {"title": "Bem-vindos ao Valen", "sub": "Em Bariloche"}}, "recomendaciones": [], "lugares": {}}];
+
+function loadVideo(el, id){
+  el.innerHTML='<iframe src="https://www.youtube.com/embed/'+id+'?autoplay=1" allowfullscreen allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" style="position:absolute;top:0;left:0;width:100%;height:100%;border:none"></iframe>';
+  el.style.cursor='default';
+}
+let currentLang='es';
+let currentDepto=1;
+let currentOutfit='ciudad';
+let weatherTemp=null;
+let weatherCode=null;
+let qrGenerated={};
+
+function syncVideos(){
+  // Solo placeholder — los videos ahora vienen del template Jinja con un solo
+  // bloque por depto (no ES+EN duplicados). Mantengo la función por compat.
+  return;
+}
+function setLang(lang){
+  currentLang=lang;
+  document.querySelectorAll('.lang-btn').forEach((b,i)=>b.classList.toggle('active',['es','en','pt'][i]===lang));
+  document.querySelectorAll('[data-lang]').forEach(el=>el.classList.toggle('active',el.dataset.lang===lang));
+  document.querySelectorAll('.t').forEach(el=>{const k='data-'+lang;if(el.hasAttribute(k))el.textContent=el.getAttribute(k)});
+  const expDescs={es:'exp-desc-es',en:'exp-desc-en',pt:'exp-desc-pt'};
+  Object.values(expDescs).forEach(id=>{const el=document.getElementById(id);if(el)el.style.display='none'});
+  const active=document.getElementById(expDescs[lang]);if(active)active.style.display='block';
+  const r={es:'Instrucciones de la casa',en:'House instructions',pt:'Instruções da casa'};
+  document.getElementById('rules-title').textContent=r[lang];
+  const tin={es:'Check-in',en:'Check-in',pt:'Check-in'};
+  const tout={es:'Check-out',en:'Check-out',pt:'Check-out'};
+  const sin={es:'En adelante',en:'Onwards',pt:'Em diante'};
+  const sout={es:'Máximo',en:'Maximum',pt:'Máximo'};
+  document.getElementById('tl-in').textContent=tin[lang];
+  document.getElementById('tl-out').textContent=tout[lang];
+  document.getElementById('ts-in').textContent=sin[lang];
+  document.getElementById('ts-out').textContent=sout[lang];
+  syncVideos();
+  const deptoLabels={es:'¿Cuál es tu departamento?',en:'Which is your apartment?',pt:'Qual é o seu apartamento?'};
+  const dl=document.getElementById('depto-label');if(dl)dl.textContent=deptoLabels[lang];
+  const expT={
+    es:{title:'Gemas ocultas de la Patagonia',desc:'Te llevamos a lugares únicos e inolvidables que solo los locales conocen — cascadas secretas, miradores sin turistas, rincones mágicos de la Patagonia que no vas a encontrar en ningún tour convencional.',book:'Reservar en Airbnb',ig:'Ver fotos'},
+    en:{title:'Hidden gems of Patagonia',desc:'We take you to unique and unforgettable places only locals know — secret waterfalls, tourist-free viewpoints, magical corners of Patagonia you won\'t find on any conventional tour.',book:'Book on Airbnb',ig:'See photos'},
+    pt:{title:'Joias escondidas da Patagônia',desc:'Levamos você a lugares únicos e inesquecíveis que só os locais conhecem — cachoeiras secretas, mirantes sem turistas, cantos mágicos da Patagônia.',book:'Reservar no Airbnb',ig:'Ver fotos'}
+  };
+  const t=expT[lang];
+  if(t){
+    const h=document.getElementById('exp-h-title');if(h)h.textContent=t.title;
+    const d=document.getElementById('exp-h-desc');if(d)d.textContent=t.desc;
+    const b=document.getElementById('exp-btn-book');if(b)b.textContent=t.book;
+    const ig=document.getElementById('exp-btn-ig');if(ig)ig.textContent=t.ig;
+  }
+  const heroTexts = {
+    es: {badge:'🏔️ Patagonia · Bariloche', title:'Bariloche<br>Experiencias', sub:'Tu guía completa'},
+    en: {badge:'🏔️ Patagonia · Bariloche', title:'Bariloche<br>Experiences',  sub:'Your complete guide'},
+    pt: {badge:'🏔️ Patagônia · Bariloche', title:'Bariloche<br>Experiências', sub:'Seu guia completo'}
+  };
+  const ht = heroTexts[lang];
+  const hb = document.getElementById('hero-badge'); if(hb) hb.textContent = ht.badge;
+  const hh = document.getElementById('hero-title'); if(hh) hh.innerHTML = ht.title;
+  const hs = document.getElementById('hero-sub');   if(hs) hs.textContent = ht.sub;
+  const waFloatText={es:'Contactanos',en:'Contact us',pt:'Fale conosco'};
+  const wft=document.getElementById('wa-float-text');if(wft)wft.textContent=waFloatText[lang];
+  const footerMsg={es:'Contactanos por cualquier duda — respondemos rápido 🙌',en:'Contact us for anything — we reply fast 🙌',pt:'Entre em contato com qualquer dúvida — respondemos rápido 🙌'};
+  const fm=document.getElementById('footer-wa-msg');if(fm)fm.textContent=footerMsg[lang];
+  const juaniT={
+    es:{title:'Moverse en Bariloche sin auto es difícil 🚗',desc:'Alquiler de confianza que usamos y recomendamos. Mencioná que venís de parte de <strong style="color:#e6edf3">Pedro Volpacchio</strong> — el mensaje ya está escrito, solo tocás enviar.',btn:'Contactar a Juani — de parte de Pedro'},
+    en:{title:'Getting around Bariloche without a car is tough 🚗',desc:'Our trusted car rental recommendation. Mention you\'re from <strong style="color:#e6edf3">Pedro Volpacchio\'s</strong> apartment — the message is pre-written, just hit send.',btn:'Contact Juani — from Pedro\'s place'},
+    pt:{title:'Se mover em Bariloche sem carro é difícil 🚗',desc:'Aluguel de confiança que usamos e recomendamos. Mencione que vem do apartamento de <strong style="color:#e6edf3">Pedro Volpacchio</strong> — a mensagem já está escrita, só enviar.',btn:'Contatar Juani — da parte de Pedro'}
+  };
+  const jt=juaniT[lang];
+  if(jt){
+    const jti=document.getElementById('juani-title');if(jti)jti.textContent=jt.title;
+    const jd=document.getElementById('juani-desc');if(jd)jd.innerHTML=jt.desc;
+    const jb=document.getElementById('juani-btn');if(jb)jb.textContent=jt.btn;
+  }
+  const catedralT={
+    es:{title:'Cerro Catedral — Estado en tiempo real',sub:'Nieve · Pistas · Condiciones del día',desc:'Antes de ir al cerro, revisá el parte de nieve oficial — cuántas pistas están abiertas, centímetros de nieve fresca y estado de las remontes.',btn1:'Ver parte de nieve oficial',btn2:'Estado de pistas del día',btn3:'Webcam en vivo del cerro'},
+    en:{title:'Cerro Catedral — Real-time conditions',sub:'Snow · Slopes · Daily conditions',desc:'Before heading to the mountain, check the official snow report — how many slopes are open, fresh snow depth and lift status.',btn1:'View official snow report',btn2:'Daily slope status',btn3:'Live webcam from the mountain'},
+    pt:{title:'Cerro Catedral — Condições em tempo real',sub:'Neve · Pistas · Condições do dia',desc:'Antes de ir à montanha, verifique o boletim de neve oficial — quantas pistas estão abertas, centímetros de neve fresca e estado dos elevadores.',btn1:'Ver boletim de neve oficial',btn2:'Estado das pistas do dia',btn3:'Webcam ao vivo da montanha'}
+  };
+  const ct=catedralT[lang];
+  if(ct){
+    const e1=document.getElementById('catedral-title');if(e1)e1.textContent=ct.title;
+    const e2=document.getElementById('catedral-sub');if(e2)e2.textContent=ct.sub;
+    const e3=document.getElementById('catedral-desc');if(e3)e3.textContent=ct.desc;
+    const e4=document.getElementById('catedral-btn1');if(e4)e4.textContent=ct.btn1;
+    const e5=document.getElementById('catedral-btn2');if(e5)e5.textContent=ct.btn2;
+    const e6=document.getElementById('catedral-btn3');if(e6)e6.textContent=ct.btn3;
+  }
+  const videoLabels = {
+    es: 'Estacionamiento, ubicación y llaves',
+    en: 'Estacionamiento, ubicación y llaves',
+    pt: 'Estacionamento, localização e chaves'
+  };
+  const vl = videoLabels[lang];
+  const vl1 = document.getElementById('vd1-es-label'); if(vl1) vl1.textContent = vl;
+  const vl2 = document.getElementById('vd2-es-label'); if(vl2) vl2.textContent = vl;
+  renderOutfit();
+  updateWelcome();
+}
+function setTab(tab){
+  const already = document.querySelector('.tab.active')?.getAttribute('onclick')?.includes("'"+tab+"'");
+  document.querySelectorAll('.tab').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('.cat-group').forEach(g=>g.style.display='none');
+  if(!already){
+    document.querySelector(`.tab[onclick*="'${tab}'"]`)?.classList.add('active');
+    document.getElementById('cat-'+tab).style.display='block';
+  }
+}
+function updateWelcome(){
+  const lang=currentLang;
+  if (!window.PROPS || window.PROPS.length === 0) return;
+  // currentDepto ya guarda el índice activo
+  const idx = (typeof currentDepto === 'number' ? currentDepto : 1) - 1;
+  const prop = window.PROPS[idx] || window.PROPS[0];
+  if (!prop || !prop.welcome) return;
+  const w = prop.welcome[lang] || prop.welcome.es;
+  const t=document.getElementById('welcome-title');if(t)t.textContent=w.title;
+  const s=document.getElementById('welcome-sub');if(s)s.textContent=w.sub;
+}
+function setDepto(dep){
+  const idx = parseInt(dep.replace('d',''), 10);
+  currentDepto = idx;
+  document.querySelectorAll('.depto-btn').forEach((b,i)=>b.classList.toggle('active', i === idx-1));
+  document.querySelectorAll('.depto-group').forEach(g=>g.classList.remove('visible'));
+  const dg = document.getElementById('dep-d'+idx); if(dg) dg.classList.add('visible');
+  // Mostrar WiFi y Maps de la propiedad activa
+  if (window.PROPS) {
+    for (let i = 1; i <= window.PROPS.length; i++) {
+      const w = document.getElementById('wifi-d'+i); if (w) w.style.display = i === idx ? 'block' : 'none';
+      const m = document.getElementById('maps-top-d'+i); if (m) m.style.display = i === idx ? 'block' : 'none';
+    }
+  }
+  syncVideos();
+  updateWelcome();
+}
+function setExt(tab){
+  const already = document.querySelector('.ext-tab.active')?.getAttribute('onclick')?.includes("'"+tab+"'");
+  document.querySelectorAll('.ext-tab').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('.ext-group').forEach(g=>g.style.display='none');
+  if(!already){
+    document.querySelector(`.ext-tab[onclick*="'${tab}'"]`)?.classList.add('active');
+    document.getElementById('ext-'+tab).style.display='block';
+  }
+}
+async function loadWeather(){
+  const wc={0:'Despejado',1:'Mayormente despejado',2:'Parcialmente nublado',3:'Nublado',45:'Neblina',51:'Llovizna',61:'Lluvia',71:'Nevada',80:'Chubascos',95:'Tormenta'};
+  const days=['Dom','Lun','Mar','Mié','Jue','Vie','Sáb'];
+  const gi=c=>{if(c<=1)return'☀️';if(c<=3)return'⛅';if(c<=48)return'🌫️';if(c<=55)return'🌦️';if(c<=65)return'🌧️';if(c<=75)return'🌨️';if(c<=82)return'🌦️';return'⛈️'};
+  try{
+    const r=await fetch('https://api.open-meteo.com/v1/forecast?latitude=-41.1335&longitude=-71.3103&current=temperature_2m,weather_code,wind_speed_10m&daily=weather_code,temperature_2m_max,temperature_2m_min&timezone=America%2FArgentina%2FBuenos_Aires&forecast_days=4');
+    const d=await r.json();
+    const cur=d.current,day=d.daily;
+    let fc='';
+    for(let i=1;i<4;i++){const dt=new Date(day.time[i]+'T12:00:00');fc+=`<div class="fc-day"><div class="fc-label">${days[dt.getDay()]}</div><div class="fc-icon">${gi(day.weather_code[i])}</div><div class="fc-hi">${Math.round(day.temperature_2m_max[i])}°</div><div class="fc-lo">${Math.round(day.temperature_2m_min[i])}°</div></div>`;}
+    document.getElementById('weather-content').innerHTML=`<div class="weather-now"><div><div class="weather-temp">${Math.round(cur.temperature_2m)}°C</div><div style="font-size:11px;color:#6b7280;margin-top:2px">Bariloche ahora</div></div><div class="weather-info"><div class="weather-desc">${gi(cur.weather_code)} ${wc[cur.weather_code]||'Variable'}</div><div class="weather-wind">💨 ${Math.round(cur.wind_speed_10m)} km/h</div></div></div><div class="weather-forecast">${fc}</div>`;
+    weatherTemp=cur.temperature_2m;
+    weatherCode=cur.weather_code;
+    const icon=gi(cur.weather_code);
+    const el=document.getElementById('outfit-weather-icon');if(el)el.textContent=icon;
+    const wt=document.getElementById('outfit-weather-text');if(wt)wt.textContent=`${Math.round(cur.temperature_2m)}°C · ${wc[cur.weather_code]||'Variable'}`;
+    const ws=document.getElementById('outfit-weather-sub');if(ws)ws.textContent=`💨 Viento ${Math.round(cur.wind_speed_10m)} km/h`;
+    renderOutfit();
+  }catch(e){document.getElementById('weather-content').innerHTML='<div class="weather-loading">No se pudo cargar el clima.</div>';}
+}
+loadWeather();
+renderOutfit();
+
+function setOutfit(act){
+  currentOutfit=act;
+  document.querySelectorAll('.out-btn').forEach(b=>{
+    const isActive=b.getAttribute('onclick')===`setOutfit('${act}')`;
+    b.style.background=isActive?'rgba(37,99,235,0.15)':'#161b22';
+    b.style.borderColor=isActive?'rgba(37,99,235,0.35)':'#30363d';
+    b.style.color=isActive?'#93c5fd':'#6b7280';
+  });
+  renderOutfit();
+}
+
+function renderOutfit(){
+  const lang=currentLang;
+  const temp=weatherTemp;
+  const act=currentOutfit;
+  const cold=temp!==null&&temp<=5;
+  const cool=temp!==null&&temp>5&&temp<=14;
+  const mild=temp!==null&&temp>14&&temp<=22;
+  const warm=temp!==null&&temp>22;
+  const rainy=weatherCode!==null&&(weatherCode>=51&&weatherCode<=82);
+  const snowy=weatherCode!==null&&(weatherCode>=71&&weatherCode<=77);
+
+  const mk=(msg,color,border,text)=>({msg,color,border,text});
+  const coldAlert=mk('🥶 Hace mucho frío — abrigáte bien / Very cold — dress warmly','rgba(147,197,253,0.15)','rgba(147,197,253,0.3)','#93c5fd');
+  const rainAlert=mk('🌧️ Hay lluvia — llevá impermeable / Rain expected — bring waterproof','rgba(251,191,36,0.12)','rgba(251,191,36,0.3)','#fbbf24');
+  const warmAlert=mk('☀️ Día cálido y lindo / Beautiful warm day','rgba(16,185,129,0.12)','rgba(16,185,129,0.3)','#6ee7b7');
+
+  const outfits={
+    ciudad:{
+      alert:cold?coldAlert:rainy?rainAlert:warm?warmAlert:null,
+      es:{items:cold?['🧥 Campera de abrigo o puffer','🧣 Bufanda y gorro','👕 Ropa térmica abajo','👖 Pantalón abrigado','👟 Zapatillas o botas']:cool?['🧥 Campera o polar','👕 Remera + capa abajo','👖 Jean','👟 Zapatillas']:mild?['👕 Remera o camisa','🧥 Campera liviana','👖 Jean liviano','👟 Zapatillas']:['👕 Ropa liviana','🕶️ Anteojos de sol','🧴 Protector solar','🧥 Campera para el atardecer'],tip:rainy?'💡 En Bariloche llueve de repente. El centro tiene galerías para refugiarse.':cold?'💡 El viento patagónico hace que se sienta más frío. Tapáte las orejas.':'💡 Aunque haga calor al mediodía, la tarde siempre refresca. Siempre llevá campera.'},
+      en:{items:cold?['🧥 Puffer jacket or heavy coat','🧣 Scarf and hat','👕 Thermal base layer','👖 Warm pants','👟 Boots or sneakers']:cool?['🧥 Jacket or fleece','👕 T-shirt + layer','👖 Jeans','👟 Sneakers']:mild?['👕 T-shirt or shirt','🧥 Light jacket (always)','👖 Light jeans','👟 Sneakers']:['👕 Light clothing','🕶️ Sunglasses','🧴 Sunscreen','🧥 Jacket for evening'],tip:rainy?'💡 Rain can come suddenly. The city center has covered walkways.':cold?'💡 Patagonian wind makes it feel even colder. Cover your ears.':'💡 Even on warm days, evenings get cool. Always carry a jacket.'},
+      pt:{items:cold?['🧥 Jaqueta de pluma ou casaco','🧣 Cachecol e gorro','👕 Roupa térmica','👖 Calça de lã','👟 Botas']:cool?['🧥 Jaqueta ou fleece','👕 Camiseta + camada','👖 Calça jeans','👟 Tênis']:mild?['👕 Camiseta','🧥 Jaqueta leve','👖 Calça leve','👟 Tênis']:['👕 Roupa leve','🕶️ Óculos de sol','🧴 Protetor solar','🧥 Jaqueta para a tarde'],tip:'💡 Mesmo em dias quentes, a tarde esfria. Leve sempre uma jaqueta.'}
+    },
+    montana:{
+      alert:mk('⚠️ En la montaña el clima cambia muy rápido — siempre ropa extra / Mountain weather changes fast','rgba(239,68,68,0.12)','rgba(239,68,68,0.3)','#fca5a5'),
+      es:{items:['🧥 Campera impermeable cortaviento (obligatorio)','🧣 Buff o bufanda','🎒 Mochila pequeña','👟 Zapatillas trekking o botas','🧦 Medias extra','🧴 Protector solar + labial','💧 Agua mínimo 1.5L','🍫 Snack energético'],tip:'💡 Sistema de capas: térmica + polar + impermeable. En la montaña puede haber sol, viento y lluvia el mismo día.'},
+      en:{items:['🧥 Waterproof windbreaker (essential)','🧣 Neck gaiter','🎒 Small backpack','👟 Trekking shoes or boots','🧦 Extra socks','🧴 Sunscreen + lip balm','💧 1.5L water minimum','🍫 Energy snack'],tip:'💡 Layer system: thermal + fleece + waterproof. Mountains can have sun, wind and rain all in one day.'},
+      pt:{items:['🧥 Jaqueta impermeável (obrigatório)','🧣 Buff ou cachecol','🎒 Mochila pequena','👟 Tênis de trilha ou botas','🧦 Meias extras','🧴 Protetor solar + labial','💧 1,5L de água','🍫 Lanche energético'],tip:'💡 Sistema de camadas: térmico + fleece + impermeável. Na montanha pode ter sol, vento e chuva no mesmo dia.'}
+    },
+    lago:{
+      alert:warm?mk('☀️ Día ideal para el lago — el agua es fría siempre / Perfect lake day — water is always cold','rgba(16,185,129,0.12)','rgba(16,185,129,0.3)','#6ee7b7'):cold?mk('🥶 El lago en invierno es hermoso pero hace mucho frío / Beautiful winter lake — very cold','rgba(147,197,253,0.15)','rgba(147,197,253,0.3)','#93c5fd'):null,
+      es:{items:['👙 Malla (el agua nunca pasa de 18°C)','🧥 Campera impermeable','🕶️ Anteojos de sol','🧴 Protector solar (reflejo quema mucho)','🩴 Ojotas o calzado de agua','🎒 Bolso impermeable','🏄 Toalla'],tip:'💡 El Nahuel Huapi es agua glaciar — muy fría. El viento en el lago puede ser muy fuerte de tarde.'},
+      en:{items:['👙 Swimsuit (water max 18°C)','🧥 Waterproof jacket','🕶️ Sunglasses','🧴 Sunscreen (water reflection burns)','🩴 Flip flops or water shoes','🎒 Waterproof bag','🏄 Towel'],tip:'💡 Nahuel Huapi is glacial water — always cold. Afternoon winds on the lake can be very strong.'},
+      pt:{items:['👙 Maiô (água máx 18°C)','🧥 Jaqueta impermeável','🕶️ Óculos de sol','🧴 Protetor solar (reflexo queima)','🩴 Chinelo ou calçado aquático','🎒 Bolsa impermeável','🏄 Toalha'],tip:'💡 O Nahuel Huapi é água glacial — sempre fria. O vento à tarde pode ser muito forte.'}
+    },
+    rio:{
+      alert:mk('💧 Los ríos patagónicos son fríos y con caudal fuerte / Patagonian rivers are cold with strong currents','rgba(147,197,253,0.15)','rgba(147,197,253,0.3)','#93c5fd'),
+      es:{items:['👟 Calzado con agarre que pueda mojarse','🩳 Short o ropa de secado rápido','🧥 Campera impermeable','🕶️ Anteojos de sol','🧴 Protector solar','🎒 Bolso impermeable para el celular','🧦 Medias secas de repuesto'],tip:'💡 Los ríos y cascadas patagónicas tienen mucha corriente. No entrar a zonas no habilitadas. El Cajón del Azul y el Río Manso son impresionantes.'},
+      en:{items:['👟 Grip shoes that can get wet','🩳 Shorts or quick-dry clothing','🧥 Waterproof jacket','🕶️ Sunglasses','🧴 Sunscreen','🎒 Waterproof bag for phone','🧦 Dry spare socks'],tip:'💡 Patagonian rivers have strong currents. Stay in designated safe areas. Cajón del Azul and Río Manso are stunning.'},
+      pt:{items:['👟 Calçado com aderência que possa molhar','🩳 Short ou roupa de secagem rápida','🧥 Jaqueta impermeável','🕶️ Óculos de sol','🧴 Protetor solar','🎒 Bolsa impermeável','🧦 Meias secas extras'],tip:'💡 Rios patagônicos têm correnteza forte. Fique em áreas seguras. O Cajón del Azul e o Rio Manso são incríveis.'}
+    },
+    ski:{
+      alert:mk('⛷️ Para ski necesitás ropa técnica — podés alquilar todo en la base del Catedral / Ski gear available to rent at Catedral base','rgba(147,197,253,0.15)','rgba(147,197,253,0.3)','#93c5fd'),
+      es:{items:['🧥 Campera de ski impermeable','👖 Pantalón de nieve','🧤 Guantes de ski (obligatorio)','🥽 Antiparras (obligatorio — protegen viento y UV)','🎿 Casco o gorro de lana','👕 Ropa térmica 1ra capa','🧣 Buff o cuello polar','👢 Botas de ski (alquilar en base Vertical)'],tip:'💡 Los antiparras son obligatorios en la montaña. Sin ellos el viento no te deja ver. Podés alquilar TODO el equipo en la base del cerro — campera, pantalón, botas, esquíes.'},
+      en:{items:['🧥 Waterproof ski jacket','👖 Snow pants','🧤 Ski gloves (essential)','🥽 Ski goggles (essential — wind & UV protection)','🎿 Helmet or wool hat','👕 Thermal base layer','🧣 Neck gaiter','👢 Ski boots (rent at Vertical base shop)'],tip:'💡 Ski goggles are essential — wind makes it impossible to see without them. You can rent ALL equipment at the mountain base: jacket, pants, boots, skis.'},
+      pt:{items:['🧥 Jaqueta de esqui impermeável','👖 Calça de neve','🧤 Luvas de esqui (obrigatório)','🥽 Óculos de ski (obrigatório)','🎿 Capacete ou gorro de lã','👕 Roupa térmica base','🧣 Gola polar','👢 Botas de esqui (alugar na base Vertical)'],tip:'💡 Óculos de ski são obrigatórios — o vento impossibilita a visão sem eles. Pode alugar TODO o equipamento na base da montanha.'}
+    },
+    trekking:{
+      alert:mk('🥾 El clima puede cambiar a mitad del trekking — llevá siempre ropa extra / Weather can change mid-hike — always pack extra layers','rgba(239,68,68,0.12)','rgba(239,68,68,0.3)','#fca5a5'),
+      es:{items:['🧥 Campera impermeable cortaviento','👕 Remera técnica (no algodón — se moja y enfría)','🧥 Polar o capa intermedia','👖 Pantalón de trekking','👟 Botas de trekking con caña alta','🧦 Medias gruesas de lana','🎒 Mochila 20-30L','💧 2L de agua mínimo','🍫 Snacks energéticos','🧴 Protector solar + labial','🗺️ Ruta descargada (sin señal en montaña)'],tip:'💡 Nunca uses zapatillas comunes en trekking de montaña. Los tobillos y el agarre son cruciales. El Cerro Frey tiene roca resbaladiza — ir con botas.'},
+      en:{items:['🧥 Waterproof windbreaker','👕 Technical shirt (no cotton — gets cold when wet)','🧥 Fleece mid-layer','👖 Trekking pants','👟 High-ankle trekking boots','🧦 Thick wool socks','🎒 20-30L backpack','💧 2L water minimum','🍫 Energy snacks','🧴 Sunscreen + lip balm','🗺️ Route downloaded (no signal on mountain)'],tip:'💡 Never use regular sneakers for mountain trekking. Ankle support and grip are crucial. Cerro Frey has slippery rock sections — boots required.'},
+      pt:{items:['🧥 Jaqueta impermeável cortavento','👕 Camiseta técnica (não algodão)','🧥 Fleece camada intermediária','👖 Calça de trekking','👟 Botas de trekking cano alto','🧦 Meias grossas de lã','🎒 Mochila 20-30L','💧 2L de água','🍫 Snacks energéticos','🧴 Protetor solar + labial','🗺️ Rota baixada offline'],tip:'💡 Nunca use tênis comuns em trekking de montanha. Suporte para tornozelo e aderência são cruciais. Cerro Frey tem rocha escorregadia.'}
+    }
+  };
+
+  const o=outfits[act];
+  if(!o)return;
+  const alert=o.alert||(cold?coldAlert:rainy?rainAlert:null);
+  const alertEl=document.getElementById('outfit-alert');
+  if(alert){alertEl.style.display='block';alertEl.style.background=alert.color;alertEl.style.border='1px solid '+alert.border;alertEl.style.color=alert.text;alertEl.textContent=alert.msg;}
+  else{alertEl.style.display='none';}
+  const ld=o[lang]||o.es;
+  document.getElementById('outfit-items').innerHTML=ld.items.map(i=>`<div style="display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid #21262d;font-size:13px;color:#c9d1d9">${i}</div>`).join('');
+  document.getElementById('outfit-tip').textContent=ld.tip||'';
+  const titles={es:'👗 ¿Qué ropa llevar hoy?',en:'👗 What to wear today?',pt:'👗 O que vestir hoje?'};
+  const actLabels={es:'¿A dónde vas hoy?',en:'Where are you going today?',pt:'Para onde você vai hoje?'};
+  const el=document.getElementById('outfit-title');if(el)el.textContent=titles[lang];
+  const al=document.getElementById('outfit-act-label');if(al)al.textContent=actLabels[lang];
+}
+function toggleQR(idx){
+  // idx puede venir como número (1,2) o string legacy ('qr1','qr2') — soportamos ambos
+  if (typeof idx === 'string') idx = parseInt(idx.replace(/\D/g,''), 10) || 1;
+  const panel = document.getElementById('qr-d' + idx);
+  if (!panel) return;
+  panel.classList.toggle('open');
+  if (panel.classList.contains('open') && !qrGenerated[idx]) {
+    const prop = window.PROPS && window.PROPS[idx - 1];
+    if (prop && prop.wifi_ssid && prop.wifi_pass && window.QRCode) {
+      const str = 'WIFI:T:WPA;S:' + prop.wifi_ssid + ';P:' + prop.wifi_pass + ';;';
+      QRCode.toCanvas(document.getElementById('canvas-qr-d' + idx), str,
+        {width: 200, margin: 2, color: {dark:'#000000', light:'#ffffff'}});
+      qrGenerated[idx] = true;
+    }
+  }
+}
+</script>
+</body>
+</html>
