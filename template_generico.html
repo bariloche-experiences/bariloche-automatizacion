@@ -182,6 +182,12 @@ body[data-theme="selva"]   {background:#0a140d}
 .extras-content{flex:1;min-width:0}
 .extras-content h3{font-size:14px;font-weight:700;color:#fff;margin-bottom:4px}
 .extras-content p{font-size:13px;color:#94a3b8;line-height:1.5;margin:0 0 6px 0}
+{% if country == "Argentina" %}
+.curr-btn{background:#161b22;border:1px solid #374151;color:#6b7280;font-size:13px;font-weight:700;padding:8px 16px;border-radius:20px;cursor:pointer;transition:all 0.2s;white-space:nowrap}
+.curr-btn.active{background:rgba(245,158,11,0.2);border-color:rgba(245,158,11,0.5);color:#fbbf24}
+#curr-input::-webkit-inner-spin-button,#curr-input::-webkit-outer-spin-button{-webkit-appearance:none}
+#curr-input{-moz-appearance:textfield}
+{% endif %}
 </style>
 </head>
 <body data-theme="{{ marca.theme or 'ciudad' }}">
@@ -745,6 +751,32 @@ body[data-theme="selva"]   {background:#0a140d}
 
 <div style="height:1px;background:linear-gradient(90deg,transparent,#21262d,transparent);margin:0 1.5rem 1.5rem"></div>
 
+{% if country == "Argentina" %}
+<!-- CONVERSOR DE MONEDA -->
+<div style="padding:0 1.5rem 1.5rem">
+  <div style="font-size:10px;font-weight:800;letter-spacing:2.5px;text-transform:uppercase;color:#fbbf24;margin-bottom:8px;padding-left:2px"><span class="t" data-es="💱 Conversor al Dólar Blue" data-en="💱 Blue Dollar Converter" data-pt="💱 Conversor Dólar Blue">💱 Conversor al Dólar Blue</span></div>
+  <div style="background:linear-gradient(135deg,#0f0800 0%,#1e1400 100%);border:1.5px solid rgba(251,191,36,0.35);border-radius:20px;padding:1.3rem 1.4rem">
+    <div style="display:flex;gap:7px;margin-bottom:14px;flex-wrap:wrap">
+      <button class="curr-btn active" data-curr="USD" onclick="setCurr('USD')">🇺🇸 USD</button>
+      <button class="curr-btn" data-curr="EUR" onclick="setCurr('EUR')">🇪🇺 EUR</button>
+      <button class="curr-btn" data-curr="BRL" onclick="setCurr('BRL')">🇧🇷 BRL</button>
+      <button class="curr-btn" data-curr="CLP" onclick="setCurr('CLP')">🇨🇱 CLP</button>
+    </div>
+    <div style="display:flex;gap:8px;margin-bottom:12px">
+      <input id="curr-input" type="number" min="0" placeholder="100" inputmode="decimal" onkeydown="if(event.key==='Enter')convertCurr()" style="flex:1;background:#0d1117;border:1px solid #374151;border-radius:12px;padding:12px 14px;font-size:20px;font-weight:700;color:#fff;outline:none;min-width:0">
+      <button onclick="convertCurr()" style="background:linear-gradient(135deg,#f59e0b,#d97706);color:#fff;font-size:14px;font-weight:800;padding:12px 18px;border-radius:12px;border:none;cursor:pointer;white-space:nowrap;flex-shrink:0"><span class="t" data-es="Convertir" data-en="Convert" data-pt="Converter">Convertir</span></button>
+    </div>
+    <div id="curr-result" style="display:none;background:#0d1117;border:1px solid rgba(251,191,36,0.2);border-radius:12px;padding:14px 16px;text-align:center;margin-bottom:10px">
+      <div style="font-size:12px;color:#6b7280;margin-bottom:3px" id="curr-result-label"></div>
+      <div style="font-size:2.4rem;font-weight:900;color:#fbbf24;line-height:1.1" id="curr-result-ars"></div>
+      <div style="font-size:11px;color:#6b7280;margin-top:5px" id="curr-rate-info"></div>
+    </div>
+    <div style="font-size:11px;color:#6b7280;text-align:center" id="curr-status">Cargando cotización...</div>
+  </div>
+</div>
+<div style="height:1px;background:linear-gradient(90deg,transparent,#21262d,transparent);margin:0 1.5rem 1.5rem"></div>
+{% endif %}
+
 <div class="footer">
   <div class="footer-logo">{{ marca.nombre_corto }}</div>
   <strong style="color:#6b7280;display:block;font-size:13px;margin-bottom:6px">{{ propiedades[0].direccion }}</strong>
@@ -775,6 +807,7 @@ let currentDepto=1;
 let currentOutfit = (window.OUTFITS && window.OUTFITS[0] && window.OUTFITS[0].key) || 'ciudad';
 let weatherTemp=null;
 let weatherCode=null;
+{% if country == "Argentina" %}let blueUSD=null,fxRates=null,currentCurr='USD';{% endif %}
 let qrGenerated={};
 
 function syncVideos(){
@@ -887,6 +920,7 @@ async function loadWeather(){
   }catch(e){document.getElementById('weather-content').innerHTML='<div class="weather-loading">No se pudo cargar el clima.</div>';}
 }
 loadWeather();
+{% if country == "Argentina" %}loadCurrencyRates();{% endif %}
 renderOutfit();
 
 function setOutfit(act){
@@ -939,6 +973,35 @@ function renderOutfit(){
   const titleEl = document.getElementById('outfit-title');
   if (titleEl) titleEl.textContent = titles[lang];
 }
+{% if country == "Argentina" %}
+async function loadCurrencyRates(){
+  try{
+    const[br,fr]=await Promise.all([fetch('https://api.bluelytics.com.ar/v2/latest'),fetch('https://open.er-api.com/v6/latest/USD')]);
+    const bd=await br.json(),fd=await fr.json();
+    blueUSD=bd.blue.value_sell;fxRates=fd.rates;
+    const t=new Date(bd.last_update).toLocaleTimeString('es-AR',{hour:'2-digit',minute:'2-digit'});
+    const s=document.getElementById('curr-status');if(s)s.textContent=`💛 1 USD Blue = $${Math.round(blueUSD).toLocaleString('es-AR')} ARS · ${t}`;
+  }catch(e){const s=document.getElementById('curr-status');if(s)s.textContent='No se pudo cargar la cotización';}
+}
+function setCurr(c){
+  currentCurr=c;
+  document.querySelectorAll('.curr-btn').forEach(b=>b.classList.toggle('active',b.dataset.curr===c));
+  document.getElementById('curr-result').style.display='none';
+}
+function convertCurr(){
+  if(!blueUSD||!fxRates)return;
+  const amount=parseFloat(document.getElementById('curr-input').value);
+  if(!amount||amount<=0)return;
+  const ratePerUnit=currentCurr==='USD'?blueUSD:blueUSD/fxRates[currentCurr];
+  const arsAmount=amount*ratePerUnit;
+  const fmt=n=>Math.round(n).toLocaleString('es-AR');
+  const amtFmt=Number.isInteger(amount)?amount.toLocaleString('es-AR'):amount.toLocaleString('es-AR',{maximumFractionDigits:2});
+  document.getElementById('curr-result-label').textContent=`${amtFmt} ${currentCurr} =`;
+  document.getElementById('curr-result-ars').textContent=`$${fmt(arsAmount)}`;
+  document.getElementById('curr-rate-info').textContent=`1 ${currentCurr} ≈ $${fmt(ratePerUnit)} ARS · Dólar Blue`;
+  document.getElementById('curr-result').style.display='block';
+}
+{% endif %}
 function toggleQR(idx){
   // idx puede venir como número (1,2) o string legacy ('qr1','qr2') — soportamos ambos
   if (typeof idx === 'string') idx = parseInt(idx.replace(/\D/g,''), 10) || 1;

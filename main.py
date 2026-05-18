@@ -1616,6 +1616,7 @@ def main():
                     "marca": marca,
                     "ciudad": ciudad,
                     "region": region_label,
+                    "country": country,
                     "tip_local": ctx_ciudad.get("tip_local", {"es": "", "en": "", "pt": ""}),
                     "tips_locales": ctx_ciudad.get("tips_locales", []),
                     "outfit_actividades": ctx_ciudad.get("outfit_actividades", []),
