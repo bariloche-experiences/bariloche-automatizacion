@@ -423,7 +423,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 <div class="sec">
   <div class="sec-title green">🛠️ Info útil · Useful info</div>
   <div class="extras-tabs">
-    <button class="ext-tab active" onclick="setExt('autos')">🚗 Autos</button>
+    <button class="ext-tab" onclick="setExt('autos')">🚗 Autos</button>
     <button class="ext-tab" onclick="setExt('colectivos')">🚌 Colectivos</button>
     <button class="ext-tab" onclick="setExt('temporadas')">🍂 Temporadas</button>
     <button class="ext-tab" onclick="setExt('tips')">🧠 Tips locales</button>
@@ -432,7 +432,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
   </div>
 
   <!-- AUTOS -->
-  <div class="ext-group visible" id="ext-autos">
+  <div class="ext-group" id="ext-autos">
     <div class="service-card">
       <div class="service-header">
         <div class="service-icon green">🚗</div>
@@ -570,7 +570,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 
 <div class="tabs-wrap">
   <div class="tabs">
-    <button class="tab active" onclick="setTab('atracciones')">⛰️ <span class="t" data-es="Atracciones" data-en="Attractions" data-pt="Atrações">Atracciones</span></button>
+    <button class="tab" onclick="setTab('atracciones')">⛰️ <span class="t" data-es="Atracciones" data-en="Attractions" data-pt="Atrações">Atracciones</span></button>
     <button class="tab" onclick="setTab('restaurantes')">🍽️ <span class="t" data-es="Restaurantes" data-en="Restaurants" data-pt="Restaurantes">Restaurantes</span></button>
     <button class="tab" onclick="setTab('cervecerias')">🍺 <span class="t" data-es="Cervezas" data-en="Breweries" data-pt="Cervejas">Cervezas</span></button>
     <button class="tab" onclick="setTab('salir')">🎶 <span class="t" data-es="Salir" data-en="Nightlife" data-pt="Sair">Salir</span></button>
@@ -578,7 +578,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 </div>
 
 <div class="places-wrap">
-  <div class="cat-group visible" id="cat-atracciones">
+  <div class="cat-group" id="cat-atracciones">
     <div class="place-card"><div class="place-header"><div class="place-name">Cerro Otto</div><div class="place-badge">⭐ Clásico</div></div><div class="place-desc active" data-lang="es">Atardecer increíble. Invierno: culopatin y aventura. Verano: bicicletas para bajar. Confitería giratoria en la cima.</div><div class="place-desc" data-lang="en">Incredible sunset. Winter: sleds & adventure. Summer: bikes to descend. Rotating café at the summit.</div><div class="place-desc" data-lang="pt">Pôr do sol incrível. Inverno: trenós e aventura. Verão: bicicletas para descer. Confeitaria giratória no cume.</div>
     <div style="display:flex;gap:6px;margin-top:8px;flex-wrap:wrap">
       <a href="https://www.google.com/maps/search/Cerro+Otto+Bariloche" target="_blank" style="display:inline-flex;align-items:center;gap:5px;background:rgba(37,99,235,0.12);border:1px solid rgba(37,99,235,0.3);color:#bfdbfe;font-size:11px;font-weight:700;padding:5px 10px;border-radius:8px;text-decoration:none">📍 Maps</a>
@@ -959,10 +959,13 @@ function setLang(lang){
   updateWelcome();
 }
 function setTab(tab){
-  const tabs=['atracciones','restaurantes','cervecerias','salir'];
-  document.querySelectorAll('.tab').forEach((b,i)=>b.classList.toggle('active',tabs[i]===tab));
+  const already = document.querySelector('.tab.active')?.getAttribute('onclick')?.includes("'"+tab+"'");
+  document.querySelectorAll('.tab').forEach(b=>b.classList.remove('active'));
   document.querySelectorAll('.cat-group').forEach(g=>g.style.display='none');
-  document.getElementById('cat-'+tab).style.display='block';
+  if(!already){
+    document.querySelector(`.tab[onclick*="'${tab}'"]`)?.classList.add('active');
+    document.getElementById('cat-'+tab).style.display='block';
+  }
 }
 function updateWelcome(){
   const lang=currentLang;
@@ -992,10 +995,13 @@ function setDepto(dep){
   updateWelcome();
 }
 function setExt(tab){
-  const tabs=['autos','colectivos','temporadas','tips','basicos'];
-  document.querySelectorAll('.ext-tab').forEach((b,i)=>b.classList.toggle('active',tabs[i]===tab));
+  const already = document.querySelector('.ext-tab.active')?.getAttribute('onclick')?.includes("'"+tab+"'");
+  document.querySelectorAll('.ext-tab').forEach(b=>b.classList.remove('active'));
   document.querySelectorAll('.ext-group').forEach(g=>g.style.display='none');
-  document.getElementById('ext-'+tab).style.display='block';
+  if(!already){
+    document.querySelector(`.ext-tab[onclick*="'${tab}'"]`)?.classList.add('active');
+    document.getElementById('ext-'+tab).style.display='block';
+  }
 }
 async function loadWeather(){
   const wc={0:'Despejado',1:'Mayormente despejado',2:'Parcialmente nublado',3:'Nublado',45:'Neblina',51:'Llovizna',61:'Lluvia',71:'Nevada',80:'Chubascos',95:'Tormenta'};
