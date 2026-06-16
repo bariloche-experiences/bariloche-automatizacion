@@ -355,9 +355,9 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
   <div class="extras-tabs">
     <button class="ext-tab" onclick="setExt('autos')">🚗 Autos</button>
     <button class="ext-tab" onclick="setExt('colectivos')">🚌 Colectivos</button>
-    <button class="ext-tab" onclick="setExt('temporadas')">🍂 Temporadas</button>
-    <button class="ext-tab" onclick="setExt('tips')">🧠 Tips locales</button>
     <button class="ext-tab" onclick="setExt('basicos')">🛒 Básicos</button>
+    <button class="ext-tab" onclick="setExt('tips')">🧠 Tips locales</button>
+    <button class="ext-tab" onclick="setExt('temporadas')">🍂 Temporadas</button>
     <button class="ext-tab" onclick="setExt('ski')">⛷️ Ski & Snow</button>
   </div>
 
@@ -500,9 +500,9 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 
 <div class="tabs-wrap">
   <div class="tabs">
-    <button class="tab" onclick="setTab('atracciones')">⛰️ <span class="t" data-es="Atracciones" data-en="Attractions" data-pt="Atrações">Atracciones</span></button>
     <button class="tab" onclick="setTab('restaurantes')">🍽️ <span class="t" data-es="Restaurantes" data-en="Restaurants" data-pt="Restaurantes">Restaurantes</span></button>
     <button class="tab" onclick="setTab('cervecerias')">🍺 <span class="t" data-es="Cervezas" data-en="Breweries" data-pt="Cervejas">Cervezas</span></button>
+    <button class="tab" onclick="setTab('atracciones')">⛰️ <span class="t" data-es="Atracciones" data-en="Attractions" data-pt="Atrações">Atracciones</span></button>
     <button class="tab" onclick="setTab('salir')">🎶 <span class="t" data-es="Salir" data-en="Nightlife" data-pt="Sair">Salir</span></button>
   </div>
 </div>
@@ -1013,7 +1013,7 @@ async function loadWeather(){
     const cur=d.current,day=d.daily;
     let fc='';
     for(let i=1;i<4;i++){const dt=new Date(day.time[i]+'T12:00:00');fc+=`<div class="fc-day"><div class="fc-label">${days[dt.getDay()]}</div><div class="fc-icon">${gi(day.weather_code[i])}</div><div class="fc-hi">${Math.round(day.temperature_2m_max[i])}°</div><div class="fc-lo">${Math.round(day.temperature_2m_min[i])}°</div></div>`;}
-    document.getElementById('weather-content').innerHTML=`<div class="weather-now"><div><div class="weather-temp">${Math.round(cur.temperature_2m)}°C</div><div style="font-size:11px;color:#94a3b8;margin-top:2px">Bariloche ahora</div></div><div class="weather-info"><div class="weather-desc">${gi(cur.weather_code)} ${wc[cur.weather_code]||'Variable'}</div><div class="weather-wind">💨 ${Math.round(cur.wind_speed_10m)} km/h</div></div></div><div class="weather-forecast">${fc}</div>`;
+    const wc_el=document.getElementById('weather-content');if(wc_el)wc_el.innerHTML=`<div class="weather-now"><div><div class="weather-temp">${Math.round(cur.temperature_2m)}°C</div><div style="font-size:11px;color:#94a3b8;margin-top:2px">Bariloche ahora</div></div><div class="weather-info"><div class="weather-desc">${gi(cur.weather_code)} ${wc[cur.weather_code]||'Variable'}</div><div class="weather-wind">💨 ${Math.round(cur.wind_speed_10m)} km/h</div></div></div><div class="weather-forecast">${fc}</div>`;
     weatherTemp=cur.temperature_2m;
     weatherCode=cur.weather_code;
     const icon=gi(cur.weather_code);
@@ -1021,7 +1021,7 @@ async function loadWeather(){
     const wt=document.getElementById('outfit-weather-text');if(wt)wt.textContent=`${Math.round(cur.temperature_2m)}°C · ${wc[cur.weather_code]||'Variable'}`;
     const ws=document.getElementById('outfit-weather-sub');if(ws)ws.textContent=`💨 Viento ${Math.round(cur.wind_speed_10m)} km/h`;
     renderOutfit();
-  }catch(e){document.getElementById('weather-content').innerHTML='<div class="weather-loading">No se pudo cargar el clima.</div>';}
+  }catch(e){const wc_el2=document.getElementById('weather-content');if(wc_el2)wc_el2.innerHTML='<div class="weather-loading">No se pudo cargar el clima.</div>';}
 }
 loadWeather();
 renderOutfit();
